@@ -1,0 +1,9 @@
+securite-electrique.html: title=OK | H1=1 | canonical=OK | meta=OK | ancien domaine=NON | ancien nom=NON
+article-2.html: title=OK | H1=1 | canonical=OK | meta=OK | ancien domaine=NON | ancien nom=NON
+mon-installation.html: title=OK | H1=1 | canonical=OK | meta=OK | ancien domaine=NON | ancien nom=NON
+mentions-legales.html: title=OK | H1=1 | canonical=OK | meta=OK | ancien domaine=NON | ancien nom=NON
+index.html: title=OK | H1=1 | canonical=OK | meta=OK | ancien domaine=NON | ancien nom=NON
+article-3.html: title=OK | H1=1 | canonical=OK | meta=OK | ancien domaine=NON | ancien nom=NON
+politique-de-confidentialite.html: title=OK | H1=1 | canonical=OK | meta=OK | ancien domaine=NON | ancien nom=NON
+article-1.html: title=OK | H1=1 | canonical=OK | meta=OK | ancien domaine=NON | ancien nom=NON
+articles.html: title=OK | H1=1 | canonical=OK | meta=OK | ancien domaine=NON | ancien nom=NON

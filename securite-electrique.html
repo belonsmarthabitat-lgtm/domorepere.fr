@@ -1,0 +1,143 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sécurité électrique en domotique : les règles essentielles — DomoRepère</title><meta name="description" content="Les précautions essentielles avant toute intervention électrique en domotique : coupure, vérification d’absence de tension, câblage, protections et matériel adapté."><link rel="canonical" href="https://domorepere.fr/securite-electrique.html">
+<meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#0d665d">
+<meta property="og:type" content="article"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="DomoRepère"><meta property="og:title" content="Sécurité électrique en domotique : les règles essentielles — DomoRepère"><meta property="og:description" content="Les précautions essentielles avant toute intervention électrique en domotique : coupure, vérification d’absence de tension, câblage, protections et matériel adapté."><meta property="og:url" content="https://domorepere.fr/securite-electrique.html"><meta property="og:image" content="https://domorepere.fr/social-card.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://domorepere.fr/social-card.png">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#0d665d;--primary-hover:#084f49;--primary-soft:#eaf5f2;
+  --secondary:#273436;--accent:#c9aa72;--accent-soft:#f8f1e5;
+  --bg-light:#f6f8f7;--card-bg:#fff;--text-dark:#273436;--text-main:#3d4b4d;
+  --text-muted:#6d7b7d;--border:#dce5e3;--danger:#a33d36;--danger-bg:#fff4f1;
+  --radius:16px;--shadow:0 8px 24px rgba(39,52,54,.07);--shadow-lg:0 18px 45px rgba(39,52,54,.11)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text-main);background:var(--bg-light);line-height:1.7}
+a{color:var(--primary);text-decoration:none;transition:.2s ease}a:hover{color:var(--primary-hover)}
+img{max-width:100%;height:auto}
+.site-header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-container{max-width:1200px;margin:0 auto;padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.7rem;color:var(--secondary);font-size:1.2rem;font-weight:800;white-space:nowrap}
+.logo img{height:48px;width:auto;display:block}.logo strong{color:var(--primary)}
+nav ul{display:flex;list-style:none;gap:1.55rem;align-items:center}nav a{color:var(--secondary);font-weight:650;font-size:.92rem}
+nav a:hover,nav a.active{color:var(--primary)}
+.article-hero{background:linear-gradient(132deg,#273436 0%,#1f3434 48%,#0d665d 120%);color:#fff;padding:4.6rem 1.5rem 3.6rem;position:relative;overflow:hidden}
+.article-hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid rgba(201,170,114,.28);right:-160px;top:-210px}
+.article-hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{font-size:.86rem;color:#c6d2d1;margin-bottom:1.1rem}.breadcrumb a{color:#e6cf9f}
+.eyebrow{color:#e5c995;font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:.75rem}
+h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;max-width:900px}
+.lead{margin-top:1rem;max-width:780px;color:#d3dddd;font-size:1.06rem}
+.meta{display:flex;flex-wrap:wrap;gap:.7rem 1rem;margin-top:1.35rem;color:#c5d1cf;font-size:.88rem}
+.page-wrap{max-width:1100px;margin:0 auto;padding:2.6rem 1.5rem 4rem}
+.content-grid{display:grid;grid-template-columns:minmax(0,760px) 250px;gap:2rem;align-items:start}
+.article-shell{min-width:0}
+.article-body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.2rem}
+.article-body>p:first-child{font-size:1.06rem;color:var(--text-dark)}
+.article-body h2{color:var(--secondary);font-size:1.55rem;line-height:1.25;margin:2.3rem 0 .85rem;padding-top:.2rem;scroll-margin-top:105px}
+.article-body h2:first-of-type{margin-top:1.6rem}
+.article-body h3{color:var(--secondary);font-size:1.15rem;line-height:1.35;margin:1.6rem 0 .55rem;scroll-margin-top:105px}
+.article-body p{margin-bottom:1.1rem}.article-body ul,.article-body ol{margin:0 0 1.4rem 1.25rem}.article-body li{margin-bottom:.55rem;padding-left:.15rem}
+.highlight-box,.highlight,.callout{background:var(--primary-soft)!important;border:1px solid #cfe7e1!important;border-left:5px solid var(--primary)!important;border-radius:12px!important;padding:1.15rem 1.2rem!important;margin:1.5rem 0!important;color:var(--text-main)!important}
+.affiliate-box{background:var(--accent-soft)!important;border:1px solid #ead7b4!important;border-left:5px solid var(--accent)!important;border-radius:12px!important;padding:1.2rem!important;margin:1.5rem 0!important}
+.affiliate-box-title{color:#725b34!important;font-weight:800!important;margin-bottom:.4rem!important}
+.alert-danger{background:var(--danger-bg);border:1px solid #f2d7d0;border-left:5px solid var(--danger);border-radius:12px;padding:1.2rem 1.3rem;margin:1.5rem 0}
+.alert-danger h4{color:#7f302b;margin-bottom:.3rem}
+.checklist{background:var(--bg-light);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-top:1rem}
+.checklist-item{display:flex;gap:.75rem;margin-bottom:1rem}.checklist-item:last-child{margin-bottom:0}
+.comparison-table-wrapper{overflow-x:auto;margin:1.6rem 0}.comparison-table{width:100%;border-collapse:collapse;font-size:.93rem}
+.comparison-table th,.comparison-table td{padding:.75rem .85rem;border:1px solid var(--border);text-align:left;vertical-align:top}
+.comparison-table th{background:var(--primary-soft);color:var(--secondary)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:.78rem 1rem;border-radius:10px;font-size:.91rem;font-weight:750}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-hover);color:#fff}
+.btn-affiliate{background:var(--accent);color:var(--secondary)}.btn-affiliate:hover{background:#b9975c;color:var(--secondary)}
+.next-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.3rem}
+.next-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow)}
+.next-card span{display:block;color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.next-card strong{color:var(--secondary);line-height:1.35}
+.sidebar{position:sticky;top:88px}.side-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.side-card h2{font-size:1rem;color:var(--secondary);margin-bottom:.65rem}.side-card ul{list-style:none}.side-card li+li{margin-top:.55rem}.side-card a{font-size:.88rem;line-height:1.35}.side-card p{font-size:.88rem;color:var(--text-muted)}
+footer{background:var(--secondary);color:#b8c4c3;padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--accent)}
+footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
+@media(max-width:900px){.content-grid{grid-template-columns:1fr}.sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.side-card{margin:0}}
+@media(max-width:720px){.nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}.article-hero{padding:3.6rem 1rem 3rem}.page-wrap{padding:2rem 1rem 3rem}.article-body{padding:1.35rem}.sidebar,.next-links{grid-template-columns:1fr}}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Sécurité électrique en domotique : les règles essentielles", "description": "Les précautions essentielles avant toute intervention électrique en domotique : coupure, vérification d’absence de tension, câblage, protections et matériel adapté.", "inLanguage": "fr-FR", "mainEntityOfPage": "https://domorepere.fr/securite-electrique.html", "author": {"@type": "Person", "name": "Yohann DESCAMPS"}, "publisher": {"@type": "Organization", "name": "DomoRepère", "url": "https://domorepere.fr/"}}</script></head><body>
+
+<header class="site-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Logo DomoRepère"><span>Domo<strong>Repère</strong></span></a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#quiz">Guide interactif</a></li>
+        <li><a class="active" href="articles.html">Guides &amp; articles</a></li>
+        <li><a class="" href="mon-installation.html">Le Lab</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header><main><section class="article-hero"><div class="article-hero-inner"><div class="breadcrumb"><a href="index.html">Accueil</a> › <a href="articles.html">Guides</a> › Sécurité électrique</div><div class="eyebrow">Sécurité • 230 V • bonnes pratiques</div><h1>Sécurité électrique en domotique : les règles essentielles</h1><p class="lead">La domotique ne change pas les règles de base de l’électricité : avant de connecter un micromodule ou de modifier un appareillage, la sécurité passe en premier.</p><div class="meta"><span>⚡ Sécurité électrique</span><span>🗓️ Mis à jour en août 2026</span></div></div></section>
+<div class="page-wrap"><div class="content-grid"><div class="article-shell"><article class="article-body"><section class="content-card">
+<h2 id="les-5-regles-d-or-avant-de-toucher-a-un-fil">Les 5 règles d'or avant de toucher à un fil</h2>
+<ul class="rule-list">
+<li>
+<strong>1. Consigner le disjoncteur (VAT obligatoire)</strong><br/>
+          Ne vous contentez pas d'éteindre l'interrupteur au mur. Coupez le disjoncteur de la ligne concernée au tableau général (ou le disjoncteur général en cas de doute). Utilisez un <strong>Vérificateur d'Absence de Tension (VAT)</strong> ou un multimètre pour vérifier l'absence réelle de courant sur les fils Phase et Neutre avant toute manipulation.
+        </li>
+<li>
+<strong>2. Repérer le Fil Neutre (Bleu)</strong><br/>
+          Beaucoup de micromodules d'éclairage nécessitent le Neutre (fil bleu) pour alimenter leur propre électronique. Ne confondez jamais le fil bleu (Neutre) avec un retour de lampe ou une navette de va-et-vient (souvent marron, noir, orange ou violet).
+        </li>
+<li>
+<strong>3. Respecter la section des câbles et l'ampérage</strong><br/>
+          Un module domotique doit être protégé par un disjoncteur adapté à la ligne sur laquelle il est branché :
+          <div style="margin-top: 0.75rem; background: var(--bg-light); padding: 0.85rem 1.25rem; border-radius: var(--radius); border: 1px solid var(--border-color); font-size: 0.95rem;">
+            • <strong>1.5 mm²</strong> ➔ Éclairage / Prises commandées légères (Disjoncteur 10A ou 16A max)<br/>
+            • <strong>2.5 mm²</strong> ➔ Prises de courant classiques / Électroménager (Disjoncteur 20A max)<br/>
+            • <strong>0.75 / 1.5 mm²</strong> ➔ Fil pilote chauffage (Disjoncteur 2A dédié au Fil Pilote)
+          </div>
+</li>
+<li>
+<strong>4. Vérifier la puissance maximale admissible (Charge capacitive / inductive)</strong><br/>
+          Un micromodule affiché "10A / 2300W" tolère cette charge sur des ampoules résistives classiques, mais <strong>beaucoup moins sur des ampoules LED</strong> ou des moteurs de volets (charges capacitives/inductives). Réduisez toujours la charge max recommandée par 3 ou 4 pour les LED afin d'éviter le collage des relais intégrés.
+        </li>
+<li>
+<strong>5. Ne jamais forcer l'encastrement d'un micromodule</strong><br/>
+          Tasser un module en force au fond d'un boîtier de 40 mm de profondeur risque d'écraser, de dénuder ou d'étirer les conducteurs, créant un risque de court-circuit ou d'échauffement lent. Privilégiez des boîtes d'encastrement de <strong>50 mm de profondeur</strong> ou des boîtiers avec poche de dérivation (type Micromodule / Batibox).
+        </li>
+</ul>
+</section><div class="alert-danger">
+<h4>🚨 Quand faut-il obligatoirement faire appel à un électricien qualifié ?</h4>
+<p>
+        Si vous devez intervenir directement dans le <strong>tableau électrique général</strong> (ajout d'un contacteur Jour/Nuit connecté, compteur d'énergie Thor ou transformateur), ou si votre installation ne comporte pas de mise à la terre fonctionnelle (installation vétuste), l'intervention d'un professionnel qualifié est indispensable pour garantir votre sécurité et la conformité NF C 15-100.
+      </p>
+</div><section class="content-card">
+<h2 id="checklist-materiel-securite-pour-l-installation-domotique">Checklist Matériel Sécurité pour l'Installation Domotique</h2>
+<div class="checklist">
+<div class="checklist-item">
+<span>✔️</span>
+<div><strong>Multimètre ou Testeur de tension (VAT) :</strong> Indispensable pour valider la coupure électrique.</div>
+</div>
+<div class="checklist-item">
+<span>✔️</span>
+<div><strong>Bornes de connexion automatiques (type WAGO) :</strong> À préférer aux anciens dominos pour un contact parfait et sans jeu.</div>
+</div>
+<div class="checklist-item">
+<span>✔️</span>
+<div><strong>Pince à dénuder réglée :</strong> Dénuder sur 10-12 mm exactement sans sectionner les brins de cuivre.</div>
+</div>
+<div class="checklist-item">
+<span>✔️</span>
+<div><strong>Tournevis isolé 1000V (VDE) :</strong> Recommandé pour toutes les interventions sur appareillage mural.</div>
+</div>
+</div>
+</section></article><div class="next-links"><a class="next-card" href="article-3.html"><span>À lire aussi</span><strong>Volets, interrupteurs et fil neutre →</strong></a><a class="next-card" href="articles.html"><span>Continuer</span><strong>Voir tous les guides →</strong></a></div></div>
+<aside class="sidebar"><div class="side-card"><h2>Dans ce guide</h2><ul><li><a href="#les-5-regles-d-or-avant-de-toucher-a-un-fil">Les 5 règles d&#x27;or avant de toucher à un fil</a></li><li><a href="#checklist-materiel-securite-pour-l-installation-domotique">Checklist Matériel Sécurité pour l&#x27;Installation Domotique</a></li></ul></div><div class="side-card"><h2>Un doute ?</h2><p>En cas d’incertitude sur le câblage ou les protections, faites intervenir un professionnel qualifié.</p></div></aside></div></div></main>
+<footer>
+  <p>© 2026 DomoRepère. Édité par Yohann DESCAMPS. Tous droits réservés.</p>
+  <p style="margin-top:.45rem"><a href="index.html#contact">Contact</a> — <a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p>
+  <div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div>
+</footer></body></html>

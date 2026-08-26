@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DomoRepère — Domotique pratique, diagnostic &amp; guides terrain</title>
+<meta content="DomoRepère vous aide à comprendre, choisir, installer et automatiser une domotique fiable grâce à des guides terrain et un diagnostic personnalisé." name="description"/><link href="https://domorepere.fr/" rel="canonical"/><meta content="index, follow, max-image-preview:large" name="robots"/><meta content="#0d665d" name="theme-color"/><!-- Open Graph / partage social --><meta content="website" property="og:type"/><meta content="fr_FR" property="og:locale"/><meta content="DomoRepère" property="og:site_name"/><meta content="DomoRepère — La domotique expliquée par le terrain" property="og:title"/><meta content="Guides pratiques, diagnostic personnalisé et retours terrain pour comprendre, choisir, installer et automatiser une domotique fiable." property="og:description"/><meta content="https://domorepere.fr/" property="og:url"/><meta content="https://domorepere.fr/social-card.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="DomoRepère — La domotique expliquée par le terrain" property="og:image:alt"/><!-- X / Twitter Cards --><meta content="summary_large_image" name="twitter:card"/><meta content="DomoRepère — La domotique expliquée par le terrain" name="twitter:title"/><meta content="Guides pratiques, diagnostic personnalisé et retours terrain pour une domotique simple, fiable et adaptée à votre logement." name="twitter:description"/><meta content="https://domorepere.fr/social-card.png" name="twitter:image"/><!-- Icônes --><link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/><link href="favicon-192.png" rel="icon" sizes="192x192" type="image/png"/><link href="apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      /* Palette dérivée du logo officiel DomoRepère */
+      --primary: #0d665d;
+      --primary-hover: #084f49;
+      --primary-soft: #eaf5f2;
+      --primary-mid: #3b816e;
+      --secondary: #273436;
+      --secondary-soft: #344547;
+      --accent: #c9aa72;
+      --accent-hover: #ad8b50;
+      --accent-soft: #f8f1e5;
+      --bg-light: #f6f8f7;
+      --card-bg: #ffffff;
+      --text-dark: #273436;
+      --text-main: #3d4b4d;
+      --text-muted: #6d7b7d;
+      --border-color: #dce5e3;
+      --danger: #b83b3b;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 8px 24px rgba(39,52,54,.07);
+      --shadow-lg: 0 18px 45px rgba(39,52,54,.11);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',system-ui,-apple-system,sans-serif; color:var(--text-main); background:var(--bg-light); line-height:1.65; }
+    a { color:var(--primary); text-decoration:none; transition:.2s ease; }
+    a:hover { color:var(--primary-hover); }
+    img { max-width:100%; height:auto; }
+
+    header { background:rgba(255,255,255,.96); border-bottom:1px solid var(--border-color); position:sticky; top:0; z-index:100; backdrop-filter:blur(12px); }
+    .nav-container { max-width:1200px; margin:0 auto; padding:.85rem 1.5rem; display:flex; justify-content:space-between; align-items:center; gap:1.5rem; }
+    .logo { font-weight:800; font-size:1.2rem; color:var(--secondary); display:flex; align-items:center; gap:.7rem; white-space:nowrap; }
+    .logo img { height:48px; width:auto; display:block; }
+    .logo strong { color:var(--primary); }
+    nav ul { display:flex; list-style:none; gap:1.55rem; align-items:center; }
+    nav a { color:var(--secondary); font-weight:650; font-size:.92rem; }
+    nav a:hover, nav a.active { color:var(--primary); }
+
+    .hero { position:relative; overflow:hidden; background:linear-gradient(132deg,#273436 0%,#1f3434 48%,#0d665d 120%); color:#fff; padding:5.6rem 1.5rem 5rem; }
+    .hero::before { content:""; position:absolute; width:420px; height:420px; border-radius:50%; border:1px solid rgba(201,170,114,.28); right:-160px; top:-220px; }
+    .hero::after { content:""; position:absolute; width:280px; height:280px; border-radius:50%; background:rgba(201,170,114,.08); left:-110px; bottom:-190px; }
+    .hero-content { position:relative; z-index:1; max-width:900px; margin:0 auto; text-align:center; }
+    .hero-mark { width:126px; margin:0 auto 1.35rem; padding:.7rem 1rem; background:rgba(255,255,255,.96); border-radius:18px; box-shadow:0 14px 35px rgba(0,0,0,.14); }
+    .hero-mark img { width:100%; height:auto; display:block; }
+    .hero-eyebrow { color:#e5c995; font-size:.8rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; margin-bottom:.8rem; }
+    .hero h1 { font-size:clamp(2.2rem,5vw,3.8rem); line-height:1.08; letter-spacing:-.035em; margin-bottom:1rem; }
+    .hero h1 span { color:#e4c58c; }
+    .hero p { max-width:760px; margin:0 auto 1.8rem; color:#d4dddd; font-size:1.08rem; }
+    .hero-actions { display:flex; justify-content:center; gap:.8rem; flex-wrap:wrap; }
+
+    .container { max-width:1200px; margin:0 auto; padding:4rem 1.5rem; }
+    .section-head { margin-bottom:1.7rem; }
+    .section-head.center { text-align:center; max-width:780px; margin-left:auto; margin-right:auto; }
+    .section-head h2 { color:var(--secondary); font-size:clamp(1.7rem,3vw,2.3rem); line-height:1.2; margin-bottom:.55rem; }
+    .section-head p { color:var(--text-muted); }
+    .section-kicker { display:inline-block; color:var(--primary); font-size:.78rem; font-weight:800; letter-spacing:.09em; text-transform:uppercase; margin-bottom:.55rem; }
+
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:.45rem; padding:.78rem 1.25rem; font-size:.92rem; font-weight:750; border-radius:10px; border:1px solid transparent; cursor:pointer; text-align:center; transition:.2s ease; }
+    .btn-primary { background:var(--primary); color:#fff; }
+    .btn-primary:hover { background:var(--primary-hover); color:#fff; transform:translateY(-1px); }
+    .btn-outline { background:transparent; color:#fff; border-color:rgba(255,255,255,.35); }
+    .btn-outline:hover { background:rgba(255,255,255,.1); color:#fff; }
+    .btn-secondary { background:#e8eeec; color:var(--secondary); }
+    .btn-affiliate { background:var(--accent); color:var(--secondary); }
+    .btn-affiliate:hover { background:var(--accent-hover); color:#fff; }
+
+    /* UNIVERS */
+    .universes { margin-top:-1.9rem; position:relative; z-index:3; }
+    .universe-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:.75rem; }
+    .universe-card { min-height:125px; background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; justify-content:space-between; }
+    .universe-icon { font-size:1.55rem; width:42px; height:42px; border-radius:12px; display:grid; place-items:center; background:var(--primary-soft); }
+    .universe-card:nth-child(2n) .universe-icon { background:var(--accent-soft); }
+    .universe-card strong { color:var(--secondary); font-size:.9rem; line-height:1.25; }
+
+    /* TECHNOLOGIES */
+    .tech-section { background:#fff; border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color); }
+    .tech-layout { display:grid; grid-template-columns:.85fr 1.15fr; align-items:center; gap:2.5rem; }
+    .tech-cloud { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; }
+    .tech-badge { min-height:92px; border:1px solid var(--border-color); background:var(--bg-light); border-radius:14px; padding:.9rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.45rem; font-weight:750; color:var(--secondary); text-align:center; }
+    .tech-badge img { width:30px; height:30px; object-fit:contain; }
+    .tech-badge .tech-dot { width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--primary-mid)); color:#fff; display:grid; place-items:center; font-size:.72rem; font-weight:800; }
+    .tech-more { margin-top:1rem; padding:1rem 1.1rem; border-left:3px solid var(--accent); background:var(--accent-soft); border-radius:0 12px 12px 0; color:#715b36; font-size:.9rem; }
+
+    /* QUIZ */
+    .quiz-card { background:#fff; border-radius:var(--radius); border:2px solid var(--primary); padding:2.5rem; box-shadow:var(--shadow-lg); margin-bottom:4rem; position:relative; overflow:hidden; }
+    .quiz-card::before { content:""; position:absolute; top:0; left:0; width:100%; height:5px; background:linear-gradient(90deg,var(--primary),var(--accent)); }
+    .quiz-step { display:none; }
+    .quiz-step.active { display:block; }
+    .quiz-progress-wrap { margin-bottom:1.75rem; }
+    .quiz-progress-meta { display:flex; justify-content:space-between; gap:1rem; color:var(--text-muted); font-size:.85rem; margin-bottom:.55rem; }
+    .quiz-progress { height:8px; background:var(--border-color); border-radius:999px; overflow:hidden; }
+    .quiz-progress-bar { height:100%; width:0; background:linear-gradient(90deg,var(--primary),var(--accent)); transition:width .25s ease; }
+    .quiz-help { color:var(--text-muted); font-size:.92rem; margin-top:.45rem; }
+    .quiz-counter { display:inline-block; margin-top:.75rem; color:var(--primary); font-weight:700; font-size:.88rem; }
+    .options-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin-top:1.25rem; }
+    .option-btn { background:var(--bg-light); border:2px solid var(--border-color); padding:1rem; border-radius:10px; cursor:pointer; text-align:left; font-weight:600; font-size:.95rem; transition:.2s ease; color:var(--text-dark); }
+    .option-btn:hover { border-color:var(--primary); transform:translateY(-1px); }
+    .option-btn.selected { border-color:var(--primary); background:var(--primary-soft); }
+    .option-btn:disabled { opacity:.55; cursor:not-allowed; transform:none; }
+    .quiz-actions { margin-top:1.5rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .quiz-notice { margin-top:1rem; padding:1rem 1.1rem; border-radius:10px; background:var(--primary-soft); border:1px solid #cfe3df; color:#476461; font-size:.9rem; }
+    .quiz-notice.warning { background:#fffbeb; border-color:#fde68a; color:#92400e; }
+    .quiz-notice.safety { background:#fef2f2; border-color:#fecaca; color:#991b1b; }
+    .result-hero { background:linear-gradient(135deg,var(--secondary),var(--primary)); color:white; padding:1.6rem; border-radius:var(--radius); margin-bottom:1.25rem; }
+    .result-hero h3 { font-size:1.55rem; margin-bottom:.55rem; }
+    .result-meta { display:flex; gap:.55rem; flex-wrap:wrap; margin-top:1rem; }
+    .result-pill { background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:.4rem .7rem; font-size:.82rem; }
+    .result-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1rem; margin:1rem 0 1.25rem; }
+    .result-card { background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:1.25rem; }
+    .result-card h4 { margin-bottom:.65rem; color:var(--text-dark); }
+    .result-card p,.result-card li { color:var(--text-muted); font-size:.94rem; }
+    .result-card ul,.result-card ol { padding-left:1.2rem; }
+    .result-card li { margin-bottom:.45rem; }
+    .score-box { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+    .score-number { min-width:82px; height:82px; border:7px solid var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1.25rem; color:var(--primary); background:white; }
+    .project-tags { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.75rem; }
+    .project-tag { background:var(--primary-soft); color:var(--primary); border-radius:999px; padding:.4rem .7rem; font-weight:700; font-size:.82rem; }
+    .project-tag.priority { background:var(--accent-soft); color:#755d31; }
+    .affiliation-notice { margin-top:1.5rem; padding-top:1rem; border-top:1px dashed var(--border-color); font-size:.825rem; color:var(--text-muted); text-align:center; }
+
+    /* POURQUOI DOMOGUIDE */
+    .values-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:4rem; }
+    .value-card { background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:1.35rem; box-shadow:var(--shadow); }
+    .value-card .value-icon { font-size:1.45rem; margin-bottom:.7rem; }
+    .value-card h3 { color:var(--secondary); font-size:1rem; margin-bottom:.4rem; }
+    .value-card p { color:var(--text-muted); font-size:.9rem; }
+
+    /* ARTICLES */
+    .article-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; }
+    .article-card { background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); color:inherit; }
+    .article-visual { height:82px; display:flex; align-items:center; justify-content:center; font-size:2rem; background:linear-gradient(135deg,var(--primary-soft),var(--accent-soft)); }
+    .article-content { padding:1.15rem; }
+    .article-content strong { color:var(--secondary); display:block; line-height:1.3; margin-bottom:.4rem; }
+    .article-content span { color:var(--text-muted); font-size:.88rem; }
+
+    /* PARTENAIRE */
+    .partner-box { background:linear-gradient(105deg,var(--secondary),#30494a); color:#fff; padding:2rem; border-radius:var(--radius); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem; margin:4rem 0; border-left:5px solid var(--accent); }
+    .partner-box p { color:#d1dcda; font-size:.93rem; max-width:720px; }
+
+    /* LAB */
+    .lab-card { background:linear-gradient(135deg,#fff 0%,#eef6f3 100%); border:1px solid var(--border-color); border-radius:var(--radius); padding:2.2rem; display:grid; grid-template-columns:1.1fr .9fr; align-items:center; gap:2rem; margin-bottom:4rem; box-shadow:var(--shadow); }
+    .lab-visual { min-height:220px; border-radius:16px; background:linear-gradient(145deg,var(--secondary),var(--primary)); display:flex; align-items:center; justify-content:center; padding:2rem; position:relative; overflow:hidden; }
+    .lab-visual::after { content:""; width:180px; height:180px; position:absolute; border:1px solid rgba(201,170,114,.35); border-radius:50%; right:-55px; bottom:-70px; }
+    .lab-visual img { width:180px; background:rgba(255,255,255,.95); padding:1rem 1.3rem; border-radius:18px; z-index:1; box-shadow:0 15px 40px rgba(0,0,0,.18); }
+    .lab-card h2 { color:var(--secondary); margin-bottom:.7rem; }
+    .lab-card p { color:var(--text-muted); margin-bottom:1.2rem; }
+
+    /* PRÉSENTATION PERSONNELLE */
+    .about-wrap { margin-bottom:4rem; }
+    .about-card { background:#fffdf9; border:1px solid #eadfc9; border-radius:20px; padding:2.6rem; box-shadow:var(--shadow); position:relative; overflow:hidden; }
+    .about-card::before { content:""; position:absolute; top:0; left:0; width:6px; height:100%; background:var(--accent); }
+    .handwritten { font-family:'Caveat',cursive; color:var(--primary); font-size:2rem; font-weight:700; line-height:1; margin-bottom:.55rem; }
+    .pen-mark { display:inline-flex; align-items:center; gap:.55rem; color:#8b7145; font-family:'Caveat',cursive; font-size:1.35rem; margin-bottom:1.15rem; }
+    .pen-icon { width:38px; height:38px; border-radius:50%; background:var(--accent-soft); display:grid; place-items:center; font-family:'Inter'; font-size:1.1rem; transform:rotate(-8deg); }
+    .about-card h2 { color:var(--secondary); font-size:1.65rem; margin-bottom:1rem; }
+    .about-card p { color:#586769; margin-bottom:1rem; }
+    .about-signature { font-family:'Caveat',cursive; font-size:1.55rem; color:var(--secondary); margin:1.2rem 0; }
+
+    /* CONTACT */
+    .contact-card { background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:2.5rem; box-shadow:var(--shadow); margin-bottom:1rem; }
+    .contact-card h2 { color:var(--secondary); font-size:1.8rem; margin-bottom:.6rem; }
+    .contact-card > p { color:var(--text-muted); }
+    .contact-form { margin-top:1.75rem; }
+    .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+    .form-group { display:flex; flex-direction:column; gap:.4rem; }
+    .form-group.full { grid-column:1/-1; }
+    .form-group label { font-weight:700; font-size:.9rem; color:var(--secondary); }
+    .form-group input,.form-group select,.form-group textarea { width:100%; border:1px solid var(--border-color); border-radius:10px; padding:.82rem .9rem; background:#fff; color:var(--text-dark); font:inherit; outline:none; transition:.2s ease; }
+    .form-group textarea { min-height:150px; resize:vertical; }
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(13,102,93,.11); }
+    .form-help { color:var(--text-muted); font-size:.8rem; margin:.8rem 0 1.1rem; }
+
+    footer { background:var(--secondary); color:#b8c4c3; padding:2.4rem 1.5rem; text-align:center; font-size:.875rem; border-top:4px solid var(--accent); }
+    footer a { color:#e2ebe9; }
+    footer a:hover { color:#fff; }
+    .footer-tagline { color:#dfc596; font-weight:650; margin-top:.65rem; }
+
+    @media(max-width:980px){
+      .universe-grid{grid-template-columns:repeat(3,1fr)}
+      .tech-layout,.lab-card{grid-template-columns:1fr}
+      .values-grid,.article-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:768px){
+      .nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}
+      nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}
+      .hero{padding:4rem 1.1rem 3.6rem}
+      .hero-mark{width:110px}
+      .container{padding:3rem 1rem}
+      .quiz-card,.about-card,.contact-card{padding:1.5rem}
+      .form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}
+      .tech-cloud{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:560px){
+      .universe-grid,.values-grid,.article-grid{grid-template-columns:1fr 1fr}
+      .universe-card{min-height:105px}
+      .hero-actions .btn{width:100%}
+    }
+  </style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://domorepere.fr/#website",
+      "url": "https://domorepere.fr/",
+      "name": "DomoRepère",
+      "alternateName": "DomoRepere",
+      "inLanguage": "fr-FR",
+      "description": "Guides pratiques, diagnostic personnalisé et retours terrain pour comprendre, choisir, installer et automatiser une domotique fiable."
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://domorepere.fr/#webpage",
+      "url": "https://domorepere.fr/",
+      "name": "DomoRepère — Domotique pratique, diagnostic & guides terrain",
+      "isPartOf": {
+        "@id": "https://domorepere.fr/#website"
+      },
+      "inLanguage": "fr-FR",
+      "description": "DomoRepère vous aide à comprendre, choisir, installer et automatiser une domotique fiable grâce à des guides terrain et un diagnostic personnalisé."
+    }
+  ]
+}</script></head>
+<body>
+<header>
+<div class="nav-container">
+<a class="logo" href="index.html"><img alt="Logo DomoRepère" decoding="async" height="145" src="logo.png" width="306"/><span>Domo<strong>Repère</strong></span></a>
+<nav aria-label="Navigation principale">
+<ul>
+<li><a class="active" href="index.html">Accueil</a></li>
+<li><a href="#quiz">Guide interactif</a></li>
+<li><a href="articles.html">Guides &amp; articles</a></li>
+<li><a href="mon-installation.html">Le Lab</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="hero-content">
+<div class="hero-mark"><img alt="" aria-hidden="true" decoding="async" height="145" src="logo.png" width="306"/></div>
+<div class="hero-eyebrow">Guides • diagnostic • retour terrain</div>
+<h1>La domotique expliquée <span>par le terrain.</span></h1>
+<p>Comprendre, choisir et installer une domotique simple, fiable et adaptée à votre logement grâce à des guides pratiques, des retours d'expérience et un assistant personnalisé.</p>
+<div class="hero-actions">
+<a class="btn btn-primary" href="#quiz">Trouver ma solution →</a>
+<a class="btn btn-outline" href="articles.html">Voir les guides</a>
+</div>
+</div>
+</section>
+<div aria-label="Les univers DomoRepère" class="container universes">
+<div class="universe-grid">
+<div class="universe-card"><div class="universe-icon">⚡</div><strong>Électricité &amp; installation</strong></div>
+<div class="universe-card"><div class="universe-icon">🏠</div><strong>Domotique</strong></div>
+<div class="universe-card"><div class="universe-icon">🌡️</div><strong>Énergie &amp; chauffage</strong></div>
+<div class="universe-card"><div class="universe-icon">🛡️</div><strong>Sécurité</strong></div>
+<div class="universe-card"><div class="universe-icon">⚙️</div><strong>Automatisations</strong></div>
+<div class="universe-card"><div class="universe-icon">🌐</div><strong>Réseau &amp; protocoles</strong></div>
+</div>
+</div>
+<section class="tech-section">
+<div class="container tech-layout">
+<div>
+<span class="section-kicker">Écosystèmes &amp; technologies</span>
+<h2 style="color:var(--secondary);font-size:2rem;line-height:1.2;margin-bottom:.8rem;">Comprendre ce qui peut réellement fonctionner ensemble</h2>
+<p style="color:var(--text-muted);">DomoRepère aborde les protocoles et plateformes qui structurent une installation connectée : ceux utilisés ou documentés régulièrement, mais aussi les alternatives pertinentes selon les projets.</p>
+<div class="tech-more"><strong>Et aussi :</strong> Z-Wave, EnOcean et d'autres solutions représentent de vraies possibilités. Même si je ne les utilise pas toutes au quotidien, elles feront progressivement l'objet de guides et de contenus dédiés.</div>
+</div>
+<div aria-label="Technologies abordées par DomoRepère" class="tech-cloud">
+<div class="tech-badge"><img alt="Logo Zigbee" decoding="async" height="320" loading="lazy" src="logo-zigbee.png" onerror="this.onerror=null;this.src='fallback-zigbee.png'" width="320"/><span>Zigbee</span></div>
+<div class="tech-badge"><span class="tech-dot">HA</span><span>Home Assistant</span></div>
+<div class="tech-badge"><img alt="Logo KNX NextGen" decoding="async" height="410" loading="lazy" src="logo-knx.png" onerror="this.onerror=null;this.src='fallback-knx.png'" width="636"/><span>KNX</span></div>
+<div class="tech-badge"><img alt="Logo Matter" decoding="async" height="600" loading="lazy" src="logo-matter.png" onerror="this.onerror=null;this.src='fallback-matter.png'" width="600"/><span>Matter</span></div>
+<div class="tech-badge"><span class="tech-dot">TaH</span><span>TaHoma / Somfy</span></div>
+<div class="tech-badge"><span class="tech-dot">Aq</span><span>Aqara &amp; autres</span></div>
+</div>
+</div>
+</section>
+<div class="container">
+<section class="quiz-card" id="quiz">
+<div id="quiz-intro">
+<span class="section-kicker">Diagnostic DomoRepère</span>
+<h2 style="color:var(--secondary);font-size:2rem;line-height:1.2;">Quel projet domotique vous correspond ?</h2>
+<p style="margin:1rem 0;color:var(--text-muted);">En 2 à 3 minutes, DomoRepère analyse votre logement, vos objectifs, votre niveau, votre matériel existant et vos contraintes. Vous pouvez sélectionner jusqu'à <strong>5 objectifs</strong>.</p>
+<div class="quiz-notice">Le résultat est une orientation personnalisée : DomoRepère privilégie la compatibilité et l'existant avant de proposer du nouveau matériel.</div>
+<button class="btn btn-primary" onclick="startQuiz()" style="margin-top:1.25rem">Lancer mon diagnostic →</button>
+</div>
+<div id="quiz-shell" style="display:none;">
+<div class="quiz-progress-wrap"><div class="quiz-progress-meta"><span id="quiz-progress-label">Étape 1</span><span id="quiz-progress-percent">0 %</span></div><div class="quiz-progress"><div class="quiz-progress-bar" id="quiz-progress-bar"></div></div></div>
+<div id="quiz-question"></div>
+</div>
+<div class="quiz-step" id="step-result">
+<div id="result-content"></div>
+<div class="quiz-actions"><button class="btn btn-secondary" onclick="resetQuiz()">← Recommencer le diagnostic</button><a class="btn btn-primary" href="articles.html">Voir les guides DomoRepère →</a></div>
+</div>
+<div class="affiliation-notice">Transparence : les recommandations DomoRepère sont basées sur vos réponses. Certains liens de matériel peuvent être affiliés. Une commission peut être versée à DomoRepère sans surcoût pour vous.</div>
+</section>
+<section aria-labelledby="why-title">
+<div class="section-head center"><span class="section-kicker">Pourquoi DomoRepère ?</span><h2 id="why-title">Des conseils pensés pour être utiles sur le terrain</h2></div>
+<div class="values-grid">
+<div class="value-card"><div class="value-icon">🔧</div><h3>Expérience terrain</h3><p>Des conseils nourris par des installations et problématiques concrètes.</p></div>
+<div class="value-card"><div class="value-icon">🧩</div><h3>Compatibilité avant achat</h3><p>Comprendre ce qui fonctionne ensemble avant de dépenser.</p></div>
+<div class="value-card"><div class="value-icon">⚡</div><h3>Sécurité</h3><p>Ne jamais sacrifier les bonnes pratiques électriques à la facilité.</p></div>
+<div class="value-card"><div class="value-icon">📚</div><h3>Pédagogie</h3><p>Expliquer pourquoi une solution est adaptée, pas seulement donner une référence.</p></div>
+</div>
+</section>
+<section id="articles" style="margin-bottom:4rem;">
+<div class="section-head" style="display:flex;justify-content:space-between;align-items:end;gap:1rem;flex-wrap:wrap;"><div><span class="section-kicker">À lire maintenant</span><h2>Guides pratiques DomoRepère</h2><p>Des bases claires pour préparer, comprendre et sécuriser votre projet.</p></div><a class="btn btn-primary" href="articles.html">Voir tous les guides →</a></div>
+<div class="article-grid">
+<a class="article-card" href="article-1.html"><div class="article-visual">🌱</div><div class="article-content"><strong>Bien débuter en domotique</strong><span>Par quoi commencer quand on n'y connaît rien ?</span></div></a>
+<a class="article-card" href="article-2.html"><div class="article-visual">📡</div><div class="article-content"><strong>Choisir son protocole</strong><span>Zigbee, Z-Wave, Matter ou Wi-Fi.</span></div></a>
+<a class="article-card" href="article-3.html"><div class="article-visual">🪟</div><div class="article-content"><strong>Volets &amp; interrupteurs</strong><span>Comprendre le fil neutre et les micromodules.</span></div></a>
+<a class="article-card" href="securite-electrique.html"><div class="article-visual">⚡</div><div class="article-content"><strong>Sécurité électrique</strong><span>Les précautions essentielles avant toute intervention.</span></div></a>
+</div>
+</section>
+<section class="partner-box" id="partenaires">
+<div><h3 style="font-size:1.3rem;margin-bottom:.45rem;">Du besoin au matériel compatible</h3><p>DomoRepère privilégie d'abord le diagnostic et la compatibilité. Lorsque du matériel est pertinent, les liens partenaires permettent ensuite de retrouver des équipements adaptés.</p></div>
+<a class="btn btn-affiliate" href="https://www.domadoo.fr/fr/1125-zigbee?domid=147" rel="noopener sponsored" target="_blank">Voir le matériel chez Domadoo</a>
+</section>
+<section aria-labelledby="lab-title" class="lab-card">
+<div><span class="section-kicker">Le Lab DomoRepère</span><h2 id="lab-title">Des solutions testées sur une installation réelle</h2><p>Home Assistant, Zigbee, Aqara, TaHoma, AirSend… DomoRepère s'appuie aussi sur une installation réelle et un environnement de test pour confronter la théorie au terrain.</p><a class="btn btn-primary" href="mon-installation.html">Découvrir le Lab →</a></div>
+<div class="lab-visual"><img alt="" aria-hidden="true" decoding="async" height="145" src="logo.png" width="306"/></div>
+</section>
+<section class="about-wrap" id="apropos">
+<div class="about-card">
+<div class="handwritten">Quelques mots derrière DomoRepère…</div>
+<div class="pen-mark"><span class="pen-icon">✒️</span><span>Une approche née du terrain</span></div>
+<h2>Technicien en bâtiment connecté &amp; électricien</h2>
+<p>Ancien militaire et marin-pêcheur, c'est par passion et en autodidacte que j'ai découvert l'univers de la domotique il y a six ans, avant d'en faire mon métier en passant un diplôme de <strong>Technicien du Bâtiment Connecté</strong>. J'ai également suivi une <strong>formation KNX</strong>, afin d'élargir ma compréhension des architectures de bâtiment connecté.</p>
+<p>Au quotidien sur le terrain, j'interviens en électricité générale, bornes de recharge IRVE, panneaux solaires, courants faibles, alarmes, vidéoprotection, automatismes de portails et sécurisation de sites éoliens.</p>
+<p>Chez moi, mon installation tourne au cœur d'un système <strong>Home Assistant</strong> couplé à des passerelles comme <strong>Aqara</strong>, <strong>TaHoma</strong> ou <strong>AirSend</strong>. Pas de théories abstraites ici : à travers DomoRepère, je mets cette expérience du terrain au service d'une maison connectée simple, fiable, utile et sans erreurs.</p>
+<div class="about-signature">Comprendre avant d'acheter, vérifier avant d'installer.</div>
+<a class="btn btn-primary" href="mon-installation.html">Découvrir mon installation →</a>
+</div>
+</section>
+<section class="contact-card" id="contact">
+<span class="section-kicker">Contact</span>
+<h2>Une question ou une suggestion ?</h2>
+<p>Vous pouvez me contacter directement via ce formulaire. Pour une question technique, décrivez autant que possible votre installation, le matériel concerné et le résultat recherché.</p>
+<form action="https://formspree.io/f/xvzlgdqk" class="contact-form" method="POST">
+<div class="form-grid">
+<div class="form-group"><label for="contact-name">Nom</label><input autocomplete="name" id="contact-name" name="nom" required="" type="text"/></div>
+<div class="form-group"><label for="contact-email">Adresse e-mail</label><input autocomplete="email" id="contact-email" name="email" required="" type="email"/></div>
+<div class="form-group full"><label for="contact-subject">Objet</label><select id="contact-subject" name="objet" required=""><option disabled="" selected="" value="">Choisir un sujet</option><option value="Question domotique">Question domotique</option><option value="Suggestion ou correction">Suggestion ou correction</option><option value="Partenariat">Partenariat</option><option value="Autre demande">Autre demande</option></select></div>
+<div class="form-group full"><label for="contact-message">Message</label><textarea id="contact-message" name="message" placeholder="Décrivez votre demande..." required=""></textarea></div>
+</div>
+<p class="form-help">Les informations saisies sont utilisées pour répondre à votre demande et sont transmises via Formspree pour l'acheminement du message. Consultez la <a href="politique-de-confidentialite.html">politique de confidentialité</a>.</p>
+<button class="btn btn-primary" type="submit">Envoyer le message</button>
+</form>
+</section>
+</div>
+</main>
+<footer>
+<p>© 2026 DomoRepère. Édité par Yohann DESCAMPS. Tous droits réservés.</p>
+<p style="margin-top:.45rem;"><a href="#contact">Contact</a> — <a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p>
+<div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div>
+</footer>
+<!-- SCRIPT DU QUIZ / MOTEUR DE DIAGNOSTIC V1 -->
+<script>
+    const OBJECTIVES = {
+      energie: { label: "💶 Réduire ma consommation d'énergie", universe: "energy" },
+      chauffage: { label: "🌡️ Mieux gérer mon chauffage", universe: "energy" },
+      eclairage: { label: "💡 Automatiser mon éclairage", universe: "comfort" },
+      volets: { label: "🪟 Automatiser mes volets", universe: "targeted" },
+      securite: { label: "🛡️ Améliorer la sécurité", universe: "security" },
+      video: { label: "📹 Ajouter de la vidéosurveillance", universe: "security" },
+      acces: { label: "🚪 Contrôler portail / porte / accès", universe: "targeted" },
+      confort: { label: "🏠 Améliorer mon confort", universe: "comfort" },
+      automatisations: { label: "⚙️ Créer des automatisations", universe: "comfort" },
+      consommation: { label: "📊 Suivre mes consommations", universe: "energy" },
+      distance: { label: "📱 Piloter ma maison à distance", universe: "comfort" },
+      local: { label: "🌐 Éviter autant que possible le cloud", universe: "advanced" },
+      centraliser: { label: "🔗 Centraliser plusieurs marques", universe: "advanced" },
+      decouvrir: { label: "❓ Je ne sais pas encore, je veux découvrir", universe: "beginner" }
+    };
+
+    const PLATFORM_LABELS = {
+      home_assistant:'Home Assistant', jeedom:'Jeedom', google:'Google Home', alexa:'Amazon Alexa',
+      apple:'Apple Home', tahoma:'TaHoma / Somfy', aqara:'Aqara', hue:'Philips Hue', tuya:'Tuya / Smart Life', knx:'KNX', autre:'Autre'
+    };
+
+    const state = {
+      logement:null, statut:null, surface:null, niveaux:null,
+      objectifs:[], priorite:null, equipement:null, plateformes:[], protocoles:[],
+      niveauDomotique:null, niveauElectrique:null, solution:null, localImportance:null,
+      travaux:null, budget:null, diagnostic:{}
+    };
+
+    let questions = [];
+    let currentIndex = 0;
+
+    function baseQuestions() {
+      return [
+        { id:'logement', title:'Quel est votre logement ?', type:'single', options:[
+          ['appartement','🏢 Appartement'],['maison','🏡 Maison'],['autre','🏗️ Autre / local professionnel']
+        ]},
+        { id:'statut', title:'Vous êtes…', type:'single', options:[['proprietaire','Propriétaire'],['locataire','Locataire']] },
+        { id:'surface', title:'Quelle est approximativement la surface ?', type:'single', options:[
+          ['moins50','Moins de 50 m²'],['50_100','50 à 100 m²'],['100_150','100 à 150 m²'],['plus150','Plus de 150 m²']
+        ]},
+        { id:'niveaux', title:'Combien de niveaux comporte le logement ?', type:'single', condition:()=>state.logement==='maison', options:[['1','1 niveau'],['2','2 niveaux'],['3plus','3 niveaux ou plus']] },
+        { id:'objectifs', title:'Que voulez-vous améliorer ?', type:'multi', max:5, help:'Sélectionnez de 1 à 5 objectifs. Vous choisirez ensuite votre priorité.', options:Object.entries(OBJECTIVES).map(([k,v])=>[k,v.label]) },
+        { id:'priorite', title:'Parmi vos objectifs, lequel est le plus important aujourd’hui ?', type:'single-dynamic', help:'Cette priorité aura davantage de poids dans votre recommandation.' },
+        { id:'equipement', title:'Avez-vous déjà du matériel connecté ?', type:'single', options:[['aucun','Non, je pars de zéro'],['quelques','Oui, quelques équipements'],['important','Oui, j’ai déjà une installation importante']] },
+        { id:'plateformes', title:'Qu’utilisez-vous déjà ?', type:'multi', condition:()=>state.equipement!=='aucun', help:'Plusieurs choix possibles.', options:Object.entries(PLATFORM_LABELS).map(([k,v])=>[k,v]).concat([['nsp','Je ne sais pas']]) },
+        { id:'protocoles', title:'Quels protocoles utilisez-vous déjà ?', type:'multi', condition:()=>state.equipement!=='aucun', help:'Pas d’inquiétude si ces termes ne vous disent rien : choisissez « Je ne sais pas ».', options:[
+          ['zigbee','Zigbee'],['zwave','Z-Wave'],['matter','Matter'],['thread','Thread'],['wifi','Wi-Fi'],['bluetooth','Bluetooth'],['knx','KNX'],['rts_io','RTS / io-homecontrol'],['autre','Autre'],['nsp','Je ne sais pas']
+        ]},
+        { id:'niveauDomotique', title:'Quel est votre niveau en domotique ?', type:'single', options:[
+          ['debutant','🌱 Débutant — je découvre'],['notions','🙂 J’ai quelques équipements et je comprends les bases'],['intermediaire','🔧 Intermédiaire — j’installe et configure moi-même'],['avance','🧠 Avancé — automatisations, réseau, Home Assistant…']
+        ]},
+        { id:'niveauElectrique', title:'Quel est votre niveau en bricolage / électricité ?', type:'single', options:[
+          ['aucun','Je préfère ne pas intervenir sur l’électricité'],['petit','Je peux effectuer du petit bricolage'],['aise','Je suis à l’aise avec les installations électriques courantes'],['pro','Je suis professionnel / très expérimenté']
+        ], help:'Cette réponse adapte le niveau des conseils. Elle ne constitue jamais une autorisation à intervenir sur une installation électrique.' },
+        { id:'solution', title:'Quel type de solution recherchez-vous ?', type:'single', options:[
+          ['simple','🟢 Simple — peu de configuration'],['equilibree','🔵 Équilibrée — simple aujourd’hui, évolutive demain'],['avancee','🟣 Avancée — flexible, locale et très automatisable']
+        ]},
+        { id:'localImportance', title:'Quelle importance accordez-vous au fonctionnement sans Internet ?', type:'single', options:[
+          ['faible','Peu importe'],['preferable','C’est préférable'],['important','C’est important'],['max','Je veux une installation aussi locale que possible']
+        ]},
+        { id:'travaux', title:'Quels travaux êtes-vous prêt à réaliser ?', type:'single', options:[
+          ['aucun','Aucun travaux'],['petits','Petites modifications uniquement'],['electrique','Je suis prêt à modifier certains équipements électriques'],['importants','Travaux importants possibles']
+        ]},
+        { id:'budget', title:'Quel budget souhaitez-vous consacrer au démarrage ?', type:'single', options:[
+          ['moins100','Moins de 100 €'],['100_300','100 à 300 €'],['300_600','300 à 600 €'],['600_1000','600 à 1 000 €'],['plus1000','Plus de 1 000 €'],['nsp','Je veux d’abord comprendre ce dont j’ai besoin']
+        ]}
+      ];
+    }
+
+    const branchQuestions = {
+      volets: [
+        {id:'volet_type', title:'Quel type de volet avez-vous ?', type:'single', options:[['filaire','Volet roulant filaire'],['somfy_rts','Somfy RTS'],['somfy_io','Somfy io-homecontrol'],['radio_autre','Volet radio d’une autre marque'],['nsp','Je ne sais pas']]},
+        {id:'volet_commande', title:'Comment est-il commandé actuellement ?', type:'single', condition:()=>state.diagnostic.volet_type==='filaire', options:[['inter_monte_descend','Interrupteur montée / stop / descente'],['double_poussoir','Double bouton poussoir'],['autre','Autre'],['nsp','Je ne sais pas']]},
+        {id:'volet_neutre', title:'Savez-vous si le neutre est présent derrière la commande ?', type:'single', condition:()=>state.diagnostic.volet_type==='filaire', options:[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas']]}
+      ],
+      chauffage: [
+        {id:'chauffage_type', title:'Quel est votre chauffage principal ?', type:'single', options:[['electrique','Radiateurs électriques'],['gaz','Chaudière gaz'],['pac','Pompe à chaleur'],['plancher','Plancher chauffant'],['collectif','Chauffage collectif'],['autre','Poêle / autre'],['nsp','Je ne sais pas']]},
+        {id:'chauffage_pilotage', title:'Comment est-il actuellement piloté ?', type:'single', options:[['fil_pilote','Fil pilote'],['thermostat','Thermostat d’ambiance'],['thermostat_connecte','Thermostat connecté'],['direct','Directement depuis l’équipement'],['nsp','Je ne sais pas']]},
+        {id:'chauffage_but', title:'Quel est votre objectif principal pour le chauffage ?', type:'single', options:[['programmer','Programmer les températures'],['pieces','Chauffer seulement les pièces occupées'],['economiser','Réduire la consommation'],['distance','Piloter à distance'],['presence','Automatiser selon la présence'],['plusieurs','Plusieurs de ces objectifs']]}
+      ],
+      energie: [
+        {id:'energie_postes', title:'Que souhaitez-vous surtout surveiller ?', type:'multi', options:[['global','Consommation totale'],['chauffage','Chauffage'],['ecs','Chauffe-eau'],['ve','Véhicule électrique'],['electromenager','Électroménager'],['pac','Climatisation / PAC'],['pv','Production photovoltaïque'],['autre','Autre']]},
+        {id:'energie_pv', title:'Disposez-vous de panneaux photovoltaïques ?', type:'single', options:[['oui','Oui'],['non','Non'],['projet','Projet prévu']]},
+        {id:'energie_ve', title:'Avez-vous un véhicule électrique ou hybride rechargeable ?', type:'single', options:[['oui','Oui'],['non','Non'],['projet','Projet prévu']]}
+      ],
+      consommation: null,
+      securite: [
+        {id:'securite_zone', title:'Que voulez-vous principalement protéger ?', type:'single', options:[['appartement','Appartement'],['maison','Maison'],['garage','Dépendances / garage'],['exterieur','Extérieurs'],['pro','Local professionnel'],['plusieurs','Plusieurs zones']]},
+        {id:'securite_fonctions', title:'Quelles fonctions recherchez-vous ?', type:'multi', options:[['ouvrants','Détection d’ouverture'],['mouvement','Détection de mouvement'],['sirene','Sirène / alarme'],['cameras','Caméras'],['exterieur','Détection extérieure'],['acces','Contrôle d’accès'],['notifications','Notifications à distance'],['presence','Simulation de présence']]},
+        {id:'securite_reseau', title:'Si vous envisagez des caméras, pouvez-vous installer du câble réseau ?', type:'single', condition:()=> (state.diagnostic.securite_fonctions||[]).includes('cameras'), options:[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas']]}
+      ],
+      video: null,
+      eclairage: [
+        {id:'eclairage_portee', title:'Que souhaitez-vous automatiser ?', type:'single', options:[['quelques','Quelques lampes'],['pieces','Une ou plusieurs pièces'],['maison','Toute la maison'],['exterieur','Éclairage extérieur']]},
+        {id:'eclairage_commande', title:'Préférez-vous…', type:'single', options:[['ampoules','Des ampoules connectées'],['interrupteurs','Conserver mes interrupteurs actuels'],['conseil','Peu importe / conseillez-moi']]},
+        {id:'eclairage_presence', title:'Souhaitez-vous automatiser selon la présence ?', type:'single', options:[['oui','Oui'],['non','Non'],['peutetre','Peut-être']]}
+      ],
+      acces: [
+        {id:'acces_type', title:'Que voulez-vous piloter ?', type:'single', options:[['portail','Portail'],['garage','Porte de garage'],['portillon','Portillon'],['gache','Gâche électrique'],['serrure','Serrure'],['autre','Autre']]},
+        {id:'acces_existant', title:'L’automatisme existe-t-il déjà ?', type:'single', options:[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas']]},
+        {id:'acces_contact', title:'Dispose-t-il d’une entrée bouton poussoir / contact sec ?', type:'single', condition:()=>state.diagnostic.acces_existant==='oui', options:[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas']]}
+      ],
+      confort: [
+        {id:'confort_scenarios', title:'Quels scénarios vous intéressent le plus ?', type:'multi', options:[['absence','Mode absence'],['nuit','Mode nuit'],['presence','Selon présence'],['volets','Volets selon soleil / chaleur'],['chauffage','Chauffage selon occupation'],['eclairage','Éclairage adaptatif']]}
+      ],
+      automatisations: [
+        {id:'auto_complexite', title:'Quel niveau d’automatisation recherchez-vous ?', type:'single', options:[['simples','Quelques scénarios simples et fiables'],['contextuelles','Des scénarios selon présence, température, luminosité…'],['avancees','Des automatisations avancées multi-conditions']]}
+      ],
+      distance: [
+        {id:'distance_besoin', title:'Que voulez-vous surtout faire à distance ?', type:'multi', options:[['etat','Vérifier l’état du logement'],['piloter','Piloter des équipements'],['alertes','Recevoir des alertes'],['camera','Consulter des caméras']]}
+      ],
+      local: [
+        {id:'local_niveau', title:'Jusqu’où voulez-vous aller dans le fonctionnement local ?', type:'single', options:[['essentiel','Conserver les fonctions essentielles sans Internet'],['majorite','Faire fonctionner la majorité du système en local'],['maximum','Éviter le cloud autant que possible']]}
+      ],
+      centraliser: [
+        {id:'centraliser_but', title:'Que souhaitez-vous centraliser ?', type:'multi', options:[['marques','Plusieurs marques'],['protocoles','Plusieurs protocoles'],['apps','Réduire le nombre d’applications'],['automatisations','Créer des automatisations communes']]}
+      ],
+      decouvrir: [
+        {id:'decouvrir_but', title:'Qu’aimeriez-vous comprendre en premier ?', type:'single', options:[['bases','Les bases de la domotique'],['protocoles','Les protocoles et compatibilités'],['budget','Le budget nécessaire'],['idees','Des idées réellement utiles']]}
+      ]
+    };
+    branchQuestions.consommation = branchQuestions.energie;
+    branchQuestions.video = branchQuestions.securite;
+
+    function startQuiz() {
+      document.getElementById('quiz-intro').style.display='none';
+      document.getElementById('step-result').classList.remove('active');
+      document.getElementById('quiz-shell').style.display='block';
+      questions = baseQuestions();
+      currentIndex = 0;
+      renderQuestion();
+    }
+
+    function getAnswer(q) {
+      return q.id in state ? state[q.id] : state.diagnostic[q.id];
+    }
+    function setAnswer(q,val) {
+      if (q.id in state) state[q.id]=val; else state.diagnostic[q.id]=val;
+    }
+
+    function visibleQuestions() { return questions.filter(q=>!q.condition || q.condition()); }
+
+    function renderQuestion() {
+      const visible = visibleQuestions();
+      if(currentIndex >= visible.length) currentIndex = visible.length-1;
+      const q = visible[currentIndex];
+      const host = document.getElementById('quiz-question');
+      const progress = Math.round(((currentIndex+1)/visible.length)*100);
+      document.getElementById('quiz-progress-label').textContent = `Étape ${currentIndex+1} sur ${visible.length}`;
+      document.getElementById('quiz-progress-percent').textContent = progress+' %';
+      document.getElementById('quiz-progress-bar').style.width = progress+'%';
+
+      let opts = q.options || [];
+      if(q.type==='single-dynamic') opts = state.objectifs.map(k=>[k,OBJECTIVES[k].label]);
+      const answer = getAnswer(q);
+      let html = `<div class="quiz-step active"><h3>${q.title}</h3>${q.help?`<p class="quiz-help">${q.help}</p>`:''}<div class="options-grid">`;
+      opts.forEach(([value,label])=>{
+        const selected = Array.isArray(answer) ? answer.includes(value) : answer===value;
+        html += `<button type="button" class="option-btn ${selected?'selected':''}" data-value="${value}" onclick="chooseAnswer('${q.id}','${q.type}','${value}',this,${q.max||0})">${label}</button>`;
+      });
+      html += `</div>`;
+      if(q.type==='multi') html += `<span class="quiz-counter" id="quiz-counter">${(answer||[]).length}${q.max?` / ${q.max}`:''} sélectionné(s)</span>`;
+      if(q.id==='niveauElectrique') html += `<div class="quiz-notice safety">⚡ Pour toute intervention sur le 230 V, les recommandations devront rester adaptées aux compétences réelles de l’utilisateur et aux règles de sécurité.</div>`;
+      html += `<div class="quiz-actions">${currentIndex>0?'<button class="btn btn-secondary" onclick="goBack()">← Retour</button>':'<span></span>'}<button class="btn btn-primary" id="quiz-next" onclick="goNext()" ${isAnswered(q)?'':'disabled'}>${currentIndex===visible.length-1?'Continuer le diagnostic →':'Question suivante →'}</button></div></div>`;
+      host.innerHTML=html;
+    }
+
+    function chooseAnswer(id,type,value,btn,max) {
+      const q = visibleQuestions()[currentIndex];
+      if(type==='multi') {
+        let arr = [...(getAnswer(q)||[])];
+        if(arr.includes(value)) arr=arr.filter(v=>v!==value);
+        else {
+          if(max && arr.length>=max) return;
+          if(value==='nsp') arr=['nsp'];
+          else { arr=arr.filter(v=>v!=='nsp'); arr.push(value); }
+        }
+        setAnswer(q,arr);
+      } else setAnswer(q,value);
+      renderQuestion();
+    }
+
+    function isAnswered(q) {
+      const a=getAnswer(q);
+      return Array.isArray(a) ? a.length>0 : !!a;
+    }
+
+    function goBack(){ if(currentIndex>0){currentIndex--;renderQuestion();} }
+
+    function goNext(){
+      let visible=visibleQuestions();
+      const q=visible[currentIndex];
+      if(!isAnswered(q)) return;
+      currentIndex++;
+      visible=visibleQuestions();
+      if(currentIndex>=visible.length){
+        if(!questions.some(x=>x.branch===true)) addPriorityBranch();
+        else showResults();
+      } else renderQuestion();
+    }
+
+    function addPriorityBranch(){
+      const branch=(branchQuestions[state.priorite]||[]).map(q=>({...q,branch:true}));
+      if(branch.length===0){ showResults(); return; }
+      questions=questions.concat(branch);
+      renderQuestion();
+    }
+
+    function computeScores(){
+      const s={beginner:0,tenant:0,evolving:0,energy:0,security:0,comfort:0,advanced:0,targeted:0};
+      if(state.niveauDomotique==='debutant') s.beginner+=3;
+      if(state.statut==='locataire') s.tenant+=4;
+      if(state.travaux==='aucun') s.tenant+=3;
+      if(state.statut==='proprietaire' && state.objectifs.length>=3) s.evolving+=3;
+      if(state.objectifs.length===1) s.targeted+=4;
+      state.objectifs.forEach(o=>{
+        const u=OBJECTIVES[o].universe;
+        const pts=(o===state.priorite?5:2);
+        if(u==='energy') s.energy+=pts;
+        if(u==='security') s.security+=pts;
+        if(u==='comfort') s.comfort+=pts;
+        if(u==='advanced') s.advanced+=pts;
+        if(u==='targeted') s.targeted+=pts;
+        if(u==='beginner') s.beginner+=pts;
+      });
+      if(state.objectifs.includes('chauffage')){s.energy+=3;s.comfort+=2;}
+      if(state.objectifs.includes('automatisations')){s.comfort+=4;s.advanced+=2;}
+      if(state.objectifs.includes('video')) s.security+=3;
+      if(state.objectifs.includes('centraliser')) s.advanced+=3;
+      if(state.localImportance==='important') s.advanced+=3;
+      if(state.localImportance==='max') s.advanced+=4;
+      if(state.solution==='avancee') s.advanced+=4;
+      if(state.solution==='equilibree') s.evolving+=2;
+      if(state.plateformes.includes('home_assistant')) s.advanced+=6;
+      if(state.budget==='moins100') s.beginner+=2;
+      if(['600_1000','plus1000'].includes(state.budget) && state.objectifs.length>=3) s.evolving+=2;
+      return s;
+    }
+
+    function profileFromScores(scores){
+      if(state.statut==='locataire' && state.travaux==='aucun') return 'tenant';
+      const entries=Object.entries(scores).sort((a,b)=>b[1]-a[1]);
+      return entries[0][0];
+    }
+
+    function architecture(){
+      let simple=0,balanced=0,advanced=0;
+      if(state.solution==='simple') simple+=4;
+      if(state.solution==='equilibree') balanced+=4;
+      if(state.solution==='avancee') advanced+=4;
+      if(state.niveauDomotique==='debutant') simple+=2;
+      if(state.niveauDomotique==='avance') advanced+=2;
+      if(['important','max'].includes(state.localImportance)) advanced+=2;
+      if(state.objectifs.length>=3) balanced+=2;
+      if(state.plateformes.includes('home_assistant') || state.plateformes.includes('jeedom')) advanced+=3;
+      if(state.budget==='moins100') simple+=1;
+      const top=[['simple',simple],['equilibree',balanced],['avancee',advanced]].sort((a,b)=>b[1]-a[1])[0][0];
+      return top;
+    }
+
+    const profiles={
+      beginner:{icon:'🌱',name:'Débutant — commencer sans se tromper',desc:'Votre priorité est de construire une première base cohérente sans multiplier les produits, les passerelles et les applications.'},
+      tenant:{icon:'🏢',name:'Locataire / installation sans travaux',desc:'Votre installation doit rester simple, réversible et facilement transportable lors d’un déménagement.'},
+      evolving:{icon:'🏡',name:'Maison connectée évolutive',desc:'Votre projet touche plusieurs usages : l’architecture et la compatibilité doivent être définies avant les achats.'},
+      energy:{icon:'💶',name:'Énergie & économies',desc:'Votre parcours doit suivre une logique simple : mesurer, comprendre, agir, automatiser puis vérifier le résultat.'},
+      security:{icon:'🛡️',name:'Sécurité',desc:'La domotique peut compléter la protection du logement, mais elle ne remplace pas un système d’alarme dédié.'},
+      comfort:{icon:'🛋️',name:'Confort & automatisations',desc:'Le but est de créer quelques automatismes utiles, fiables et discrets plutôt qu’une accumulation de scénarios gadgets.'},
+      advanced:{icon:'🧠',name:'Local & avancé',desc:'Vous privilégiez le contrôle local, l’évolutivité, l’intégration de plusieurs technologies et la maîtrise de vos données.'},
+      targeted:{icon:'🔧',name:'Projet ciblé',desc:'Vous avez un besoin précis : DomoRepère doit d’abord diagnostiquer l’existant avant de recommander un produit.'}
+    };
+
+    function difficulty(){
+      let n=0;
+      if(['intermediaire','avance'].includes(state.niveauDomotique)) n++;
+      if(['electrique','importants'].includes(state.travaux)) n++;
+      if(state.solution==='avancee') n++;
+      if(['volets','acces'].includes(state.priorite)) n++;
+      return n>=3?'🔴 Technique':n>=1?'🟠 Intermédiaire':'🟢 Facile';
+    }
+
+    function scoreCompatibility(){
+      let score=70;
+      if(state.solution) score+=5;
+      if(state.budget!=='nsp') score+=5;
+      if(state.priorite) score+=5;
+      if(state.equipement==='aucun' || state.plateformes.length) score+=5;
+      const diagCount=Object.values(state.diagnostic).filter(v=>Array.isArray(v)?v.length:!!v).length;
+      score+=Math.min(8,diagCount*2);
+      if(Object.values(state.diagnostic).includes('nsp')) score-=5;
+      return Math.max(55,Math.min(96,score));
+    }
+
+    function priorityPlan(){
+      const p=state.priorite;
+      const plans={
+        energie:['Mesurer la consommation avant de chercher à automatiser','Identifier les postes réellement énergivores','Automatiser seulement les usages où le gain est pertinent'],
+        consommation:['Mettre en place une mesure globale ou ciblée','Observer quelques semaines de données','Décider ensuite quelles charges méritent d’être pilotées'],
+        chauffage:['Identifier précisément votre système de chauffage et sa régulation','Vérifier les interfaces disponibles : thermostat, fil pilote, zones…','Choisir un pilotage adapté avant de créer des automatismes'],
+        volets:['Identifier la motorisation et le type de commande','Vérifier le câblage et la compatibilité de l’existant','Choisir entre intégration constructeur et module adapté'],
+        securite:['Définir les zones et risques à protéger','Faire étudier une alarme dédiée par un professionnel','Utiliser la domotique en complément : ouvrants, présence, éclairage, alertes'],
+        video:['Définir les zones à couvrir et les contraintes de câblage','Privilégier une architecture vidéo dédiée et fiable','Intégrer ensuite les états ou images utiles à la domotique'],
+        eclairage:['Définir si vous voulez conserver les commandes murales','Choisir ampoules ou modules selon l’usage et le câblage','Commencer par quelques scénarios simples de présence / luminosité'],
+        acces:['Identifier la marque et la référence de l’automatisme','Vérifier la présence d’un contact sec et d’un retour d’état','Choisir une intégration qui conserve la commande d’origine'],
+        confort:['Lister 3 automatismes qui vous feraient réellement gagner du confort','Identifier les capteurs nécessaires','Conserver une commande manuelle pour les fonctions essentielles'],
+        automatisations:['Commencer par des scénarios simples et fiables','Ajouter progressivement présence, luminosité et température','Documenter les automatisations pour qu’elles restent maintenables'],
+        distance:['Identifier les fonctions réellement nécessaires à distance','Privilégier un accès sécurisé','Conserver un fonctionnement local des fonctions essentielles'],
+        local:['Choisir une plateforme capable de fonctionner localement','Privilégier les protocoles et intégrations documentés','Prévoir sauvegardes et maintenance dès le départ'],
+        centraliser:['Inventorier marques, protocoles et passerelles existants','Choisir la plateforme qui peut intégrer le plus d’existant','Migrer progressivement sans remplacer ce qui fonctionne'],
+        decouvrir:['Commencer par comprendre les usages réellement utiles','Choisir un premier besoin concret','Découvrir les protocoles avant d’acheter plusieurs produits']
+      };
+      return plans[p]||['Identifier l’existant','Définir le besoin prioritaire','Choisir une solution compatible et évolutive'];
+    }
+
+    function architectureText(a){
+      if(a==='simple') return '🟢 Architecture simple / clé en main';
+      if(a==='avancee') return '🟣 Architecture locale & avancée';
+      return '🔵 Architecture équilibrée & évolutive';
+    }
+
+    function whyText(profile){
+      const bits=[];
+      if(state.statut==='locataire') bits.push('vous êtes locataire'); else bits.push('vous êtes propriétaire');
+      if(state.objectifs.length>=3) bits.push('votre projet couvre plusieurs usages');
+      if(['important','max'].includes(state.localImportance)) bits.push('le fonctionnement local compte pour vous');
+      if(state.plateformes.includes('home_assistant')) bits.push('Home Assistant est déjà présent');
+      if(state.travaux==='aucun') bits.push('vous ne souhaitez pas réaliser de travaux');
+      if(state.budget==='moins100') bits.push('votre budget de départ est volontairement contenu');
+      return `Cette approche ressort notamment parce que ${bits.join(', ')}.`;
+    }
+
+    function materialCategories(profile){
+      const p=state.priorite;
+      if(profile==='tenant') return ['Capteurs sans fil','Prises / ampoules connectées','Boutons et équipements réversibles'];
+      if(p==='energie'||p==='consommation') return ['Mesure de consommation','Capteurs température / énergie','Actionneurs adaptés aux charges à piloter'];
+      if(p==='chauffage') return ['Régulation compatible avec votre chauffage','Capteurs de température','Contrôleur / intégration adaptée'];
+      if(p==='securite'||p==='video') return ['Alarme dédiée installée par un professionnel','Détecteurs / ouvrants en complément domotique','Vidéo dédiée si nécessaire'];
+      if(p==='volets') return ['Interface ou passerelle compatible avec la motorisation','Module volet uniquement si câblage compatible','Capteurs / commandes complémentaires'];
+      if(p==='acces') return ['Interface contact sec / constructeur selon automatisme','Retour d’état si disponible','Contrôleur compatible'];
+      if(profile==='advanced') return ['Contrôleur local','Coordinateur / passerelles selon protocoles','Sauvegarde et infrastructure réseau'];
+      return ['Contrôleur / passerelle adaptée','Capteurs utiles au projet','Actionneurs compatibles avec l’existant'];
+    }
+
+    function guides(){
+      const g=[['article-1.html','Bien débuter en domotique']];
+      if(['local','centraliser','energie','consommation','automatisations','decouvrir'].includes(state.priorite)) g.push(['article-2.html','Zigbee, Z-Wave, Matter ou Wi-Fi ?']);
+      if(state.objectifs.includes('volets')||state.objectifs.includes('eclairage')) g.push(['article-3.html','Comprendre le fil neutre et les micromodules']);
+      if(['volets','eclairage','acces'].some(x=>state.objectifs.includes(x))) g.push(['securite-electrique.html','Sécurité électrique en domotique']);
+      return g.slice(0,4);
+    }
+
+    function securityNotice(){
+      if(!state.objectifs.includes('securite')&&!state.objectifs.includes('video')) return '';
+      return `<div class="quiz-notice safety"><strong>🛡️ Position DomoRepère :</strong> pour la protection réelle d’un logement, nous recommandons une <strong>alarme dédiée installée par un professionnel</strong>. Il est préférable de séparer alarme et domotique pour des raisons de sécurité, de fiabilité et de continuité de fonctionnement. La domotique peut toutefois compléter le système : simulation de présence, vérification des ouvrants, alertes et éventuellement déclenchement d’une sirène. Ces fonctions ne remplacent pas un véritable système d’alarme professionnel, par exemple un système dédié de type AJAX adapté au site.</div>`;
+    }
+
+    function uncertaintyNotice(){
+      if(Object.values(state.diagnostic).includes('nsp')) return `<div class="quiz-notice warning"><strong>ℹ️ Information manquante :</strong> au moins une donnée technique reste inconnue. DomoRepère ne doit pas deviner : identifiez la référence, le câblage ou la technologie concernée avant de choisir un matériel précis.</div>`;
+      return '';
+    }
+
+    function showResults(){
+      document.getElementById('quiz-shell').style.display='none';
+      document.getElementById('step-result').classList.add('active');
+      const scores=computeScores();
+      const profileKey=profileFromScores(scores);
+      const profile=profiles[profileKey];
+      const arch=architecture();
+      const comp=scoreCompatibility();
+      const plan=priorityPlan();
+      const mats=materialCategories(profileKey);
+      const guideList=guides();
+      const objectiveTags=state.objectifs.map(o=>`<span class="project-tag ${o===state.priorite?'priority':''}">${OBJECTIVES[o].label}${o===state.priorite?' · Priorité':''}</span>`).join('');
+      let html=`
+        <div class="result-hero">
+          <div style="font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:800;">Votre profil DomoRepère</div>
+          <h3>${profile.icon} ${profile.name}</h3>
+          <p style="color:#cbd5e1;">${profile.desc}</p>
+          <div class="result-meta"><span class="result-pill">${architectureText(arch)}</span><span class="result-pill">${difficulty()}</span><span class="result-pill">Priorité : ${OBJECTIVES[state.priorite].label}</span></div>
+        </div>
+        <div class="result-grid">
+          <div class="result-card"><h4>Pourquoi cette recommandation ?</h4><p>${whyText(profileKey)}</p></div>
+          <div class="result-card"><h4>Indice DomoRepère</h4><div class="score-box"><div class="score-number">${comp}/100</div><p>Compatibilité estimée avec vos objectifs, vos contraintes, votre niveau et votre préférence d’architecture.</p></div></div>
+        </div>
+        ${securityNotice()}${uncertaintyNotice()}
+        <div class="result-card"><h4>Vos projets</h4><div class="project-tags">${objectiveTags}</div></div>
+        <div class="result-grid">
+          <div class="result-card"><h4>Vos 3 prochaines étapes</h4><ol>${plan.map(x=>`<li>${x}</li>`).join('')}</ol></div>
+          <div class="result-card"><h4>Matériel à envisager</h4><ul>${mats.map(x=>`<li>${x}</li>`).join('')}</ul><p style="margin-top:.7rem;"><strong>Principe :</strong> vérifier la compatibilité avant d’acheter. DomoRepère privilégie l’existant quand il peut être conservé.</p></div>
+        </div>
+        <div class="result-grid">
+          <div class="result-card"><h4>Guides DomoRepère recommandés</h4><ul>${guideList.map(([url,label])=>`<li><a href="${url}">${label}</a></li>`).join('')}</ul></div>
+          <div class="result-card"><h4>Deux alternatives</h4><p><strong>Plus simple :</strong> réduire le projet à votre besoin prioritaire et limiter le nombre de technologies.</p><p style="margin-top:.65rem;"><strong>Plus évolutive :</strong> choisir une plateforme centrale locale/multiprotocole et avancer fonction par fonction.</p></div>
+        </div>
+        <div class="quiz-notice"><strong>Prochaine évolution :</strong> les résultats pourront ensuite proposer des produits précis chez nos partenaires uniquement après validation de la compatibilité technique.</div>`;
+      document.getElementById('result-content').innerHTML=html;
+      document.getElementById('quiz').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    function resetQuiz(){
+      Object.keys(state).forEach(k=>state[k]=Array.isArray(state[k])?[]:(k==='diagnostic'?{}:null));
+      document.getElementById('step-result').classList.remove('active');
+      document.getElementById('result-content').innerHTML='';
+      document.getElementById('quiz-shell').style.display='none';
+      document.getElementById('quiz-intro').style.display='block';
+      questions=[]; currentIndex=0;
+      document.getElementById('quiz').scrollIntoView({behavior:'smooth',block:'start'});
+    }
+  </script>
+</body>
+</html>

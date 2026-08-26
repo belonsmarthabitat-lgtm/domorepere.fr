@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guides domotique pratiques — DomoRepère</title>
+  <meta name="description" content="Guides pratiques DomoRepère pour comprendre, choisir, installer et sécuriser votre domotique : débuter, protocoles, volets, électricité et retours terrain.">
+  <link rel="canonical" href="https://domorepere.fr/articles.html">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0d665d">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="DomoRepère">
+  <meta property="og:title" content="Guides domotique pratiques — DomoRepère">
+  <meta property="og:description" content="Des guides terrain pour comprendre, choisir, installer et sécuriser une domotique fiable.">
+  <meta property="og:url" content="https://domorepere.fr/articles.html">
+  <meta property="og:image" content="https://domorepere.fr/social-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Guides domotique pratiques — DomoRepère">
+  <meta name="twitter:description" content="Des guides terrain pour comprendre, choisir, installer et sécuriser une domotique fiable.">
+  <meta name="twitter:image" content="https://domorepere.fr/social-card.png">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --primary:#0d665d;--primary-hover:#084f49;--primary-soft:#eaf5f2;
+      --secondary:#273436;--accent:#c9aa72;--accent-soft:#f8f1e5;
+      --bg-light:#f6f8f7;--card-bg:#fff;--text-dark:#273436;--text-main:#3d4b4d;
+      --text-muted:#6d7b7d;--border:#dce5e3;--radius:16px;
+      --shadow:0 8px 24px rgba(39,52,54,.07);--shadow-lg:0 18px 45px rgba(39,52,54,.11)
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text-main);background:var(--bg-light);line-height:1.65}
+    a{color:var(--primary);text-decoration:none;transition:.2s ease}
+    a:hover{color:var(--primary-hover)}
+    img{max-width:100%;height:auto}
+    header.site-header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+    .nav-container{max-width:1200px;margin:0 auto;padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem}
+    .logo{display:flex;align-items:center;gap:.7rem;color:var(--secondary);font-size:1.2rem;font-weight:800;white-space:nowrap}
+    .logo img{height:48px;width:auto;display:block}.logo strong{color:var(--primary)}
+    nav ul{display:flex;list-style:none;gap:1.55rem;align-items:center}nav a{color:var(--secondary);font-weight:650;font-size:.92rem}
+    nav a:hover,nav a.active{color:var(--primary)}
+    .hero{position:relative;overflow:hidden;background:linear-gradient(132deg,#273436 0%,#1f3434 48%,#0d665d 120%);color:#fff;padding:4.8rem 1.5rem 4.3rem;text-align:center}
+    .hero:before{content:"";position:absolute;width:380px;height:380px;border-radius:50%;border:1px solid rgba(201,170,114,.28);right:-150px;top:-210px}
+    .hero-content{position:relative;z-index:1;max-width:850px;margin:auto}.eyebrow{color:#e5c995;font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem}
+    .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.08;letter-spacing:-.035em;margin-bottom:1rem}.hero h1 span{color:#e4c58c}
+    .hero p{max-width:720px;margin:0 auto;color:#d4dddd;font-size:1.05rem}
+    .container{max-width:1200px;margin:0 auto;padding:3.5rem 1.5rem}
+    .intro{display:grid;grid-template-columns:1.2fr .8fr;gap:1.2rem;align-items:stretch;margin-bottom:2rem}
+    .intro-card,.safety{border-radius:var(--radius);padding:1.4rem 1.5rem}
+    .intro-card{background:#fff;border:1px solid var(--border);box-shadow:var(--shadow)}
+    .intro-card h2{color:var(--secondary);font-size:1.4rem;margin-bottom:.45rem}
+    .intro-card p{color:var(--text-muted)}
+    .safety{background:var(--accent-soft);border:1px solid #ead7b4;border-left:5px solid var(--accent)}
+    .safety strong{display:block;color:#715b36;margin-bottom:.35rem}.safety p{color:#806a44;font-size:.92rem}
+    .section-head{margin:2.2rem 0 1.4rem}.section-head .kicker{display:inline-block;color:var(--primary);font-size:.76rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin-bottom:.45rem}
+    .section-head h2{color:var(--secondary);font-size:clamp(1.6rem,3vw,2.15rem)}
+    .articles-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}
+    .card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:.2s ease}
+    .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+    .card-visual{min-height:125px;display:flex;align-items:center;justify-content:center;font-size:2.3rem;background:linear-gradient(135deg,var(--primary-soft),var(--accent-soft));position:relative}
+    .badge{position:absolute;left:1rem;top:1rem;background:rgba(39,52,54,.92);color:#fff;border-radius:999px;padding:.35rem .7rem;font-size:.72rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+    .card-body{padding:1.35rem;display:flex;flex-direction:column;flex:1}.card h3{font-size:1.2rem;line-height:1.35;color:var(--secondary);margin-bottom:.65rem}.card p{color:var(--text-muted);font-size:.94rem;margin-bottom:1.15rem;flex:1}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:.75rem 1rem;border-radius:10px;font-size:.9rem;font-weight:750}
+    .btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-hover);color:#fff}
+    .journey{margin-top:2.5rem;background:linear-gradient(105deg,var(--secondary),#30494a);border-left:5px solid var(--accent);color:#fff;border-radius:var(--radius);padding:1.7rem}
+    .journey strong{color:#e4c58c}.journey p{color:#d1dcda;margin-top:.3rem}
+    footer{background:var(--secondary);color:#b8c4c3;padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--accent)}
+    footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
+    @media(max-width:800px){.nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}.intro{grid-template-columns:1fr}.articles-grid{grid-template-columns:1fr}.hero{padding:3.8rem 1rem 3.4rem}.container{padding:3rem 1rem}}
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"CollectionPage",
+    "name":"Guides domotique pratiques — DomoRepère",
+    "url":"https://domorepere.fr/articles.html",
+    "description":"Guides pratiques pour comprendre, choisir, installer et sécuriser une domotique fiable.",
+    "inLanguage":"fr-FR",
+    "isPartOf":{"@type":"WebSite","name":"DomoRepère","url":"https://domorepere.fr/"}
+  }
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Logo DomoRepère"><span>Domo<strong>Repère</strong></span></a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a class="active" href="articles.html">Guides &amp; articles</a></li>
+        <li><a href="mon-installation.html">Le Lab</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">Comprendre • choisir • installer • automatiser • entretenir</div>
+      <h1>Les guides <span>DomoRepère</span></h1>
+      <p>Des contenus pratiques, pédagogiques et orientés terrain pour construire une domotique fiable, cohérente et adaptée à votre logement.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="intro">
+      <section class="intro-card">
+        <h2>Commencer par le besoin, pas par le produit</h2>
+        <p>DomoRepère vous aide à comprendre votre besoin, vérifier la compatibilité de votre installation et choisir une solution avant d'acheter du matériel.</p>
+      </section>
+      <aside class="safety">
+        <strong>⚡ Sécurité électrique</strong>
+        <p>Toute intervention sur le réseau 230 V demande des compétences adaptées. En cas de doute, faites intervenir un professionnel qualifié.</p>
+      </aside>
+    </div>
+
+    <div class="section-head">
+      <span class="kicker">À lire maintenant</span>
+      <h2>Guides pratiques disponibles</h2>
+    </div>
+
+    <section class="articles-grid" aria-label="Liste des guides DomoRepère">
+      <article class="card">
+        <div class="card-visual"><span class="badge">Bien débuter</span>🌱</div>
+        <div class="card-body">
+          <h3>Débuter en domotique : par quoi commencer ?</h3>
+          <p>Un guide pas à pas pour définir vos besoins, choisir une base cohérente et éviter de multiplier les applications et les écosystèmes.</p>
+          <a class="btn btn-primary" href="article-1.html">Lire le guide →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual"><span class="badge">Protocoles</span>📡</div>
+        <div class="card-body">
+          <h3>Zigbee, Z-Wave, Matter ou Wi-Fi : que choisir ?</h3>
+          <p>Comprendre les principales technologies domotiques et leurs différences afin de construire une installation cohérente et évolutive.</p>
+          <a class="btn btn-primary" href="article-2.html">Lire le comparatif →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual"><span class="badge">Électricité</span>⚡</div>
+        <div class="card-body">
+          <h3>Volets, interrupteurs et fil neutre</h3>
+          <p>Comprendre le rôle du neutre, identifier les contraintes d'un appareillage mural et préparer correctement l'intégration d'un micromodule.</p>
+          <a class="btn btn-primary" href="article-3.html">Lire le guide →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-visual"><span class="badge">Sécurité</span>🛡️</div>
+        <div class="card-body">
+          <h3>Sécurité électrique en domotique</h3>
+          <p>Les précautions essentielles à connaître avant toute intervention sur une installation électrique ou un équipement domotique alimenté en 230 V.</p>
+          <a class="btn btn-primary" href="securite-electrique.html">Lire les règles de sécurité →</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="journey">
+      <strong>La méthode DomoRepère</strong>
+      <p>Comprendre → Choisir → Installer → Automatiser → Entretenir. Chaque nouveau guide viendra progressivement compléter ce parcours.</p>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p>© 2026 DomoRepère. Tous droits réservés.</p>
+  <p><a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p>
+  <p class="footer-tagline">DomoRepère — Comprendre • Choisir • Installer • Automatiser • Entretenir</p>
+</footer>
+</body>
+</html>

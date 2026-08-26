@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zigbee, Z-Wave, Matter ou Wi-Fi : quel protocole choisir ? — DomoRepère</title>
+<meta name="description" content="Comparer Zigbee, Z-Wave, Matter et Wi-Fi pour choisir un protocole domotique adapté à votre logement, à votre budget et à l’évolution de votre installation.">
+<link rel="canonical" href="https://domorepere.fr/article-2.html">
+<meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#0d665d">
+<meta property="og:type" content="article"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="DomoRepère">
+<meta property="og:title" content="Zigbee, Z-Wave, Matter ou Wi-Fi : quel protocole choisir ? — DomoRepère"><meta property="og:description" content="Comparer Zigbee, Z-Wave, Matter et Wi-Fi pour choisir un protocole domotique adapté à votre logement, à votre budget et à l’évolution de votre installation.">
+<meta property="og:url" content="https://domorepere.fr/article-2.html"><meta property="og:image" content="https://domorepere.fr/social-card.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Zigbee, Z-Wave, Matter ou Wi-Fi : quel protocole choisir ? — DomoRepère">
+<meta name="twitter:description" content="Comparer Zigbee, Z-Wave, Matter et Wi-Fi pour choisir un protocole domotique adapté à votre logement, à votre budget et à l’évolution de votre installation."><meta name="twitter:image" content="https://domorepere.fr/social-card.png">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#0d665d;--primary-hover:#084f49;--primary-soft:#eaf5f2;
+  --secondary:#273436;--accent:#c9aa72;--accent-soft:#f8f1e5;
+  --bg-light:#f6f8f7;--card-bg:#fff;--text-dark:#273436;--text-main:#3d4b4d;
+  --text-muted:#6d7b7d;--border:#dce5e3;--danger:#a33d36;--danger-bg:#fff4f1;
+  --radius:16px;--shadow:0 8px 24px rgba(39,52,54,.07);--shadow-lg:0 18px 45px rgba(39,52,54,.11)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text-main);background:var(--bg-light);line-height:1.7}
+a{color:var(--primary);text-decoration:none;transition:.2s ease}a:hover{color:var(--primary-hover)}
+img{max-width:100%;height:auto}
+.site-header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-container{max-width:1200px;margin:0 auto;padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.7rem;color:var(--secondary);font-size:1.2rem;font-weight:800;white-space:nowrap}
+.logo img{height:48px;width:auto;display:block}.logo strong{color:var(--primary)}
+nav ul{display:flex;list-style:none;gap:1.55rem;align-items:center}nav a{color:var(--secondary);font-weight:650;font-size:.92rem}
+nav a:hover,nav a.active{color:var(--primary)}
+.article-hero{background:linear-gradient(132deg,#273436 0%,#1f3434 48%,#0d665d 120%);color:#fff;padding:4.6rem 1.5rem 3.6rem;position:relative;overflow:hidden}
+.article-hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid rgba(201,170,114,.28);right:-160px;top:-210px}
+.article-hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{font-size:.86rem;color:#c6d2d1;margin-bottom:1.1rem}.breadcrumb a{color:#e6cf9f}
+.eyebrow{color:#e5c995;font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:.75rem}
+h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;max-width:900px}
+.lead{margin-top:1rem;max-width:780px;color:#d3dddd;font-size:1.06rem}
+.meta{display:flex;flex-wrap:wrap;gap:.7rem 1rem;margin-top:1.35rem;color:#c5d1cf;font-size:.88rem}
+.page-wrap{max-width:1100px;margin:0 auto;padding:2.6rem 1.5rem 4rem}
+.content-grid{display:grid;grid-template-columns:minmax(0,760px) 250px;gap:2rem;align-items:start}
+.article-shell{min-width:0}
+.article-body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.2rem}
+.article-body>p:first-child{font-size:1.06rem;color:var(--text-dark)}
+.article-body h2{color:var(--secondary);font-size:1.55rem;line-height:1.25;margin:2.3rem 0 .85rem;padding-top:.2rem;scroll-margin-top:105px}
+.article-body h2:first-of-type{margin-top:1.6rem}
+.article-body h3{color:var(--secondary);font-size:1.15rem;line-height:1.35;margin:1.6rem 0 .55rem;scroll-margin-top:105px}
+.article-body p{margin-bottom:1.1rem}.article-body ul,.article-body ol{margin:0 0 1.4rem 1.25rem}.article-body li{margin-bottom:.55rem;padding-left:.15rem}
+.highlight-box,.highlight,.callout{background:var(--primary-soft)!important;border:1px solid #cfe7e1!important;border-left:5px solid var(--primary)!important;border-radius:12px!important;padding:1.15rem 1.2rem!important;margin:1.5rem 0!important;color:var(--text-main)!important}
+.affiliate-box{background:var(--accent-soft)!important;border:1px solid #ead7b4!important;border-left:5px solid var(--accent)!important;border-radius:12px!important;padding:1.2rem!important;margin:1.5rem 0!important}
+.affiliate-box-title{color:#725b34!important;font-weight:800!important;margin-bottom:.4rem!important}
+.alert-danger{background:var(--danger-bg);border:1px solid #f2d7d0;border-left:5px solid var(--danger);border-radius:12px;padding:1.2rem 1.3rem;margin:1.5rem 0}
+.alert-danger h4{color:#7f302b;margin-bottom:.3rem}
+.checklist{background:var(--bg-light);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-top:1rem}
+.checklist-item{display:flex;gap:.75rem;margin-bottom:1rem}.checklist-item:last-child{margin-bottom:0}
+.comparison-table-wrapper{overflow-x:auto;margin:1.6rem 0}.comparison-table{width:100%;border-collapse:collapse;font-size:.93rem}
+.comparison-table th,.comparison-table td{padding:.75rem .85rem;border:1px solid var(--border);text-align:left;vertical-align:top}
+.comparison-table th{background:var(--primary-soft);color:var(--secondary)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:.78rem 1rem;border-radius:10px;font-size:.91rem;font-weight:750}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-hover);color:#fff}
+.btn-affiliate{background:var(--accent);color:var(--secondary)}.btn-affiliate:hover{background:#b9975c;color:var(--secondary)}
+.next-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.3rem}
+.next-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow)}
+.next-card span{display:block;color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.next-card strong{color:var(--secondary);line-height:1.35}
+.sidebar{position:sticky;top:88px}.side-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.side-card h2{font-size:1rem;color:var(--secondary);margin-bottom:.65rem}.side-card ul{list-style:none}.side-card li+li{margin-top:.55rem}.side-card a{font-size:.88rem;line-height:1.35}.side-card p{font-size:.88rem;color:var(--text-muted)}
+footer{background:var(--secondary);color:#b8c4c3;padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--accent)}
+footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
+@media(max-width:900px){.content-grid{grid-template-columns:1fr}.sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.side-card{margin:0}}
+@media(max-width:720px){.nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}.article-hero{padding:3.6rem 1rem 3rem}.page-wrap{padding:2rem 1rem 3rem}.article-body{padding:1.35rem}.sidebar,.next-links{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Zigbee, Z-Wave, Matter ou Wi-Fi : quel protocole domotique choisir ?", "description": "Comparer Zigbee, Z-Wave, Matter et Wi-Fi pour choisir un protocole domotique adapté à votre logement, à votre budget et à l’évolution de votre installation.", "inLanguage": "fr-FR", "mainEntityOfPage": "https://domorepere.fr/article-2.html", "author": {"@type": "Person", "name": "Yohann DESCAMPS"}, "publisher": {"@type": "Organization", "name": "DomoRepère", "url": "https://domorepere.fr/"}}</script>
+</head><body>
+
+<header class="site-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="logo.png" alt="Logo DomoRepère"><span>Domo<strong>Repère</strong></span></a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#quiz">Guide interactif</a></li>
+        <li><a class="active" href="articles.html">Guides &amp; articles</a></li>
+        <li><a class="" href="mon-installation.html">Le Lab</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="article-hero"><div class="article-hero-inner">
+<div class="breadcrumb"><a href="index.html">Accueil</a> › <a href="articles.html">Guides</a> › Protocoles &amp; technologies</div>
+<div class="eyebrow">Protocoles • compatibilité • réseau</div>
+<h1>Zigbee, Z-Wave, Matter ou Wi-Fi : quel protocole domotique choisir ?</h1>
+<p class="lead">Comprendre les différences entre les principales technologies avant d’acheter permet de construire une installation plus cohérente et plus facile à faire évoluer.</p>
+<div class="meta"><span>⏱️ 8 min</span><span>🗓️ Mis à jour en août 2026</span><span>📚 Protocoles &amp; technologies</span></div>
+</div></section>
+<div class="page-wrap"><div class="content-grid"><div class="article-shell">
+<article class="article-body">
+<p>Au moment de lancer sa première installation domotique, la profusion de logos et de technologies sur les boîtes d'équipements peut vite effrayer. Wi-Fi, Zigbee, Z-Wave, Matter, Thread... Comment être sûr que vos équipements communiqueront bien entre eux ?</p>
+<p>Choisir le bon protocole est crucial : c'est la « langue » qu'utilisent vos appareils pour échanger leurs ordres. Voici un comparatif simple et synthétique pour faire le meilleur choix selon vos besoins et votre budget.</p>
+<h2 id="1-tour-d-horizon-des-principaux-protocoles">1. Tour d'horizon des principaux protocoles</h2>
+<h3 id="1-le-wi-fi-le-choix-de-la-simplicite-immediate">1. Le Wi-Fi (Le choix de la simplicité immédiate)</h3>
+<p>Les objets connectés Wi-Fi se branchent directement sur votre box internet. Il n'y a pas besoin d'acheter de passerelle supplémentaire.</p>
+<ul>
+<li><strong>Avantages :</strong> Faible coût d'entrée, aucun matériel intermédiaire nécessaire.</li>
+<li><strong>Inconvénients :</strong> Gourmand en énergie (rarement adapté aux capteurs sur pile), surcharge le réseau Wi-Fi du foyer au-delà de 15-20 appareils, et dépend souvent des serveurs cloud du fabricant.</li>
+</ul>
+<h3 id="2-le-zigbee-le-meilleur-rapport-qualite-prix">2. Le Zigbee (Le meilleur rapport qualité/prix)</h3>
+<p>C'est la référence actuelle incontournable de la maison connectée. Le Zigbee crée son propre réseau maillé (« mesh ») très économe en énergie : chaque appareil branché sur secteur (comme une prise ou une ampoule) relaye le signal pour étendre la portée.</p>
+<ul>
+<li><strong>Avantages :</strong> Équipements peu chers, consommation très faible (piles durant plusieurs années), réseau maillé réactif et indépendant d'internet.</li>
+<li><strong>Inconvénients :</strong> Nécessite un contrôleur/passerelle Zigbee.</li>
+</ul>
+<h3 id="3-le-z-wave-la-fiabilite-eprouvee">3. Le Z-Wave (La fiabilité éprouvée)</h3>
+<p>Fonctionnant sur une fréquence radio dédiée (868 MHz en Europe), le Z-Wave évite les interférences avec le Wi-Fi et le Bluetooth. Comme le Zigbee, il utilise un réseau maillé.</p>
+<ul>
+<li><strong>Avantages :</strong> Excellente portée, parfaite interopérabilité entre marques, très haute fiabilité.</li>
+<li><strong>Inconvénients :</strong> Matériel nettement plus cher que le Zigbee.</li>
+</ul>
+<h3 id="4-matter-thread-le-standard-d-avenir">4. Matter &amp; Thread (Le standard d'avenir)</h3>
+<p>Matter est un langage universel conçu conjointement par Apple, Google, Amazon et la Connectivity Standards Alliance. Associé à Thread (un protocole radio maillé à basse consommation), il permet à des appareils de marques différentes de dialoguer directement en local.</p>
+<ul>
+<li><strong>Avantages :</strong> Compatibilité universelle, fonctionnement local ultra-rapide.</li>
+<li><strong>Inconvénients :</strong> Écosystème encore en cours de déploiement progressif.</li>
+</ul>
+<h2 id="2-tableau-comparatif-synthetique">2. Tableau comparatif synthétique</h2>
+<div class="comparison-table-wrapper">
+<table class="comparison-table">
+<thead>
+<tr>
+<th>Protocole</th>
+<th>Portée / Réseau</th>
+<th>Autonomie Piles</th>
+<th>Niveau de Prix</th>
+<th>Passerelle requise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Wi-Fi</strong></td>
+<td>Moyenne (point à point)</td>
+<td>Faible (quelques jours/mois)</td>
+<td>€ (Très économique)</td>
+<td>Non (Box Internet)</td>
+</tr>
+<tr>
+<td><strong>Zigbee</strong></td>
+<td>Excellente (Réseau Maillé)</td>
+<td>Excellente (1 à 3 ans)</td>
+<td>€€ (Très abordable)</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td><strong>Z-Wave</strong></td>
+<td>Très Bonne (868 MHz)</td>
+<td>Excellente (1 à 3 ans)</td>
+<td>€€€ (Haut de gamme)</td>
+<td>Oui</td>
+</tr>
+<tr>
+<td><strong>Matter / Thread</strong></td>
+<td>Excellente (Réseau Maillé)</td>
+<td>Excellente</td>
+<td>€€ à €€€</td>
+<td>Oui (Border Router)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-box">
+<strong>La recommandation DomoRepère :</strong> Si vous débutez un projet complet, optez sans hésiter pour le <strong>Zigbee</strong> (ou une box multiprotocole compatible Zigbee + Matter). C'est le compromis idéal entre prix, autonomie et réactivité.
+      </div>
+<div style="text-align: center; margin: 2.5rem 0;">
+<a class="btn btn-affiliate" href="https://www.domadoo.fr/fr/?domid=147" rel="noopener sponsored" target="_blank">Explorer le matériel Zigbee &amp; Matter sur Domadoo</a>
+</div>
+<h2 id="3-en-resume-que-devez-vous-choisir">3. En résumé : Que devez-vous choisir ?</h2>
+<ul>
+<li><strong>Pour 1 ou 2 prises isolées :</strong> Le Wi-Fi suffit amplement.</li>
+<li><strong>Pour une maison ou un appartement connecté complet :</strong> Privilégiez le Zigbee avec une passerelle dédiée (Home Assistant, Jeedom, ou une box constructeur).</li>
+<li><strong>Pour préparer l'avenir :</strong> Vérifiez la compatibilité Matter lors de vos nouveaux achats.</li>
+</ul>
+</article>
+<div class="next-links"><a class="next-card" href="article-1.html"><span>À lire avant</span><strong>Bien débuter en domotique →</strong></a><a class="next-card" href="article-3.html"><span>Guide suivant</span><strong>Volets, interrupteurs et fil neutre →</strong></a></div>
+</div>
+<aside class="sidebar" aria-label="Navigation de l'article">
+<div class="side-card"><h2>Dans ce guide</h2><ul><li><a href="#1-tour-d-horizon-des-principaux-protocoles">1. Tour d&#x27;horizon des principaux protocoles</a></li><li><a href="#2-tableau-comparatif-synthetique">2. Tableau comparatif synthétique</a></li><li><a href="#3-en-resume-que-devez-vous-choisir">3. En résumé : Que devez-vous choisir ?</a></li></ul></div>
+<div class="side-card"><h2>Besoin d’un point de départ ?</h2><p>Le diagnostic DomoRepère aide à déterminer une orientation adaptée à votre logement, votre niveau et votre priorité.</p><a class="btn btn-primary" style="margin-top:.8rem;width:100%" href="index.html#quiz">Lancer le diagnostic</a></div>
+</aside></div></div>
+</main>
+<footer>
+  <p>© 2026 DomoRepère. Édité par Yohann DESCAMPS. Tous droits réservés.</p>
+  <p style="margin-top:.45rem"><a href="index.html#contact">Contact</a> — <a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p>
+  <div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div>
+</footer></body></html>
