@@ -1,18 +1,36 @@
 <!DOCTYPE html>
-<html lang="fr"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Débuter en domotique : par quoi commencer ? — DomoRepère</title>
-<meta name="description" content="Guide pratique pour débuter en domotique : définir son besoin, choisir une architecture simple, éviter les pièges et construire une installation évolutive et sûre.">
+<meta name="description" content="Comment débuter en domotique sans acheter n’importe quoi ? Besoins, protocoles, premiers équipements, pièges à éviter et méthode pour construire une installation évolutive.">
 <link rel="canonical" href="https://domorepere.fr/article-1.html">
-<meta name="robots" content="index, follow, max-image-preview:large"><meta name="theme-color" content="#0d665d">
-<meta property="og:type" content="article"><meta property="og:locale" content="fr_FR"><meta property="og:site_name" content="DomoRepère">
-<meta property="og:title" content="Débuter en domotique : par quoi commencer ? — DomoRepère"><meta property="og:description" content="Guide pratique pour débuter en domotique : définir son besoin, choisir une architecture simple, éviter les pièges et construire une installation évolutive et sûre.">
-<meta property="og:url" content="https://domorepere.fr/article-1.html"><meta property="og:image" content="https://domorepere.fr/social-card.png">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Débuter en domotique : par quoi commencer ? — DomoRepère">
-<meta name="twitter:description" content="Guide pratique pour débuter en domotique : définir son besoin, choisir une architecture simple, éviter les pièges et construire une installation évolutive et sûre."><meta name="twitter:image" content="https://domorepere.fr/social-card.png">
-<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png"><link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png"><link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0d665d">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="DomoRepère">
+<meta property="og:title" content="Débuter en domotique : par quoi commencer ? — DomoRepère">
+<meta property="og:description" content="Une méthode simple pour démarrer en domotique sans multiplier les achats, les applications et les écosystèmes incompatibles.">
+<meta property="og:url" content="https://domorepere.fr/article-1.html">
+<meta property="og:image" content="https://domorepere.fr/social-card.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Débuter en domotique : par quoi commencer ? — DomoRepère">
+<meta name="twitter:description" content="Besoins, premiers équipements, protocoles, compatibilité et pièges à éviter : les bonnes bases pour commencer en domotique.">
+<meta name="twitter:image" content="https://domorepere.fr/social-card.png">
+
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --primary:#0d665d;--primary-hover:#084f49;--primary-soft:#eaf5f2;
@@ -24,22 +42,29 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text-main);background:var(--bg-light);line-height:1.7}
-a{color:var(--primary);text-decoration:none;transition:.2s ease}a:hover{color:var(--primary-hover)}
+a{color:var(--primary);text-decoration:none;transition:.2s ease}
+a:hover{color:var(--primary-hover)}
 img{max-width:100%;height:auto}
+
 .site-header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
 .nav-container{max-width:1200px;margin:0 auto;padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem}
 .logo{display:flex;align-items:center;gap:.7rem;color:var(--secondary);font-size:1.2rem;font-weight:800;white-space:nowrap}
-.logo img{height:48px;width:auto;display:block}.logo strong{color:var(--primary)}
-nav ul{display:flex;list-style:none;gap:1.55rem;align-items:center}nav a{color:var(--secondary);font-weight:650;font-size:.92rem}
+.logo img{height:48px;width:auto;display:block}
+.logo strong{color:var(--primary)}
+nav ul{display:flex;list-style:none;gap:1.55rem;align-items:center}
+nav a{color:var(--secondary);font-weight:650;font-size:.92rem}
 nav a:hover,nav a.active{color:var(--primary)}
+
 .article-hero{background:linear-gradient(132deg,#273436 0%,#1f3434 48%,#0d665d 120%);color:#fff;padding:4.6rem 1.5rem 3.6rem;position:relative;overflow:hidden}
 .article-hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid rgba(201,170,114,.28);right:-160px;top:-210px}
 .article-hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:1}
-.breadcrumb{font-size:.86rem;color:#c6d2d1;margin-bottom:1.1rem}.breadcrumb a{color:#e6cf9f}
+.breadcrumb{font-size:.86rem;color:#c6d2d1;margin-bottom:1.1rem}
+.breadcrumb a{color:#e6cf9f}
 .eyebrow{color:#e5c995;font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:.75rem}
 h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;max-width:900px}
 .lead{margin-top:1rem;max-width:780px;color:#d3dddd;font-size:1.06rem}
 .meta{display:flex;flex-wrap:wrap;gap:.7rem 1rem;margin-top:1.35rem;color:#c5d1cf;font-size:.88rem}
+
 .page-wrap{max-width:1100px;margin:0 auto;padding:2.6rem 1.5rem 4rem}
 .content-grid{display:grid;grid-template-columns:minmax(0,760px) 250px;gap:2rem;align-items:start}
 .article-shell{min-width:0}
@@ -48,105 +73,461 @@ h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;
 .article-body h2{color:var(--secondary);font-size:1.55rem;line-height:1.25;margin:2.3rem 0 .85rem;padding-top:.2rem;scroll-margin-top:105px}
 .article-body h2:first-of-type{margin-top:1.6rem}
 .article-body h3{color:var(--secondary);font-size:1.15rem;line-height:1.35;margin:1.6rem 0 .55rem;scroll-margin-top:105px}
-.article-body p{margin-bottom:1.1rem}.article-body ul,.article-body ol{margin:0 0 1.4rem 1.25rem}.article-body li{margin-bottom:.55rem;padding-left:.15rem}
+.article-body p{margin-bottom:1.1rem}
+.article-body ul,.article-body ol{margin:0 0 1.4rem 1.25rem}
+.article-body li{margin-bottom:.55rem;padding-left:.15rem}
+
 .highlight-box,.highlight,.callout{background:var(--primary-soft)!important;border:1px solid #cfe7e1!important;border-left:5px solid var(--primary)!important;border-radius:12px!important;padding:1.15rem 1.2rem!important;margin:1.5rem 0!important;color:var(--text-main)!important}
 .affiliate-box{background:var(--accent-soft)!important;border:1px solid #ead7b4!important;border-left:5px solid var(--accent)!important;border-radius:12px!important;padding:1.2rem!important;margin:1.5rem 0!important}
 .affiliate-box-title{color:#725b34!important;font-weight:800!important;margin-bottom:.4rem!important}
 .alert-danger{background:var(--danger-bg);border:1px solid #f2d7d0;border-left:5px solid var(--danger);border-radius:12px;padding:1.2rem 1.3rem;margin:1.5rem 0}
 .alert-danger h4{color:#7f302b;margin-bottom:.3rem}
+
+.field-note{background:#fbfcfc;border:1px dashed #b8cbc7;border-radius:12px;padding:1.05rem 1.15rem;margin:1.5rem 0}
+.field-note strong{color:var(--primary)}
+.question-box{background:var(--secondary);color:#edf3f2;border-radius:14px;padding:1.35rem;margin:1.7rem 0}
+.question-box strong{color:#efd59f}
+.question-box p:last-child{margin-bottom:0}
+
 .checklist{background:var(--bg-light);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-top:1rem}
-.checklist-item{display:flex;gap:.75rem;margin-bottom:1rem}.checklist-item:last-child{margin-bottom:0}
-.comparison-table-wrapper{overflow-x:auto;margin:1.6rem 0}.comparison-table{width:100%;border-collapse:collapse;font-size:.93rem}
+.checklist-item{display:flex;gap:.75rem;margin-bottom:1rem}
+.checklist-item:last-child{margin-bottom:0}
+
+.comparison-table-wrapper{overflow-x:auto;margin:1.6rem 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.93rem}
 .comparison-table th,.comparison-table td{padding:.75rem .85rem;border:1px solid var(--border);text-align:left;vertical-align:top}
 .comparison-table th{background:var(--primary-soft);color:var(--secondary)}
+
+.article-figure{margin:1.8rem 0}
+.article-figure img{display:block;width:100%;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.article-figure figcaption{font-size:.82rem;color:var(--text-muted);margin-top:.55rem;line-height:1.45}
+
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:.78rem 1rem;border-radius:10px;font-size:.91rem;font-weight:750}
-.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-hover);color:#fff}
-.btn-affiliate{background:var(--accent);color:var(--secondary)}.btn-affiliate:hover{background:#b9975c;color:var(--secondary)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-hover);color:#fff}
+.btn-affiliate{background:var(--accent);color:var(--secondary)}
+.btn-affiliate:hover{background:#b9975c;color:var(--secondary)}
+
 .next-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.3rem}
 .next-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow)}
 .next-card span{display:block;color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
 .next-card strong{color:var(--secondary);line-height:1.35}
-.sidebar{position:sticky;top:88px}.side-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;box-shadow:var(--shadow);margin-bottom:1rem}
-.side-card h2{font-size:1rem;color:var(--secondary);margin-bottom:.65rem}.side-card ul{list-style:none}.side-card li+li{margin-top:.55rem}.side-card a{font-size:.88rem;line-height:1.35}.side-card p{font-size:.88rem;color:var(--text-muted)}
+
+.sidebar{position:sticky;top:88px}
+.side-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.side-card h2{font-size:1rem;color:var(--secondary);margin-bottom:.65rem}
+.side-card ul{list-style:none}
+.side-card li+li{margin-top:.55rem}
+.side-card a{font-size:.88rem;line-height:1.35}
+.side-card p{font-size:.88rem;color:var(--text-muted)}
+
 footer{background:var(--secondary);color:#b8c4c3;padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--accent)}
-footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
-@media(max-width:900px){.content-grid{grid-template-columns:1fr}.sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.side-card{margin:0}}
-@media(max-width:720px){.nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}.article-hero{padding:3.6rem 1rem 3rem}.page-wrap{padding:2rem 1rem 3rem}.article-body{padding:1.35rem}.sidebar,.next-links{grid-template-columns:1fr}}
+footer a{color:#e2ebe9}
+.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
+
+@media(max-width:900px){
+  .content-grid{grid-template-columns:1fr}
+  .sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+  .side-card{margin:0}
+}
+@media(max-width:720px){
+  .nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}
+  nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}
+  .article-hero{padding:3.6rem 1rem 3rem}
+  .page-wrap{padding:2rem 1rem 3rem}
+  .article-body{padding:1.35rem}
+  .sidebar,.next-links{grid-template-columns:1fr}
+}
 </style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Débuter en domotique : par quoi commencer quand on n’y connaît rien ?", "description": "Guide pratique pour débuter en domotique : définir son besoin, choisir une architecture simple, éviter les pièges et construire une installation évolutive et sûre.", "inLanguage": "fr-FR", "mainEntityOfPage": "https://domorepere.fr/article-1.html", "author": {"@type": "Person", "name": "Yohann DESCAMPS"}, "publisher": {"@type": "Organization", "name": "DomoRepère", "url": "https://domorepere.fr/"}}</script>
-</head><body>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Débuter en domotique : par quoi commencer quand on n’y connaît rien ?",
+  "description":"Comment débuter en domotique sans acheter n’importe quoi ? Besoins, protocoles, premiers équipements, pièges à éviter et méthode pour construire une installation évolutive.",
+  "inLanguage":"fr-FR",
+  "mainEntityOfPage":"https://domorepere.fr/article-1.html",
+  "dateModified":"2026-08-26",
+  "author":{"@type":"Person","name":"Yohann DESCAMPS"},
+  "publisher":{"@type":"Organization","name":"DomoRepère","url":"https://domorepere.fr/"}
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"Faut-il une box domotique pour commencer ?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Non. Quelques équipements Wi-Fi ou un kit autonome peuvent suffire pour un premier besoin. Une box ou un contrôleur devient surtout intéressant lorsque l’installation grandit et que l’on veut centraliser plusieurs marques, protocoles ou automatisations."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"Quel protocole choisir pour débuter en domotique ?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Il n’existe pas un protocole idéal pour tous les logements. Le Wi-Fi peut convenir à quelques appareils simples, tandis que Zigbee est particulièrement adapté à de nombreux capteurs et équipements basse consommation. Matter améliore l’interopérabilité entre écosystèmes et peut fonctionner notamment sur Wi-Fi, Ethernet ou Thread."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"Peut-on commencer la domotique avec un petit budget ?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Oui. Il est préférable de commencer par un besoin précis avec un ou deux équipements utiles plutôt que d’acheter immédiatement une installation complète."
+      }
+    }
+  ]
+}
+</script>
+</head>
+
+<body>
 
 <header class="site-header">
   <div class="nav-container">
-    <a href="index.html" class="logo"><img src="logo.png" alt="Logo DomoRepère"><span>Domo<strong>Repère</strong></span></a>
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="Logo DomoRepère">
+      <span>Domo<strong>Repère</strong></span>
+    </a>
     <nav aria-label="Navigation principale">
       <ul>
         <li><a href="index.html">Accueil</a></li>
         <li><a href="index.html#quiz">Guide interactif</a></li>
         <li><a class="active" href="articles.html">Guides &amp; articles</a></li>
-        <li><a class="" href="mon-installation.html">Le Lab</a></li>
+        <li><a href="mon-installation.html">Le Lab</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
     </nav>
   </div>
 </header>
+
 <main>
-<section class="article-hero"><div class="article-hero-inner">
-<div class="breadcrumb"><a href="index.html">Accueil</a> › <a href="articles.html">Guides</a> › Bien débuter</div>
-<div class="eyebrow">Bien débuter • méthode • choix</div>
-<h1>Débuter en domotique : par quoi commencer quand on n’y connaît rien ?</h1>
-<p class="lead">Une méthode simple et progressive pour partir d’un besoin concret, choisir une base cohérente et éviter l’empilement d’applications et d’écosystèmes.</p>
-<div class="meta"><span>⏱️ 7 min</span><span>🗓️ Mis à jour en août 2026</span><span>📚 Bien débuter</span></div>
-</div></section>
-<div class="page-wrap"><div class="content-grid"><div class="article-shell">
+
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Accueil</a> › <a href="articles.html">Guides</a> › Bien débuter
+    </div>
+    <div class="eyebrow">Bien débuter • méthode • choix</div>
+    <h1>Débuter en domotique : par quoi commencer quand on n’y connaît rien ?</h1>
+    <p class="lead">Pas besoin de transformer la maison en laboratoire. Le bon départ, c’est un besoin concret, quelques choix cohérents et une installation capable de grandir sans devenir une collection d’applications.</p>
+    <div class="meta">
+      <span>⏱️ 10 min</span>
+      <span>🗓️ Mis à jour le 26 août 2026</span>
+      <span>📚 Bien débuter</span>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrap">
+<div class="content-grid">
+
+<div class="article-shell">
+
 <article class="article-body">
-<p>Quand on entend parler de « maison connectée », on imagine souvent un système ultra-complexe, des kilomètres de câbles et des factures à quatre chiffres. La réalité est bien plus accessible : aujourd'hui, vous pouvez automatiser vos premiers équipements en quelques minutes, sans casser vos murs ni faire appel à un chantier lourd.</p>
-<p>Voici la méthode pas à pas pour démarrer sereinement, faire les bons choix stratégiques et éviter les pièges classiques du débutant.</p>
-<h2 id="1-definir-son-besoin-avant-de-choisir-le-materiel">1. Définir son besoin avant de choisir le matériel</h2>
-<p>L'erreur la plus fréquente consiste à acheter un équipement en promotion sans savoir où il s'intégrera dans le logement. Posez-vous d'abord la bonne question : <strong>quel problème quotidien souhaitez-vous résoudre ?</strong></p>
-<ul>
-<li><strong>Économies d'énergie :</strong> Couper automatiquement les appareils en veille ou réguler le chauffage pendant vos absences.</li>
-<li><strong>Confort &amp; Ambiance :</strong> Éteindre toutes les lumières depuis son lit ou simuler une présence.</li>
-<li><strong>Tranquillité &amp; Sécurité :</strong> Recevoir une alerte sur son téléphone en cas de fuite d'eau, de détection de fumée ou d'ouverture de porte.</li>
-</ul>
+
+<p>Quand on découvre la domotique, le plus difficile n’est pas de trouver du matériel. C’est exactement l’inverse : il y en a partout. Ampoules Wi-Fi, capteurs Zigbee, prises Matter, box domotiques, assistants vocaux… et chaque fabricant explique évidemment que sa solution est la plus simple.</p>
+
+<p>Résultat : on peut très vite acheter trois appareils qui fonctionnent parfaitement chacun de leur côté, mais qui obligent à ouvrir trois applications différentes pour éteindre la maison. Techniquement, c’est connecté. Au quotidien, c’est surtout pénible.</p>
+
+<p>La bonne méthode consiste donc à faire les choses dans l’autre sens : <strong>partir de ce que tu veux améliorer dans la maison, puis choisir la technologie qui répond au besoin.</strong> Pas l’inverse.</p>
+
 <div class="highlight-box">
-<strong>Conseil DomoRepère :</strong> Commencez toujours par un projet très simple (ex: une prise connectée pour un lampadaire ou la machine à café) avant de chercher à tout automatiser d'un coup.
-      </div>
-<h2 id="2-les-3-niveaux-d-installation-du-plus-simple-au-plus-avance">2. Les 3 niveaux d'installation (du plus simple au plus avancé)</h2>
-<h3 id="niveau-1-les-solutions-plug-play-sans-aucun-travaux">Niveau 1 : Les solutions Plug &amp; Play (Sans aucun travaux)</h3>
-<p>Idéal pour les locataires ou les personnes peu bricoleuses. Vous achetez une prise ou une ampoule connectée Wi-Fi, vous la branchez, vous scannez un QR code sur votre smartphone et c'est fonctionnel en 2 minutes.</p>
-<h3 id="niveau-2-les-ecosystemes-sans-fil-avec-passerelle-zigbee-matter">Niveau 2 : Les écosystèmes sans fil avec passerelle (Zigbee / Matter)</h3>
-<p>C'est le choix recommandé par DomoRepère pour une maison évolutive. Les capteurs (ouverture, température, présence) fonctionnent sur pile et communiquent avec un boîtier central (la box domotique) via un réseau très économe en énergie.</p>
-<h3 id="niveau-3-les-modules-encastres-dans-les-interrupteurs">Niveau 3 : Les modules encastrés dans les interrupteurs</h3>
-<p>Destiné aux propriétaires ou bricoleurs à l'aise avec la sécurité électrique. On place un petit module derrière les interrupteurs existants pour conserver l'esthétique d'origine tout en domotisant l'éclairage ou les volets roulants.</p>
-<h2 id="3-quels-equipements-acheter-en-premier">3. Quels équipements acheter en premier ?</h2>
-<p>Pour un budget de démarrage maîtrisé (entre 30 € et 100 €), voici la sélection idéale :</p>
-<ol>
-<li><strong>Une ou deux prises connectées avec mesure de consommation :</strong> Idéal pour couper les veilles audiovisuelles et mesurer précisément la dépense énergétique de vos appareils.</li>
-<li><strong>Un kit d'éclairage connecté (Ampoules + Télécommande) :</strong> Permet de créer des ambiances lumineuses et de programmer l'allumage/extinction automatique.</li>
-<li><strong>Un pack de démarrage Zigbee (Box + Capteurs) :</strong> La première vraie étape vers des automatismes intelligents (ex: allumer la lumière quand une porte s'ouvre).</li>
-</ol>
-<div style="text-align: center; margin: 2.5rem 0;">
-<a class="btn btn-affiliate" href="https://www.domadoo.fr/fr/?domid=147" rel="noopener sponsored" target="_blank">Découvrir les kits de démarrage sur Domadoo</a>
+  <strong>La règle DomoRepère :</strong> on simplifie le langage, pas le fond. Tu n’as pas besoin de devenir spécialiste des protocoles pour commencer, mais comprendre deux ou trois notions maintenant peut t’éviter de devoir tout recommencer plus tard.
 </div>
-<h2 id="les-3-pieges-a-eviter-absolument">Les 3 pièges à éviter absolument</h2>
+
+<!-- VISUEL 1 À AJOUTER
+Suggestion : illustration DomoRepère "Besoin → solution → protocole → matériel"
+Nom conseillé : debuter-domotique-methode-domorepere.webp
+Alt conseillé : "Méthode DomoRepère pour débuter en domotique : partir du besoin avant de choisir le matériel"
+-->
+
+<h2 id="1-definir-son-besoin">1. Commence par le besoin, pas par le rayon domotique</h2>
+
+<p>Avant de choisir une marque ou un protocole, pose-toi une question beaucoup plus simple : <strong>qu’est-ce que je veux réellement améliorer ?</strong></p>
+
+<p>Quelques exemples :</p>
+
 <ul>
-<li><strong>Multiplier les applications mobiles :</strong> Si chaque ampoule et chaque prise nécessite sa propre application, l'utilisation devient vite un calvaire. Privilégiez un protocole unifié comme le Zigbee.</li>
-<li><strong>Oublier le contrôle manuel :</strong> Votre maison doit continuer de fonctionner normalement si internet coupe ou si votre téléphone n'a plus de batterie. Gardez toujours des télécommandes ou interrupteurs physiques.</li>
-<li><strong>Négliger la sécurité électrique :</strong> Avant d'ouvrir un boîtier mural ou de démonter un interrupteur, la coupure au disjoncteur général et la vérification au VAT restent obligatoires.</li>
+  <li><strong>Confort :</strong> fermer plusieurs volets en une seule action, éteindre la maison depuis le lit, adapter l’éclairage selon l’heure.</li>
+  <li><strong>Énergie :</strong> suivre la consommation d’un appareil, baisser le chauffage en cas d’absence, éviter de chauffer une pièce inutilement.</li>
+  <li><strong>Surveillance :</strong> savoir qu’une porte est restée ouverte, être prévenu d’une fuite d’eau, contrôler l’état du garage à distance.</li>
+  <li><strong>Automatisation :</strong> allumer une circulation seulement lorsqu’elle est utile, fermer les volets au coucher du soleil, déclencher une ambiance quand la maison passe en mode soirée.</li>
 </ul>
-<h2 id="en-resume">En résumé</h2>
-<p>Commencez petit, privilégiez les équipements réutilisables et évolutifs, et assurez-vous que la technologie reste un confort au quotidien pour l'ensemble du foyer !</p>
-</article>
-<div class="next-links"><a class="next-card" href="article-2.html"><span>Guide suivant</span><strong>Zigbee, Z-Wave, Matter ou Wi-Fi : que choisir ? →</strong></a><a class="next-card" href="securite-electrique.html"><span>À lire aussi</span><strong>Sécurité électrique en domotique →</strong></a></div>
+
+<p>Ce choix paraît évident, mais il change tout. « Je veux une maison connectée » n’est pas un projet. « Je veux que les volets se ferment automatiquement le soir tout en conservant les commandes murales » en est un.</p>
+
+<div class="field-note">
+  <strong>Vu sur le terrain :</strong> les installations les plus pénibles ne sont pas toujours les plus complexes. Ce sont souvent celles qui ont grandi par achats successifs : une prise parce qu’elle était en promotion, deux ampoules d’une autre marque, une caméra avec sa propre application… Puis on cherche après coup comment faire travailler tout ce petit monde ensemble.
 </div>
+
+<h2 id="2-choisir-son-niveau">2. Choisis le bon niveau de départ</h2>
+
+<p>Tout le monde n’a pas besoin de Home Assistant, d’un serveur, d’un tableau électrique rempli de modules ou de dix scénarios dès la première semaine. Pour simplifier, on peut distinguer trois niveaux.</p>
+
+<div class="comparison-table-wrapper">
+<table class="comparison-table">
+  <thead>
+    <tr>
+      <th>Niveau</th>
+      <th>Pour quoi faire ?</th>
+      <th>À retenir</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Quelques objets connectés</strong></td>
+      <td>Une prise, une lampe, un petit besoin isolé.</td>
+      <td>Simple et peu coûteux, mais attention à ne pas multiplier les applications.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Un écosystème cohérent</strong></td>
+      <td>Capteurs, éclairages, volets, chauffage, automatismes.</td>
+      <td>On commence à réfléchir au protocole, à la passerelle et à l’évolutivité.</td>
+    </tr>
+    <tr>
+      <td><strong>3. Une installation centralisée</strong></td>
+      <td>Plusieurs technologies, scénarios avancés, fonctionnement local, maison complète.</td>
+      <td>Une vraie plateforme domotique devient pertinente, mais demande davantage de configuration.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="niveau-1">Niveau 1 : un premier objet connecté</h3>
+
+<p>Pour commander un lampadaire ou mesurer la consommation d’un appareil, une prise connectée peut suffire. Pas besoin d’acheter immédiatement une box domotique « au cas où ».</p>
+
+<p>Le Wi-Fi est pratique pour ce genre de démarrage : l’appareil rejoint directement le réseau de la maison et se pilote généralement depuis l’application du fabricant. C’est simple, mais cette simplicité a une limite : si chaque nouvel équipement apporte sa propre application et son propre cloud, l’installation devient vite morcelée.</p>
+
+<h3 id="niveau-2">Niveau 2 : construire un petit écosystème</h3>
+
+<p>Dès que tu veux multiplier les capteurs, les commandes et les automatismes, il devient intéressant de penser <strong>réseau</strong> plutôt qu’appareil par appareil.</p>
+
+<p>C’est ici que Zigbee est souvent pertinent. Il est conçu pour des communications peu gourmandes en énergie et utilise un réseau maillé : certains équipements alimentés en permanence peuvent relayer les communications. C’est particulièrement intéressant pour des capteurs sur pile.</p>
+
+<p>Matter répond à une autre question : <strong>l’interopérabilité entre appareils et écosystèmes.</strong> Un appareil Matter peut communiquer sur des réseaux IP comme le Wi-Fi ou Ethernet, ou utiliser Thread pour les équipements basse consommation. Matter n’est donc pas simplement « une nouvelle version de Zigbee ».</p>
+
+<p>Si tout cela paraît déjà un peu chargé, retiens simplement ceci : <strong>le logo sur la boîte ne suffit pas.</strong> Il faut regarder comment l’appareil communique, avec quoi il sera piloté et ce qu’il lui faut pour fonctionner.</p>
+
+<p><a href="article-2.html"><strong>→ On détaille justement Wi-Fi, Zigbee, Z-Wave, Thread et Matter dans le guide des protocoles.</strong></a></p>
+
+<!-- VISUEL 2 À AJOUTER
+Suggestion : schéma simple montrant :
+Wi-Fi → routeur
+Zigbee → coordinateur + réseau maillé
+Matter over Wi-Fi / Matter over Thread
+Nom conseillé : wifi-zigbee-thread-matter-schema.webp
+Alt conseillé : "Différence simplifiée entre Wi-Fi, Zigbee, Thread et Matter dans une installation domotique"
+-->
+
+<h3 id="niveau-3">Niveau 3 : intégrer la domotique dans l’installation électrique</h3>
+
+<p>Les modules encastrés, relais, micromodules de volets ou commandes au tableau permettent d’aller plus loin tout en conservant les interrupteurs existants. C’est souvent beaucoup plus agréable à l’usage qu’une maison qui dépend entièrement du téléphone.</p>
+
+<p>Mais à partir du moment où l’on intervient derrière un appareillage ou dans un tableau, on ne parle plus seulement d’informatique. On touche au 230 V et les règles de sécurité électrique s’appliquent.</p>
+
+<div class="alert-danger">
+  <h4>⚠️ Domotique ne veut pas dire basse tension</h4>
+  <p>Un micromodule peut être minuscule et être pourtant raccordé directement au secteur. Si tu ne maîtrises pas la mise hors tension, la vérification d’absence de tension ou l’identification des conducteurs, fais intervenir une personne compétente. Le but est d’automatiser la maison, pas de prendre un risque pour économiser une intervention.</p>
+  <p style="margin-bottom:0"><a href="securite-electrique.html"><strong>Lire le guide DomoRepère sur la sécurité électrique →</strong></a></p>
+</div>
+
+<h2 id="3-premier-projet">3. Pour le premier projet, choisis quelque chose de vraiment utile</h2>
+
+<p>Une première automatisation réussie vaut mieux qu’un panier de quinze objets connectés. L’idéal est un projet que toute la maison comprend immédiatement.</p>
+
+<p>Par exemple :</p>
+
+<ol>
+  <li><strong>Une prise avec mesure de consommation</strong> pour comprendre ce que consomme réellement un appareil.</li>
+  <li><strong>Un capteur d’ouverture</strong> pour savoir si une porte ou une fenêtre est restée ouverte.</li>
+  <li><strong>Un éclairage automatisé</strong> dans un passage, à condition de conserver une commande simple et évidente.</li>
+  <li><strong>Un volet roulant</strong> si tu disposes déjà d’un écosystème compatible et que tu veux apprendre à créer des automatismes horaires ou liés au soleil.</li>
+</ol>
+
+<div class="question-box">
+  <p><strong>Le bon test :</strong></p>
+  <p>Si tu dois expliquer pendant cinq minutes à quelqu’un comment allumer la lumière après ton automatisation, c’est probablement que tu l’as rendue trop compliquée.</p>
+</div>
+
+<p>La domotique doit ajouter une couche de confort. Elle ne doit pas supprimer le fonctionnement normal de la maison.</p>
+
+<!-- VISUEL 3 À AJOUTER
+Idéalement une PHOTO TERRAIN :
+- prise connectée avec mesure de consommation,
+- capteur d'ouverture installé,
+- ou micromodule dans une boîte d'encastrement.
+Nom conseillé : premier-projet-domotique-photo-terrain.webp
+Alt à adapter à la photo réelle.
+-->
+
+<h2 id="4-avant-achat">4. Avant chaque achat, vérifie ces cinq points</h2>
+
+<p>C’est probablement la partie la moins spectaculaire de la domotique. C’est aussi celle qui évite le plus d’erreurs.</p>
+
+<div class="checklist">
+  <div class="checklist-item">
+    <span>✓</span>
+    <div><strong>Quel problème cet appareil va-t-il résoudre ?</strong><br>Si la réponse est seulement « il a l’air sympa », attends avant de commander.</div>
+  </div>
+  <div class="checklist-item">
+    <span>✓</span>
+    <div><strong>Comment communique-t-il ?</strong><br>Wi-Fi, Zigbee, Z-Wave, Thread, Bluetooth… ce choix détermine souvent le matériel nécessaire autour.</div>
+  </div>
+  <div class="checklist-item">
+    <span>✓</span>
+    <div><strong>A-t-il besoin d’une passerelle ?</strong><br>Un prix attractif l’est beaucoup moins si tu découvres après la livraison qu’il manque un hub à 60 €.</div>
+  </div>
+  <div class="checklist-item">
+    <span>✓</span>
+    <div><strong>Fonctionne-t-il encore sans Internet ?</strong><br>Ce n’est pas indispensable pour tous les usages, mais c’est une vraie question pour les fonctions importantes de la maison.</div>
+  </div>
+  <div class="checklist-item">
+    <span>✓</span>
+    <div><strong>Est-il compatible avec ce que tu possèdes déjà ?</strong><br>« Compatible Alexa » ou « compatible Google » ne veut pas forcément dire qu’il s’intégrera comme tu l’imagines dans le reste de l’installation.</div>
+  </div>
+</div>
+
+<h2 id="5-pieges">5. Les pièges qui reviennent le plus souvent</h2>
+
+<h3>Piège n°1 : acheter d’abord, réfléchir à l’architecture ensuite</h3>
+
+<p>C’est le plus classique. Au début, tout fonctionne. Puis les automatismes deviennent plus nombreux et on découvre que certains appareils ne remontent pas les bonnes informations, ne peuvent pas être pilotés localement ou nécessitent leur cloud.</p>
+
+<p>Tu n’as pas besoin de dessiner l’architecture complète de ta future maison connectée avant d’acheter une prise. En revanche, dès le troisième ou quatrième équipement, commence à regarder où tu vas.</p>
+
+<h3>Piège n°2 : croire qu’une seule technologie est forcément la meilleure</h3>
+
+<p>Une bonne installation peut mélanger plusieurs technologies. Wi-Fi pour certains équipements, Zigbee pour des capteurs, Thread pour d’autres appareils, KNX dans une construction câblée… Le but n’est pas de collectionner les protocoles, mais il n’y a pas non plus de médaille à gagner pour avoir une maison 100 % Zigbee.</p>
+
+<h3>Piège n°3 : tout faire dépendre du smartphone</h3>
+
+<p>Le téléphone est une excellente interface. Ce n’est pas un interrupteur mural.</p>
+
+<p>Une personne qui entre dans une pièce doit pouvoir comprendre comment allumer la lumière sans connaître le mot « domotique ». Une panne Internet, un téléphone déchargé ou une mise à jour ne doivent pas rendre les fonctions essentielles de la maison inutilisables.</p>
+
+<h3>Piège n°4 : confondre domotique et système de sécurité</h3>
+
+<p>Des capteurs domotiques peuvent être très utiles pour vérifier une ouverture, simuler une présence ou recevoir une information. Mais une installation domotique généraliste ne remplace pas automatiquement un véritable système d’alarme conçu et installé pour cet usage.</p>
+
+<p>Pour les fonctions de sécurité importantes, je préfère séparer les rôles : <strong>la domotique peut enrichir le fonctionnement de la maison, mais elle ne doit pas devenir le seul rempart.</strong></p>
+
+<h2 id="6-faut-il-box">6. Faut-il acheter une box domotique dès le début ?</h2>
+
+<p>Non. Et c’est justement une dépense que je ne conseillerais pas « par principe ».</p>
+
+<p>Si tu veux seulement programmer un lampadaire ou suivre une consommation, reste simple. En revanche, une plateforme centrale devient intéressante lorsque tu veux :</p>
+
+<ul>
+  <li>rassembler plusieurs marques ou protocoles ;</li>
+  <li>créer des automatismes plus avancés ;</li>
+  <li>limiter la dépendance à plusieurs applications ;</li>
+  <li>faire davantage de choses localement ;</li>
+  <li>faire évoluer progressivement toute la maison.</li>
+</ul>
+
+<p>À ce stade, des solutions grand public ou des plateformes plus ouvertes comme Home Assistant peuvent prendre leur sens. Mais ce choix mérite un article à lui seul : la bonne solution dépend énormément de ton niveau, du temps que tu veux y consacrer et du résultat recherché.</p>
+
+<div class="affiliate-box">
+  <div class="affiliate-box-title">Besoin de regarder le matériel disponible ?</div>
+  <p>Tu peux parcourir les équipements chez notre partenaire Domadoo, mais garde la méthode en tête : <strong>besoin → compatibilité → solution → matériel.</strong> Pas l’inverse.</p>
+  <p style="font-size:.84rem;color:#725b34">Lien partenaire : DomoRepère peut percevoir une commission sur certains achats, sans surcoût pour toi.</p>
+  <a class="btn btn-affiliate" href="https://www.domadoo.fr/fr/?domid=147" rel="noopener sponsored" target="_blank">Voir les équipements chez Domadoo</a>
+</div>
+
+<h2 id="7-plan-depart">7. Le plan de départ que je conseillerais</h2>
+
+<p>Si tu pars vraiment de zéro, je ferais simplement ceci :</p>
+
+<ol>
+  <li><strong>Choisir un besoin concret.</strong></li>
+  <li><strong>Vérifier les contraintes du logement</strong> : location ou propriété, Wi-Fi, installation électrique, équipements déjà présents.</li>
+  <li><strong>Choisir un premier appareil ou un petit écosystème cohérent.</strong></li>
+  <li><strong>Conserver une commande manuelle évidente.</strong></li>
+  <li><strong>Utiliser l’installation quelques semaines avant de l’agrandir.</strong></li>
+  <li><strong>Seulement ensuite, réfléchir à la centralisation et aux automatismes plus poussés.</strong></li>
+</ol>
+
+<p>Cette dernière étape est importante. Quand on découvre la domotique, on imagine souvent les scénarios qu’on pourrait créer. Après quelques semaines, on découvre surtout ceux dont on a réellement besoin. Ce ne sont pas toujours les mêmes.</p>
+
+<h2 id="faq">Questions fréquentes</h2>
+
+<h3>Faut-il une box domotique pour commencer ?</h3>
+<p>Non. Quelques équipements Wi-Fi ou un kit autonome peuvent parfaitement suffire pour un premier besoin. Une box devient surtout intéressante lorsque l’installation grandit et que tu veux centraliser plusieurs marques, protocoles ou automatismes.</p>
+
+<h3>Quel protocole choisir pour débuter ?</h3>
+<p>Il n’existe pas un protocole idéal pour tous les logements. Le Wi-Fi peut convenir à quelques appareils simples. Zigbee est particulièrement intéressant pour de nombreux capteurs et équipements basse consommation. Matter améliore l’interopérabilité entre écosystèmes et peut fonctionner notamment sur Wi-Fi, Ethernet ou Thread. Le bon choix dépend donc surtout de ton projet.</p>
+
+<h3>Quel budget prévoir pour commencer ?</h3>
+<p>Tu peux commencer avec quelques dizaines d’euros. Le plus important n’est pas le montant du premier achat, mais d’éviter d’acheter du matériel que tu devras remplacer lorsque l’installation grandira.</p>
+
+<h2 id="en-resume">En résumé</h2>
+
+<p>Pour bien débuter en domotique, tu n’as pas besoin de connaître tous les protocoles ni de prévoir toute la maison dès le premier jour.</p>
+
+<p><strong>Commence par un problème réel, choisis une solution simple, vérifie sa compatibilité et garde toujours un fonctionnement manuel évident.</strong> Ensuite seulement, fais évoluer l’installation.</p>
+
+<p>La meilleure domotique n’est pas celle qui contient le plus d’équipements. C’est celle qu’on finit par utiliser sans même y penser.</p>
+
+</article>
+
+<div class="next-links">
+  <a class="next-card" href="article-2.html">
+    <span>Guide suivant</span>
+    <strong>Zigbee, Z-Wave, Matter, Thread ou Wi-Fi : que choisir ? →</strong>
+  </a>
+  <a class="next-card" href="securite-electrique.html">
+    <span>À lire aussi</span>
+    <strong>Sécurité électrique en domotique →</strong>
+  </a>
+</div>
+
+</div>
+
 <aside class="sidebar" aria-label="Navigation de l'article">
-<div class="side-card"><h2>Dans ce guide</h2><ul><li><a href="#1-definir-son-besoin-avant-de-choisir-le-materiel">1. Définir son besoin avant de choisir le matériel</a></li><li><a href="#2-les-3-niveaux-d-installation-du-plus-simple-au-plus-avance">2. Les 3 niveaux d&#x27;installation (du plus simple au plus avancé)</a></li><li><a href="#3-quels-equipements-acheter-en-premier">3. Quels équipements acheter en premier ?</a></li><li><a href="#les-3-pieges-a-eviter-absolument">Les 3 pièges à éviter absolument</a></li><li><a href="#en-resume">En résumé</a></li></ul></div>
-<div class="side-card"><h2>Besoin d’un point de départ ?</h2><p>Le diagnostic DomoRepère aide à déterminer une orientation adaptée à votre logement, votre niveau et votre priorité.</p><a class="btn btn-primary" style="margin-top:.8rem;width:100%" href="index.html#quiz">Lancer le diagnostic</a></div>
-</aside></div></div>
+  <div class="side-card">
+    <h2>Dans ce guide</h2>
+    <ul>
+      <li><a href="#1-definir-son-besoin">1. Commencer par le besoin</a></li>
+      <li><a href="#2-choisir-son-niveau">2. Choisir son niveau</a></li>
+      <li><a href="#3-premier-projet">3. Choisir un premier projet</a></li>
+      <li><a href="#4-avant-achat">4. Vérifier avant d’acheter</a></li>
+      <li><a href="#5-pieges">5. Éviter les pièges</a></li>
+      <li><a href="#6-faut-il-box">6. Faut-il une box ?</a></li>
+      <li><a href="#7-plan-depart">7. Le plan de départ</a></li>
+      <li><a href="#faq">Questions fréquentes</a></li>
+    </ul>
+  </div>
+
+  <div class="side-card">
+    <h2>Besoin d’un point de départ ?</h2>
+    <p>Le diagnostic DomoRepère aide à déterminer une orientation adaptée à ton logement, ton niveau et ta priorité.</p>
+    <a class="btn btn-primary" style="margin-top:.8rem;width:100%" href="index.html#quiz">Lancer le diagnostic</a>
+  </div>
+</aside>
+
+</div>
+</div>
+
 </main>
+
 <footer>
   <p>© 2026 DomoRepère. Édité par Yohann DESCAMPS. Tous droits réservés.</p>
-  <p style="margin-top:.45rem"><a href="index.html#contact">Contact</a> — <a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p>
+  <p style="margin-top:.45rem">
+    <a href="index.html#contact">Contact</a> —
+    <a href="mentions-legales.html">Mentions légales</a> —
+    <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+  </p>
   <div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div>
-</footer></body></html>
+</footer>
+
+</body>
+</html>
