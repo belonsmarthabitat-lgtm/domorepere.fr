@@ -1,0 +1,50 @@
+/* Accueil V2 — hiérarchie plus éditoriale, sans modifier la charte DomoRepère. */
+.hero-content{max-width:1040px}
+.hero h1{max-width:900px;margin-left:auto;margin-right:auto}
+.hero-proof{display:flex;justify-content:center;gap:.65rem;flex-wrap:wrap;margin:1.35rem auto 0}
+.hero-proof span{display:inline-flex;align-items:center;gap:.45rem;padding:.48rem .72rem;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(255,255,255,.07);color:#e8efee;font-size:.8rem;font-weight:650}
+.hero-proof b{color:#e5c995}
+
+.universe-card{position:relative;overflow:hidden;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.universe-card::after{content:"";position:absolute;inset:auto -22px -30px auto;width:64px;height:64px;border:1px solid rgba(13,102,93,.12);border-radius:50%}
+.universe-card:hover{transform:translateY(-3px);border-color:#bdd7d2;box-shadow:0 14px 34px rgba(39,52,54,.1)}
+
+.article-grid{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.article-card{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.article-card:hover{transform:translateY(-4px);border-color:#bdd7d2;box-shadow:0 16px 36px rgba(39,52,54,.11);color:inherit}
+.article-card.featured .article-visual{background:linear-gradient(135deg,#273436,#0d665d);color:#fff}
+.article-content small{display:block;color:var(--primary);font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
+
+.social-wink{display:grid;grid-template-columns:auto 86px minmax(0,320px);justify-content:center;align-items:center;gap:.7rem 1rem;max-width:760px;margin:1.5rem auto .4rem;padding:1.15rem 1.25rem;border:1px dashed rgba(229,201,149,.34);border-radius:16px;background:rgba(255,255,255,.035)}
+.social-wink-icons{display:flex;gap:.55rem}
+.social-icon{width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.18);border-radius:12px;background:#fff;color:var(--secondary);box-shadow:0 6px 18px rgba(0,0,0,.14);transform:rotate(-2deg)}
+.social-icon:nth-child(2){transform:rotate(2deg)}
+.social-icon:nth-child(3){transform:rotate(-1deg)}
+.social-icon:nth-child(4){transform:rotate(3deg)}
+.social-icon svg{width:23px;height:23px;display:block}
+.social-arrow{width:86px;height:42px;color:#dfc596;overflow:visible}
+.social-arrow path{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.social-wink p{font-family:'Caveat',cursive;color:#f4dfb5;font-size:1.38rem;line-height:1.05;text-align:left}
+
+@media(max-width:768px){
+  header .nav-container{flex-direction:row;align-items:center;padding:.55rem .85rem;gap:.75rem}
+  header .logo img{height:38px}
+  header .logo{font-size:1.02rem}
+  header nav{min-width:0;overflow-x:auto;scrollbar-width:none}
+  header nav::-webkit-scrollbar{display:none}
+  header nav ul{flex-wrap:nowrap;justify-content:flex-start;width:max-content;gap:.4rem}
+  header nav a{display:block;padding:.5rem .68rem;border-radius:999px;background:var(--bg-light);font-size:.78rem;white-space:nowrap}
+  header nav a.active{background:var(--primary-soft)}
+  .hero-proof{gap:.45rem}
+}
+
+@media(max-width:620px){
+  .social-wink{grid-template-columns:1fr;justify-items:center;gap:.65rem;padding:1rem}
+  .social-arrow{transform:rotate(90deg);width:60px;height:32px}
+  .social-wink p{text-align:center;font-size:1.3rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .universe-card,.article-card{transition:none}
+  .universe-card:hover,.article-card:hover{transform:none}
+}
