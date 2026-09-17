@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Z-Wave en domotique : fonctionnement, avantages et compatibilité en 2026 — DomoRepère</title>
+<meta name="description" content="Z-Wave en domotique en 2026 : fonctionnement du réseau, 868 MHz, Z-Wave Plus, Long Range, compatibilité Home Assistant et cas où ce protocole reste pertinent.">
+<link rel="canonical" href="https://domorepere.fr/z-wave-domotique.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0d665d">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="DomoRepère">
+<meta property="og:title" content="Z-Wave en domotique : fonctionnement, avantages et compatibilité en 2026 — DomoRepère">
+<meta property="og:description" content="Un guide complet et sans parti pris pour comprendre ce que Z-Wave apporte encore en 2026, du mesh classique à Z-Wave Long Range.">
+<meta property="og:url" content="https://domorepere.fr/z-wave-domotique.html">
+<meta property="og:image" content="https://domorepere.fr/assets/brand/social-card.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Z-Wave en domotique : faut-il encore choisir ce protocole en 2026 ?">
+<meta name="twitter:description" content="Réseau, 868 MHz, Z-Wave Plus, Long Range, Home Assistant, avantages et limites : le guide complet DomoRepère.">
+<meta name="twitter:image" content="https://domorepere.fr/assets/brand/social-card.png">
+
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icons/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" sizes="180x180">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#0d665d;--primary-hover:#084f49;--primary-soft:#eaf5f2;
+  --secondary:#273436;--accent:#c9aa72;--accent-soft:#f8f1e5;
+  --bg-light:#f6f8f7;--card-bg:#fff;--text-dark:#273436;--text-main:#3d4b4d;
+  --text-muted:#6d7b7d;--border:#dce5e3;--danger:#a33d36;--danger-bg:#fff4f1;
+  --radius:16px;--shadow:0 8px 24px rgba(39,52,54,.07)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text-main);background:var(--bg-light);line-height:1.72}
+a{color:var(--primary);text-decoration:none;transition:.2s ease}
+a:hover{color:var(--primary-hover)}
+img{max-width:100%;height:auto}
+.site-header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-container{max-width:1200px;margin:0 auto;padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.7rem;color:var(--secondary);font-size:1.2rem;font-weight:800;white-space:nowrap}
+.logo img{height:48px;width:auto;display:block}.logo strong{color:var(--primary)}
+nav ul{display:flex;list-style:none;gap:1.55rem;align-items:center}
+nav a{color:var(--secondary);font-weight:650;font-size:.92rem}
+nav a:hover,nav a.active{color:var(--primary)}
+.article-hero{background:linear-gradient(132deg,#273436 0%,#1f3434 48%,#0d665d 120%);color:#fff;padding:4.6rem 1.5rem 3.6rem;position:relative;overflow:hidden}
+.article-hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid rgba(201,170,114,.28);right:-160px;top:-210px}
+.article-hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{font-size:.86rem;color:#c6d2d1;margin-bottom:1.1rem}.breadcrumb a{color:#e6cf9f}
+.eyebrow{color:#e5c995;font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:.75rem}
+h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;max-width:900px}
+.lead{margin-top:1rem;max-width:800px;color:#d3dddd;font-size:1.06rem}
+.meta{display:flex;flex-wrap:wrap;gap:.7rem 1rem;margin-top:1.35rem;color:#c5d1cf;font-size:.88rem}
+.author-line{margin-top:.65rem;color:#e6cf9f;font-size:.86rem;font-weight:600}
+.page-wrap{max-width:1100px;margin:0 auto;padding:2.6rem 1.5rem 4rem}
+.content-grid{display:grid;grid-template-columns:minmax(0,760px) 250px;gap:2rem;align-items:start}
+.article-shell{min-width:0}
+.article-body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.2rem}
+.article-body>p:first-child{font-size:1.06rem;color:var(--text-dark)}
+.article-body h2{color:var(--secondary);font-size:1.55rem;line-height:1.25;margin:2.3rem 0 .85rem;padding-top:.2rem;scroll-margin-top:105px}
+.article-body h2:first-of-type{margin-top:1.6rem}
+.article-body h3{color:var(--secondary);font-size:1.15rem;line-height:1.35;margin:1.6rem 0 .55rem;scroll-margin-top:105px}
+.article-body p{margin-bottom:1.1rem}
+.article-body ul,.article-body ol{margin:0 0 1.4rem 1.25rem}
+.article-body li{margin-bottom:.55rem;padding-left:.15rem}
+.highlight-box{background:var(--primary-soft);border:1px solid #cfe7e1;border-left:5px solid var(--primary);border-radius:12px;padding:1.15rem 1.2rem;margin:1.5rem 0}
+.field-note{background:#fbfcfc;border:1px dashed #b8cbc7;border-radius:12px;padding:1.05rem 1.15rem;margin:1.5rem 0}
+.field-note strong{color:var(--primary)}
+.question-box{background:var(--secondary);color:#edf3f2;border-radius:14px;padding:1.35rem;margin:1.7rem 0}
+.question-box strong{color:#efd59f}
+.question-box p:last-child{margin-bottom:0}
+.affiliate-box{background:var(--accent-soft);border:1px solid #ead7b4;border-left:5px solid var(--accent);border-radius:12px;padding:1.2rem;margin:1.5rem 0}
+.affiliate-box-title{color:#725b34;font-weight:800;margin-bottom:.4rem}
+.article-figure{margin:1.8rem 0}
+.article-figure img{display:block;width:100%;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.article-figure figcaption{font-size:.82rem;color:var(--text-muted);margin-top:.55rem;line-height:1.45}
+.comparison-table-wrapper{overflow-x:auto;margin:1.6rem 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.92rem}
+.comparison-table th,.comparison-table td{padding:.75rem .8rem;border:1px solid var(--border);text-align:left;vertical-align:top}
+.comparison-table th{background:var(--primary-soft);color:var(--secondary)}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:.78rem 1rem;border-radius:10px;font-size:.91rem;font-weight:750}
+.btn-affiliate{background:var(--accent);color:var(--secondary)}
+.btn-affiliate:hover{background:#b9975c;color:var(--secondary)}
+.sources{background:var(--bg-light);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-top:1.5rem}
+.sources ul{margin-bottom:0}.sources li{font-size:.9rem}
+.next-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.3rem}
+.next-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow)}
+.next-card span{display:block;color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.next-card strong{color:var(--secondary);line-height:1.35}
+.sidebar{position:sticky;top:88px}
+.side-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.side-card h2{font-size:1rem;color:var(--secondary);margin-bottom:.65rem}
+.side-card ul{list-style:none}.side-card li+li{margin-top:.55rem}
+.side-card a{font-size:.88rem;line-height:1.35}.side-card p{font-size:.88rem;color:var(--text-muted)}
+footer{background:var(--secondary);color:#b8c4c3;padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--accent)}
+footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
+@media(max-width:900px){.content-grid{grid-template-columns:1fr}.sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.side-card{margin:0}}
+@media(max-width:720px){.nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}.article-hero{padding:3.6rem 1rem 3rem}.page-wrap{padding:2rem 1rem 3rem}.article-body{padding:1.35rem}.sidebar,.next-links{grid-template-columns:1fr}}
+</style>
+
+<link rel="stylesheet" href="assets/css/article-layout-v2.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Z-Wave en domotique : faut-il encore choisir ce protocole en 2026 ?",
+  "description":"Z-Wave en domotique en 2026 : fonctionnement du réseau, 868 MHz, Z-Wave Plus, Long Range, compatibilité Home Assistant et cas où ce protocole reste pertinent.",
+  "inLanguage":"fr-FR",
+  "mainEntityOfPage":"https://domorepere.fr/z-wave-domotique.html",
+  "datePublished":"2026-09-10",
+  "dateModified":"2026-09-10",
+  "author":{"@type":"Person","name":"Yohann DESCAMPS"},
+  "publisher":{"@type":"Organization","name":"DomoRepère","url":"https://domorepere.fr/"}
+}
+</script>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="assets/brand/logo.png" alt="Logo DomoRepère"><span>Domo<strong>Repère</strong></span></a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#quiz">Guide interactif</a></li>
+        <li><a class="active" href="articles.html">Guides &amp; articles</a></li>
+        <li><a href="mon-installation.html">Le Lab</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
+</header>
+
+<main>
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> › <a href="articles.html">Guides</a> › Z-Wave</div>
+    <div class="eyebrow">Protocole • réseau • compatibilité</div>
+    <h1>Z-Wave en domotique : faut-il encore choisir ce protocole en 2026 ?</h1>
+    <p class="lead">Zigbee est partout, Matter occupe les fiches marketing et Thread arrive dans de plus en plus d’appareils. Pourtant, Z-Wave continue d’évoluer. Voilà ce qu’il apporte réellement aujourd’hui — et les cas où son surcoût a du sens.</p>
+    <div class="meta"><span>⏱️ 13 min</span><span>🗓️ Mis à jour le 10 septembre 2026</span><span>📚 Protocoles &amp; technologies</span></div>
+    <div class="author-line">Par Yohann DESCAMPS — DomoRepère</div>
+  </div>
+</section>
+
+<div class="page-wrap"><div class="content-grid">
+<div class="article-shell">
+<article class="article-body">
+
+<p>Z-Wave traîne parfois une drôle d’image : pour certains, c’est le protocole domotique sérieux et fiable ; pour d’autres, c’est une technologie plus chère qu’on pourrait remplacer par du Zigbee. Les deux visions contiennent une part de vérité, mais aucune ne suffit pour choisir.</p>
+
+<p>En 2026, Z-Wave n’est ni mort ni devenu indispensable. Il reste un protocole conçu spécifiquement pour la domotique, avec un écosystème certifié, une radio sub-GHz et maintenant une branche <strong>Z-Wave Long Range</strong> qui change une partie de l’architecture réseau. La vraie question est donc simple : <strong>qu’est-ce que Z-Wave apporte que tu peux réellement exploiter dans ton installation ?</strong></p>
+
+<div class="highlight-box">
+<strong>La position DomoRepère :</strong> je ne choisirais pas Z-Wave pour avoir “le meilleur protocole”. Je le choisirais quand sa radio, sa certification, un produit précis ou l’existant du logement justifient réellement le choix.
+</div>
+
+<h2 id="1-quest-ce-que-z-wave">1. Qu’est-ce que le protocole Z-Wave ?</h2>
+
+<p>Z-Wave est un protocole de communication sans fil pensé pour les objets de la maison connectée : interrupteurs, micromodules, prises, capteurs, thermostats, serrures ou encore détecteurs techniques.</p>
+
+<p>Contrairement au Wi‑Fi, son objectif n’est pas de transporter beaucoup de données. On parle surtout de petits messages : allumer, éteindre, transmettre une température, remonter l’état d’une porte ou demander la position d’un volet. C’est précisément pour ce type d’usage qu’il a été conçu.</p>
+
+<p>En Europe, Z-Wave utilise des bandes <strong>sub-GHz autour de 868/869 MHz</strong>. On parle souvent de « Z-Wave 868 MHz », ce qui est utile pour comprendre la différence avec le Wi‑Fi et Zigbee en 2,4 GHz, mais il ne faut pas retenir une fréquence unique valable pour toutes les générations et tous les modes : le plan européen comporte plusieurs canaux et Z-Wave Long Range utilise également son propre plan de fréquences.</p>
+
+<p>Autre particularité importante : Z-Wave s’appuie sur un système de <strong>certification</strong>. La Z-Wave Alliance impose une certification technique et commerciale avant qu’un produit puisse porter les logos d’interopérabilité. Cela ne garantit pas que toutes les interfaces logicielles seront parfaites, mais cela encadre beaucoup plus fortement la conformité radio et protocolaire.</p>
+
+<h2 id="2-fonctionnement-reseau">2. Comment fonctionne un réseau Z-Wave ?</h2>
+
+<h3 id="controleur">Le contrôleur Z-Wave</h3>
+
+<p>Un réseau Z-Wave a besoin d’un contrôleur. Il peut être intégré dans une box domotique ou prendre la forme d’un adaptateur USB relié à une plateforme comme Home Assistant.</p>
+
+<p>Le contrôleur tient la configuration du réseau et permet l’ajout des équipements. C’est donc un point à vérifier avant tout achat : <strong>“compatible Z-Wave” sur le logiciel ne signifie pas qu’une radio Z-Wave est déjà présente dans la machine.</strong></p>
+
+<h3 id="modules-alimentes">Les modules alimentés et le maillage</h3>
+
+<p>Le Z-Wave classique fonctionne en <strong>réseau maillé</strong>. Les nœuds capables de router — typiquement des équipements alimentés en permanence — peuvent relayer les messages entre le contrôleur et des appareils plus éloignés.</p>
+
+<p>C’est là qu’une installation se joue vraiment. Dix capteurs sur pile répartis dans une grande maison ne constituent pas automatiquement un excellent mesh. Quelques prises, micromodules ou relais alimentés et correctement répartis peuvent avoir beaucoup plus d’impact sur la qualité du réseau.</p>
+
+<h3 id="batterie">Les appareils sur batterie</h3>
+
+<p>Les capteurs sur pile passent une grande partie de leur temps en veille pour économiser l’énergie. Ils sont donc des terminaux du réseau, pas la colonne vertébrale que l’on utilise normalement pour relayer les communications.</p>
+
+<figure class="article-figure">
+  <img src="assets/images/articles/z-wave/z-wave-reseau-mesh.webp"
+       alt="Schéma d’un réseau Z-Wave maillé avec contrôleur, appareils alimentés servant de relais et capteurs sur pile"
+       width="1600" height="900" loading="lazy" decoding="async">
+  <figcaption>Dans un réseau Z-Wave classique, la qualité du mesh dépend surtout de la répartition des nœuds capables de relayer les messages.</figcaption>
+</figure>
+
+<h3 id="inclusion-exclusion">Inclusion et exclusion d’un équipement</h3>
+
+<p>Ajouter un appareil à un réseau Z-Wave s’appelle une <strong>inclusion</strong>. Le retirer proprement s’appelle une <strong>exclusion</strong>. Le contrôleur passe dans le mode correspondant, puis l’appareil exécute une séquence définie par son fabricant.</p>
+
+<p>Sur les produits récents, <strong>SmartStart</strong> peut simplifier cette étape avec un QR code : les informations du produit sont enregistrées dans le contrôleur et l’appairage peut ensuite être automatisé au moment où l’appareil rejoint le réseau.</p>
+
+<div class="field-note">
+<strong>À retenir :</strong> l’exclusion n’est pas juste un bouton “supprimer” dans l’interface. Elle retire réellement le nœud du réseau Z-Wave. C’est important avant une réinitialisation, une revente ou un changement de contrôleur.
+</div>
+
+<h2 id="3-frequence-868">3. Pourquoi Z-Wave utilise-t-il une autre fréquence que Zigbee et le Wi‑Fi ?</h2>
+
+<p>Le Wi‑Fi domestique, Bluetooth et la majorité des réseaux Zigbee utilisent notamment la bande des 2,4 GHz. Z-Wave européen travaille dans une bande sub-GHz distincte.</p>
+
+<p>Cela apporte un avantage simple : <strong>le réseau Z-Wave ne partage pas exactement le même espace radio que tous tes appareils 2,4 GHz</strong>. Dans une habitation chargée en Wi‑Fi, Bluetooth et Zigbee, c’est un argument à prendre en compte.</p>
+
+<p>Les fréquences plus basses peuvent également offrir des caractéristiques de propagation intéressantes dans le bâtiment. Mais je ne transformerais pas ça en promesse du type « 868 MHz traverse tous les murs ». Une dalle béton, un coffret métallique, un mur humide ou la position du contrôleur peuvent toujours dégrader fortement une liaison radio.</p>
+
+<div class="question-box">
+<p><strong>868 MHz = portée garantie ? Non.</strong></p>
+<p>La fréquence aide, mais l’implantation du réseau reste déterminante. En radio, le logement réel gagne toujours contre la brochure.</p>
+</div>
+
+<h2 id="4-plus-long-range">4. Z-Wave, Z-Wave Plus et Z-Wave Long Range : quelles différences ?</h2>
+
+<h3>Z-Wave Plus et Z-Wave Plus v2</h3>
+
+<p>« Z-Wave Plus » correspond à des générations de certification plus récentes, avec des exigences et fonctions supplémentaires par rapport aux anciens appareils. Z-Wave Plus v2 a notamment renforcé l’expérience d’installation et généralisé des fonctions comme SmartStart sur les générations concernées.</p>
+
+<p>Le plus important pour l’utilisateur n’est pas de mémoriser chaque version de logo, mais de comprendre que <strong>la certification évolue avec le protocole</strong>. L’Alliance continue d’ailleurs de mettre à jour son programme : la certification a été adaptée au package de spécifications <strong>2026A</strong> en juin 2026.</p>
+
+<h3>Z-Wave Long Range change la topologie</h3>
+
+<p>Z-Wave Long Range — ZWLR — n’est pas simplement « du Z-Wave classique avec une antenne plus forte ». La différence essentielle est la topologie : <strong>le Z-Wave classique repose sur le mesh ; Long Range utilise une architecture en étoile</strong>, dans laquelle les équipements communiquent directement avec le contrôleur.</p>
+
+<p>Cette approche élimine le besoin de répéteurs pour les appareils connectés en Long Range et augmente fortement la capacité d’adressage : l’Alliance annonce jusqu’à <strong>4 000 nœuds</strong> en ZWLR. Elle communique aussi sur une portée théorique pouvant atteindre environ 1,5 mile en visibilité directe à pleine puissance — une valeur de conditions idéales, pas une promesse de portée dans une maison bretonne avec des murs en pierre.</p>
+
+<p>Et surtout : <strong>mesh classique et Long Range peuvent coexister dans une même installation compatible.</strong> Un équipement compatible LR peut donc être intéressant loin du réseau tandis que d’autres appareils continuent de renforcer le mesh traditionnel.</p>
+
+<figure class="article-figure">
+  <img src="assets/images/articles/z-wave/z-wave-classique-vs-long-range.webp"
+       alt="Comparaison entre le réseau maillé Z-Wave classique et la topologie en étoile Z-Wave Long Range"
+       width="1600" height="900" loading="lazy" decoding="async">
+  <figcaption>Z-Wave Long Range n’est pas un mesh plus puissant : sa topologie réseau est différente.</figcaption>
+</figure>
+
+<p>En Europe, Long Range n’est plus seulement une annonce. Le programme de certification prend en charge les fréquences EU Long Range depuis 2025 et le catalogue officiel référence désormais des produits certifiés pour ce plan de fréquences. L’Alliance continue d’en faire un axe de développement en 2026.</p>
+
+<h2 id="5-avantages">5. Les vrais avantages du Z-Wave</h2>
+
+<ul>
+<li><strong>Une radio dédiée à la domotique :</strong> pas de concurrence directe avec le gros du trafic Wi‑Fi / Bluetooth / Zigbee en 2,4 GHz.</li>
+<li><strong>Un protocole mature :</strong> Z-Wave existe depuis longtemps et l’écosystème conserve une forte logique de compatibilité ascendante.</li>
+<li><strong>La certification :</strong> les produits doivent passer un processus de conformité avant de porter les marques Z-Wave.</li>
+<li><strong>La faible consommation :</strong> le protocole est adapté à de nombreux capteurs sur pile.</li>
+<li><strong>Le fonctionnement local :</strong> un réseau Z-Wave n’a pas besoin du cloud pour transporter ses commandes ; l’usage final dépend ensuite du contrôleur et du logiciel choisis.</li>
+<li><strong>Long Range :</strong> il ouvre désormais une autre stratégie pour des appareils éloignés ou des bâtiments où le mesh classique est moins pratique.</li>
+</ul>
+
+<p>Le point sur le fonctionnement local mérite une nuance. Z-Wave lui-même peut parfaitement fonctionner localement, mais si ta box envoie ensuite toutes les commandes vers un cloud pour piloter l’interface, l’expérience globale reste dépendante de cette box. <strong>Le protocole ne corrige pas à lui seul l’architecture du système.</strong></p>
+
+<h2 id="6-limites">6. Les limites du Z-Wave</h2>
+
+<p>Le premier frein est souvent le prix. À fonctionnalité comparable, un produit Z-Wave est fréquemment plus cher qu’un produit Zigbee grand public. La certification et un marché moins massif expliquent en partie cette différence, mais pour l’utilisateur le résultat est surtout visible dans le panier.</p>
+
+<p>Le catalogue est également moins vaste que Zigbee sur certains segments, et il faut obligatoirement prévoir un contrôleur radio adapté.</p>
+
+<p>Autre vigilance : <strong>les fréquences Z-Wave sont régionales.</strong> Acheter un appareil américain à bon prix n’est pas une bonne affaire s’il utilise le plan radio nord-américain. Pour un projet européen, il faut vérifier explicitement la version EU.</p>
+
+<p>Enfin, Z-Wave peut être techniquement excellent et malgré tout inutile dans ton cas. Si tu possèdes déjà un solide réseau Zigbee, une bonne plateforme et tous les équipements dont tu as besoin, créer un second réseau juste pour « avoir du Z-Wave » ajoute surtout de la complexité.</p>
+
+<h2 id="7-appareils">7. Quels appareils trouve-t-on en Z-Wave ?</h2>
+
+<p>L’écosystème couvre la plupart des grandes familles utiles en résidentiel :</p>
+<ul>
+<li>micromodules d’éclairage et relais ;</li>
+<li>modules pour volets roulants ;</li>
+<li>prises connectées ;</li>
+<li>capteurs d’ouverture et de mouvement ;</li>
+<li>détecteurs de fuite ou capteurs environnementaux ;</li>
+<li>thermostats et actionneurs de chauffage ;</li>
+<li>serrures et équipements d’accès ;</li>
+<li>répéteurs et contrôleurs.</li>
+</ul>
+
+<p>Je regarderais donc d’abord <strong>le produit dont tu as besoin</strong>, puis son protocole. Un excellent micromodule Z-Wave qui correspond parfaitement à une contrainte de chantier peut justifier le réseau. À l’inverse, choisir Z-Wave puis chercher à tout prix un appareil dans cette technologie inverse la logique.</p>
+
+<h2 id="8-compatibilite-box">8. Z-Wave est-il compatible avec Home Assistant, Jeedom et les autres box ?</h2>
+
+<h3>Home Assistant</h3>
+
+<p>Home Assistant gère Z-Wave via <strong>Z-Wave JS</strong>. La documentation officielle décrit un réseau comprenant un adaptateur Z-Wave, le serveur Z-Wave JS, l’intégration Home Assistant et les appareils.</p>
+
+<p>Autrement dit : installer Home Assistant ne crée pas magiquement une radio Z-Wave. Il faut un <strong>adaptateur compatible</strong>. Home Assistant recommande actuellement les contrôleurs de génération 800 avec un firmware adapté ; son propre Connect ZWA-2 prend en charge Z-Wave classique et Z-Wave Long Range.</p>
+
+<h3>Jeedom</h3>
+
+<p>Jeedom propose également un plugin Z-Wave JS et demande la sélection d’un contrôleur Z-Wave physique. Même logique : le logiciel assure le pilotage, mais la couche radio doit être réellement présente.</p>
+
+<h3>Et les autres box ?</h3>
+
+<p>Pour une box propriétaire ou multiprotocole, vérifie trois choses : <strong>la radio Z-Wave intégrée, la région supportée et la liste réelle des fonctions du produit</strong>. « Compatible Z-Wave » peut simplement vouloir dire que la plateforme accepte une clé externe ou une passerelle.</p>
+
+<h2 id="9-z-wave-ou-zigbee">9. Z-Wave ou Zigbee : faut-il vraiment choisir ?</h2>
+
+<p>Pas forcément. Une plateforme multiprotocole peut très bien gérer les deux réseaux, chacun avec son propre coordinateur ou contrôleur.</p>
+
+<p>Zigbee reste très attractif pour son immense choix de produits et ses prix. Z-Wave conserve des arguments forts sur la certification, la radio sub-GHz et certains équipements. Le bon raisonnement n’est donc pas « lequel gagne ? », mais plutôt « lequel apporte quelque chose dans mon installation ? ».</p>
+
+<p>Pour le comparatif complet entre les technologies, je préfère ne pas recopier tout ici : <a href="article-2.html"><strong>voir le guide DomoRepère Wi‑Fi, Zigbee, Z-Wave, Thread et Matter</strong></a>.</p>
+
+<h2 id="10-cas-choix">10. Dans quels cas je choisirais Z-Wave aujourd’hui ?</h2>
+
+<p>Je regarderais Z-Wave sérieusement dans plusieurs situations :</p>
+
+<ul>
+<li><strong>une installation où la stabilité radio est prioritaire</strong> et où je veux isoler une partie de la domotique du 2,4 GHz ;</li>
+<li><strong>des modules importants répartis dans le logement</strong>, avec un mesh classique correctement construit ;</li>
+<li><strong>un équipement précis particulièrement intéressant en Z-Wave</strong> ;</li>
+<li><strong>une installation Z-Wave existante</strong> : remplacer du matériel fiable uniquement parce qu’un autre protocole est plus à la mode n’a aucun intérêt ;</li>
+<li><strong>un point éloigné</strong> où Z-Wave Long Range et un contrôleur compatible apportent une vraie réponse.</li>
+</ul>
+
+<p>À l’inverse, je ne paierais probablement pas plus cher pour Z-Wave si je veux deux prises connectées, si mon réseau Zigbee couvre déjà parfaitement le projet, ou si je choisis le protocole uniquement parce qu’il est présenté comme « plus professionnel ».</p>
+
+<figure class="article-figure">
+  <img src="assets/images/articles/z-wave/faut-il-choisir-z-wave-2026.webp"
+       alt="Aide à la décision DomoRepère indiquant dans quels cas choisir ou ne pas choisir Z-Wave en 2026"
+       width="1600" height="900" loading="lazy" decoding="async">
+  <figcaption>Le surcoût du Z-Wave n’est intéressant que s’il achète une qualité réellement utile dans ton projet.</figcaption>
+</figure>
+
+<div class="affiliate-box">
+  <div class="affiliate-box-title">Voir le matériel Z-Wave disponible</div>
+  <p>Si tu explores les équipements, vérifie surtout la <strong>fréquence européenne</strong>, la certification, la génération du produit et sa compatibilité réelle avec ton contrôleur.</p>
+  <p style="font-size:.84rem;color:#725b34">Lien partenaire : DomoRepère peut percevoir une commission sur certains achats, sans surcoût pour toi.</p>
+  <a class="btn btn-affiliate" href="https://www.domadoo.fr/fr/?domid=147" rel="noopener sponsored" target="_blank">Explorer le matériel chez Domadoo</a>
+</div>
+
+<h2 id="11-bon-choix-2026">11. Z-Wave est-il encore un bon choix en 2026 ?</h2>
+
+<p><strong>Oui, dans les bons projets.</strong> Les faits ne correspondent pas à l’idée d’un protocole abandonné : la Z-Wave Alliance a encore mis à jour ses spécifications et son programme de certification en 2026, tandis que Z-Wave Long Range continue de se déployer, y compris pour le marché européen.</p>
+
+<p>Mais « toujours vivant » ne veut pas dire « à choisir partout ». Zigbee reste souvent moins cher et extrêmement riche en produits. Matter et Thread progressent. Et une installation simple n’a aucun intérêt à multiplier les radios sans raison.</p>
+
+<p>Le meilleur choix est donc moins spectaculaire : <strong>si Z-Wave résout une contrainte réelle, garde-le dans ta sélection. Sinon, ne paie pas son surcoût juste pour le logo.</strong></p>
+
+<h2 id="faq">Questions fréquentes</h2>
+
+<h3>Z-Wave fonctionne-t-il en 868 MHz en France ?</h3>
+<p>On parle couramment de Z-Wave européen autour de 868 MHz, mais le plan de fréquences actuel utilise plusieurs canaux sub-GHz selon les modes et générations. Il faut surtout acheter une version certifiée pour la région Europe et éviter les références destinées à l’Amérique du Nord.</p>
+
+<h3>Faut-il Internet pour utiliser Z-Wave ?</h3>
+<p>Non pour le transport radio Z-Wave lui-même. Un réseau Z-Wave peut fonctionner localement. En revanche, une box ou une application particulière peut ajouter une dépendance au cloud pour certaines fonctions.</p>
+
+<h3>Un capteur Z-Wave sur pile sert-il de répéteur ?</h3>
+<p>En règle générale, non : les appareils sur pile économisent leur énergie en dormant une grande partie du temps. La colonne vertébrale du mesh classique repose surtout sur les nœuds alimentés capables de router.</p>
+
+<h3>Faut-il une clé Z-Wave avec Home Assistant ?</h3>
+<p>Il faut un contrôleur radio Z-Wave compatible, qu’il s’agisse d’un adaptateur USB ou d’une autre interface supportée. L’intégration logicielle seule ne remplace pas la radio.</p>
+
+<h3>Z-Wave Long Range remplace-t-il le Z-Wave classique ?</h3>
+<p>Non. Les deux peuvent coexister. Le Z-Wave classique utilise un mesh alors que Long Range fonctionne en étoile avec une liaison directe vers le contrôleur.</p>
+
+<div class="sources">
+<strong>Sources techniques principales</strong>
+<ul>
+<li><a href="https://z-wavealliance.org/development-process-overview-2/" target="_blank" rel="noopener">Z-Wave Alliance — Certification Process</a></li>
+<li><a href="https://z-wavealliance.org/z-wave-long-range-technology/" target="_blank" rel="noopener">Z-Wave Alliance — Z-Wave Long Range</a></li>
+<li><a href="https://z-wavealliance.org/zwa-certification-news/" target="_blank" rel="noopener">Z-Wave Alliance — Technical &amp; Certification News</a></li>
+<li><a href="https://products.z-wavealliance.org/" target="_blank" rel="noopener">Z-Wave Alliance — Certified Product Catalog</a></li>
+<li><a href="https://www.home-assistant.io/integrations/zwave_js" target="_blank" rel="noopener">Home Assistant — intégration Z-Wave</a></li>
+<li><a href="https://www.home-assistant.io/docs/z-wave/controllers/" target="_blank" rel="noopener">Home Assistant — contrôleurs Z-Wave</a></li>
+<li><a href="https://doc.jeedom.com/fr_FR/plugins/automation%20protocol/zwavejs/" target="_blank" rel="noopener">Jeedom — plugin Z-Wave JS</a></li>
+</ul>
+</div>
+
+</article>
+
+<div class="next-links">
+  <a class="next-card" href="article-2.html"><span>Comparer les protocoles</span><strong>Wi‑Fi, Zigbee, Z-Wave, Thread ou Matter →</strong></a>
+  <a class="next-card" href="article-1.html"><span>Repartir des bases</span><strong>Débuter en domotique →</strong></a>
+</div>
+</div>
+
+<aside class="sidebar" aria-label="Repères de lecture">
+<section class="side-card toc-card">
+<button class="toc-toggle" type="button" aria-expanded="true" aria-controls="article-toc">
+  <span><span class="side-kicker">Navigation</span><strong>Dans ce guide</strong></span>
+  <span class="toc-chevron" aria-hidden="true"></span>
+</button>
+<nav class="toc-nav" id="article-toc" aria-label="Sommaire de l'article">
+<ol>
+<li><a href="#1-quest-ce-que-z-wave">Qu’est-ce que Z-Wave ?</a></li>
+<li><a href="#2-fonctionnement-reseau">Fonctionnement du réseau</a></li>
+<li><a href="#3-frequence-868">Pourquoi le 868 MHz ?</a></li>
+<li><a href="#4-plus-long-range">Plus &amp; Long Range</a></li>
+<li><a href="#5-avantages">Les avantages</a></li>
+<li><a href="#6-limites">Les limites</a></li>
+<li><a href="#7-appareils">Les appareils</a></li>
+<li><a href="#8-compatibilite-box">Home Assistant &amp; box</a></li>
+<li><a href="#9-z-wave-ou-zigbee">Z-Wave ou Zigbee</a></li>
+<li><a href="#10-cas-choix">Quand je le choisirais</a></li>
+<li><a href="#11-bon-choix-2026">Encore pertinent en 2026 ?</a></li>
+<li><a href="#faq">Questions fréquentes</a></li>
+</ol>
+</nav>
+</section>
+
+<section class="side-card takeaway-card">
+<span class="side-kicker">L’essentiel</span>
+<h2>À retenir avant de choisir</h2>
+<ul>
+  <li>Une radio sub-GHz moins exposée au Wi-Fi 2,4 GHz.</li>
+  <li>Une certification plus encadrée, mais des appareils souvent plus chers.</li>
+  <li>Un choix pertinent s’il répond à un besoin concret du logement.</li>
+</ul>
+</section>
+</aside>
+
+</div></div>
+</main>
+
+<footer>
+<p>© 2026 DomoRepère. Édité par Yohann DESCAMPS. Tous droits réservés.</p>
+<p style="margin-top:.45rem"><a href="index.html#contact">Contact</a> — <a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p>
+<div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div>
+</footer>
+<script src="assets/js/article-layout-v2.js" defer></script>
+</body>
+</html>
