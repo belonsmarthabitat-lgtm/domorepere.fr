@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Protocole Zigbee : fonctionnement, réseau maillé et bonnes pratiques en 2026 — DomoRepère</title>
+<meta name="description" content="Protocole Zigbee : coordinateur, routeurs, maillage, interférences Wi-Fi, diagnostic et Home Assistant. Construis un réseau Zigbee fiable en 2026.">
+<link rel="canonical" href="https://domorepere.fr/protocole-zigbee.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0d665d">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="DomoRepère">
+<meta property="og:title" content="Protocole Zigbee : fonctionnement, réseau maillé et bonnes pratiques en 2026 — DomoRepère">
+<meta property="og:description" content="Comprendre le coordinateur, les routeurs, le mesh, les interférences et les bonnes pratiques pour construire un réseau Zigbee fiable.">
+<meta property="og:url" content="https://domorepere.fr/protocole-zigbee.html">
+<meta property="og:image" content="https://domorepere.fr/assets/brand/social-card.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Protocole Zigbee : comment construire un bon réseau ?">
+<meta name="twitter:description" content="Coordinateur, routeurs, maillage, interférences Wi-Fi, diagnostic, ZHA et Zigbee2MQTT : le guide technique DomoRepère.">
+<meta name="twitter:image" content="https://domorepere.fr/assets/brand/social-card.png">
+
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icons/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" sizes="180x180">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#0d665d;--primary-hover:#084f49;--primary-soft:#eaf5f2;
+  --secondary:#273436;--accent:#c9aa72;--accent-soft:#f8f1e5;
+  --bg-light:#f6f8f7;--card-bg:#fff;--text-dark:#273436;--text-main:#3d4b4d;
+  --text-muted:#6d7b7d;--border:#dce5e3;--danger:#a33d36;--danger-bg:#fff4f1;
+  --radius:16px;--shadow:0 8px 24px rgba(39,52,54,.07)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text-main);background:var(--bg-light);line-height:1.72}
+a{color:var(--primary);text-decoration:none;transition:.2s ease}
+a:hover{color:var(--primary-hover)}
+img{max-width:100%;height:auto}
+.site-header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-container{max-width:1200px;margin:0 auto;padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.7rem;color:var(--secondary);font-size:1.2rem;font-weight:800;white-space:nowrap}
+.logo img{height:48px;width:auto;display:block}.logo strong{color:var(--primary)}
+nav ul{display:flex;list-style:none;gap:1.55rem;align-items:center}
+nav a{color:var(--secondary);font-weight:650;font-size:.92rem}
+nav a:hover,nav a.active{color:var(--primary)}
+
+.article-hero{background:linear-gradient(132deg,#273436 0%,#1f3434 48%,#0d665d 120%);color:#fff;padding:4.6rem 1.5rem 3.6rem;position:relative;overflow:hidden}
+.article-hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid rgba(201,170,114,.28);right:-160px;top:-210px}
+.article-hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{font-size:.86rem;color:#c6d2d1;margin-bottom:1.1rem}.breadcrumb a{color:#e6cf9f}
+.eyebrow{color:#e5c995;font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:.75rem}
+h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;max-width:900px}
+.lead{margin-top:1rem;max-width:820px;color:#d3dddd;font-size:1.06rem}
+.meta{display:flex;flex-wrap:wrap;gap:.7rem 1rem;margin-top:1.35rem;color:#c5d1cf;font-size:.88rem}
+.author-line{margin-top:.65rem;color:#e6cf9f;font-size:.86rem;font-weight:600}
+
+.page-wrap{max-width:1100px;margin:0 auto;padding:2.6rem 1.5rem 4rem}
+.content-grid{display:grid;grid-template-columns:minmax(0,760px) 250px;gap:2rem;align-items:start}
+.article-shell{min-width:0}
+.article-body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.2rem}
+.article-body>p:first-child{font-size:1.06rem;color:var(--text-dark)}
+.article-body h2{color:var(--secondary);font-size:1.55rem;line-height:1.25;margin:2.3rem 0 .85rem;padding-top:.2rem;scroll-margin-top:105px}
+.article-body h2:first-of-type{margin-top:1.6rem}
+.article-body h3{color:var(--secondary);font-size:1.15rem;line-height:1.35;margin:1.6rem 0 .55rem;scroll-margin-top:105px}
+.article-body p{margin-bottom:1.1rem}
+.article-body ul,.article-body ol{margin:0 0 1.4rem 1.25rem}
+.article-body li{margin-bottom:.55rem;padding-left:.15rem}
+
+.highlight-box{background:var(--primary-soft);border:1px solid #cfe7e1;border-left:5px solid var(--primary);border-radius:12px;padding:1.15rem 1.2rem;margin:1.5rem 0}
+.field-note{background:#fbfcfc;border:1px dashed #b8cbc7;border-radius:12px;padding:1.05rem 1.15rem;margin:1.5rem 0}
+.field-note strong{color:var(--primary)}
+.question-box{background:var(--secondary);color:#edf3f2;border-radius:14px;padding:1.35rem;margin:1.7rem 0}
+.question-box strong{color:#efd59f}.question-box p:last-child{margin-bottom:0}
+.warning-box{background:#fff6e9;border:1px solid #ead1ac;border-left:5px solid #b56e22;border-radius:12px;padding:1.15rem 1.2rem;margin:1.5rem 0}
+.affiliate-box{background:var(--accent-soft);border:1px solid #ead7b4;border-left:5px solid var(--accent);border-radius:12px;padding:1.2rem;margin:1.5rem 0}
+.affiliate-box-title{color:#725b34;font-weight:800;margin-bottom:.4rem}
+
+.article-figure{margin:1.8rem 0}
+.article-figure img{display:block;width:100%;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.article-figure figcaption{font-size:.82rem;color:var(--text-muted);margin-top:.55rem;line-height:1.45}
+
+.comparison-table-wrapper{overflow-x:auto;margin:1.6rem 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.92rem}
+.comparison-table th,.comparison-table td{padding:.75rem .8rem;border:1px solid var(--border);text-align:left;vertical-align:top}
+.comparison-table th{background:var(--primary-soft);color:var(--secondary)}
+
+.checklist{background:var(--bg-light);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin:1.4rem 0}
+.checklist-item{display:flex;gap:.75rem;margin-bottom:1rem}.checklist-item:last-child{margin-bottom:0}
+.checklist-item>span{font-weight:800;color:var(--primary)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:.78rem 1rem;border-radius:10px;font-size:.91rem;font-weight:750}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-hover);color:#fff}
+.btn-affiliate{background:var(--accent);color:var(--secondary)}.btn-affiliate:hover{background:#b9975c;color:var(--secondary)}
+
+.sources{background:var(--bg-light);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-top:1.5rem}
+.sources ul{margin-bottom:0}.sources li{font-size:.9rem}
+
+.next-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.3rem}
+.next-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow)}
+.next-card span{display:block;color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.next-card strong{color:var(--secondary);line-height:1.35}
+
+.sidebar{position:sticky;top:88px}
+.side-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.side-card h2{font-size:1rem;color:var(--secondary);margin-bottom:.65rem}
+.side-card ul{list-style:none}.side-card li+li{margin-top:.55rem}
+.side-card a{font-size:.88rem;line-height:1.35}.side-card p{font-size:.88rem;color:var(--text-muted)}
+
+footer{background:var(--secondary);color:#b8c4c3;padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--accent)}
+footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
+
+@media(max-width:900px){.content-grid{grid-template-columns:1fr}.sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.side-card{margin:0}}
+@media(max-width:720px){.nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}.article-hero{padding:3.6rem 1rem 3rem}.page-wrap{padding:2rem 1rem 3rem}.article-body{padding:1.35rem}.sidebar,.next-links{grid-template-columns:1fr}}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Protocole Zigbee : comment fonctionne le réseau et comment construire un bon maillage ?",
+  "description":"Guide technique Zigbee : coordinateur, routeurs, maillage, interférences Wi-Fi, diagnostic, ZHA et Zigbee2MQTT.",
+  "inLanguage":"fr-FR",
+  "mainEntityOfPage":"https://domorepere.fr/protocole-zigbee.html",
+  "datePublished":"2026-09-20",
+  "dateModified":"2026-09-20",
+  "author":{"@type":"Person","name":"Yohann DESCAMPS"},
+  "publisher":{"@type":"Organization","name":"DomoRepère","url":"https://domorepere.fr/"}
+}
+</script>
+</head>
+
+<body>
+<header class="site-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="assets/brand/logo.png" alt="Logo DomoRepère"><span>Domo<strong>Repère</strong></span></a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#quiz">Guide interactif</a></li>
+        <li><a class="active" href="articles.html">Guides &amp; articles</a></li>
+        <li><a href="mon-installation.html">Le Lab</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> › <a href="articles.html">Guides</a> › Zigbee</div>
+    <div class="eyebrow">Protocole • réseau maillé • diagnostic</div>
+    <h1>Protocole Zigbee : comment fonctionne le réseau et comment construire un bon maillage ?</h1>
+    <p class="lead">Coordinateur, routeurs, capteurs sur pile, interférences Wi‑Fi, canaux et Home Assistant : comprendre ce qui fait réellement la fiabilité d’un réseau Zigbee avant d’ajouter des répéteurs au hasard.</p>
+    <div class="meta"><span>⏱️ 15 min</span><span>🗓️ Mis à jour le 20 septembre 2026</span><span>📚 Protocoles &amp; réseau</span></div>
+    <div class="author-line">Par Yohann DESCAMPS — DomoRepère</div>
+  </div>
+</section>
+
+<div class="page-wrap"><div class="content-grid">
+<div class="article-shell">
+<article class="article-body">
+
+<p>Zigbee a une réputation plutôt simple : on ajoute une clé, quelques prises et des capteurs, puis le réseau maillé est censé s’occuper du reste. C’est vrai… jusqu’au jour où un capteur disparaît, qu’un appairage ne passe plus ou qu’une pièce éloignée devient imprévisible.</p>
+
+<p>Le problème n’est pas que Zigbee soit fragile. C’est plutôt qu’un <strong>réseau maillé doit être construit</strong>. Le coordinateur forme le réseau, les routeurs transportent les messages et les terminaux — souvent sur batterie — s’appuient sur cette infrastructure. Si l’un de ces rôles est mal compris, on finit vite par diagnostiquer la mauvaise cause.</p>
+
+<div class="highlight-box">
+<strong>La règle DomoRepère :</strong> un bon réseau Zigbee ne se mesure pas au nombre total d’appareils. Il se construit avec un coordinateur correctement placé, des routeurs fiables et bien répartis, puis des terminaux ajoutés sur cette base.
+</div>
+
+<h2 id="1-protocole-zigbee">1. Qu’est-ce que le protocole Zigbee ?</h2>
+
+<p>Zigbee est une solution de communication sans fil basse consommation conçue pour les objets connectés. Dans la maison, on le rencontre surtout pour les capteurs d’ouverture, de température ou de mouvement, les prises, les ampoules, les micromodules, les télécommandes et de nombreux automatismes.</p>
+
+<p>Le réseau Zigbee domestique classique utilise principalement la bande <strong>2,4 GHz</strong> et s’appuie sur IEEE 802.15.4 pour la couche radio. Contrairement au Wi‑Fi, il ne cherche pas à transporter de gros volumes de données : son travail consiste surtout à faire circuler des commandes et de petits états avec une consommation réduite.</p>
+
+<p>La particularité intéressante est le <strong>maillage</strong>. Un appareil n’a pas toujours besoin de joindre directement le coordinateur : le message peut passer par d’autres nœuds capables de router. C’est ce qui permet à une installation de couvrir progressivement un logement — à condition d’avoir les bons appareils aux bons endroits.</p>
+
+<p>Si ton besoin est d’abord de comparer Zigbee à Z-Wave, au Wi‑Fi, à Thread ou à Matter, ce n’est pas le sujet de ce guide : le <a href="article-2.html"><strong>comparatif des protocoles DomoRepère</strong></a> est fait pour ça. Ici, on reste volontairement sur le fonctionnement technique de Zigbee.</p>
+
+<h2 id="2-trois-roles">2. Coordinateur, routeurs et terminaux : les trois rôles à comprendre</h2>
+
+<h3 id="coordinateur">Le coordinateur Zigbee</h3>
+
+<p>Un réseau Zigbee possède <strong>un seul coordinateur</strong>. C’est lui qui forme le réseau, choisit ses paramètres de départ et assure des responsabilités supplémentaires de gestion et de sécurité. Dans une installation Home Assistant, il s’agit souvent d’un adaptateur USB ou d’un coordinateur relié localement à la machine.</p>
+
+<p>Le coordinateur est essentiel, mais il ne doit pas devenir le seul point radio sur lequel tous les appareils essaient de s’appuyer. Un réseau qui repose presque uniquement sur lui ressemble davantage à une étoile qu’à un véritable mesh.</p>
+
+<h3 id="routeurs">Les routeurs Zigbee</h3>
+
+<p>Les routeurs forment la colonne vertébrale du réseau. Ils restent disponibles pour recevoir et relayer des messages et peuvent aussi accueillir des appareils terminaux comme enfants.</p>
+
+<p>Ils sont généralement alimentés en permanence : prises, micromodules ou certains luminaires. Mais attention à un raccourci fréquent : <strong>alimenté sur secteur ne signifie pas automatiquement excellent routeur</strong>. Le rôle réel, la qualité radio et le comportement de routage dépendent du produit et de son firmware.</p>
+
+<h3 id="terminaux">Les appareils terminaux</h3>
+
+<p>Les terminaux — Zigbee End Devices — sont des feuilles du réseau. Ils communiquent via un parent et ne relaient pas les messages des autres appareils. Beaucoup de capteurs sur batterie appartiennent à cette catégorie et peuvent éteindre leur radio lorsqu’ils sont au repos pour économiser l’énergie.</p>
+
+<p>C’est pour cette raison qu’ajouter vingt capteurs de température ne renforce pas forcément ton réseau. Ils consomment une place et utilisent l’infrastructure existante, mais ils ne créent pas les routes dont ils ont eux-mêmes besoin.</p>
+
+<figure class="article-figure">
+  <img src="assets/images/articles/zigbee/zigbee-coordinateur-routeurs-terminaux.webp"
+       alt="Schéma des trois rôles Zigbee : coordinateur, routeurs et appareils terminaux"
+       width="1600" height="900" loading="lazy" decoding="async">
+  <figcaption>Un réseau Zigbee comporte un coordinateur, plusieurs routeurs possibles et des terminaux qui s’appuient sur eux sans participer au routage.</figcaption>
+</figure>
+
+<h2 id="3-maillage-zigbee">3. Comment fonctionne réellement le maillage Zigbee ?</h2>
+
+<p>Quand un routeur ou un terminal rejoint le réseau, il ne reçoit pas une route gravée dans le marbre pour toute sa vie. Le réseau peut découvrir et utiliser différents chemins selon les liens disponibles. C’est l’un des intérêts du mesh : un appareil éloigné peut passer par un routeur intermédiaire plutôt que tenter de joindre directement le coordinateur.</p>
+
+<p>Mais le mot « maillé » ne signifie pas que tout appareil parle à tous les autres. Les terminaux ont notamment un <strong>parent</strong>, et les routeurs sont ceux qui assurent le transport des messages à travers le réseau.</p>
+
+<p>En pratique, deux conséquences sont importantes :</p>
+<ul>
+<li><strong>la répartition des routeurs compte plus que leur nombre brut</strong> ;</li>
+<li><strong>supprimer ou couper un routeur important peut perturber temporairement plusieurs appareils</strong>, le temps que le réseau se réorganise — et certains produits gèrent cette transition mieux que d’autres.</li>
+</ul>
+
+<div class="question-box">
+<p><strong>« Mon capteur est à trois mètres du coordinateur, donc le réseau est bon » ?</strong></p>
+<p>Pas forcément. La distance seule ne dit rien sur les interférences, les obstacles, le parent choisi ni la qualité des autres chemins disponibles.</p>
+</div>
+
+<h2 id="4-bons-routeurs">4. Quels appareils font de bons routeurs Zigbee ?</h2>
+
+<p>Pour construire un mesh, je privilégierais des équipements alimentés en permanence et répartis dans le logement : prises, micromodules, certains relais ou luminaires fixes. L’objectif n’est pas de mettre un répéteur dans chaque pièce, mais de créer des <strong>points de passage stables</strong>.</p>
+
+<p>Quelques précautions évitent de construire le réseau sur de mauvaises fondations :</p>
+
+<ul>
+<li>une ampoule qui sert de routeur n’est utile que si son alimentation reste présente ;</li>
+<li>une prise connectée que l’on débranche régulièrement n’est pas un excellent pilier de réseau ;</li>
+<li>tous les appareils secteur ne routent pas forcément de la même manière ;</li>
+<li>un routeur bien placé entre deux zones peut être plus utile que plusieurs appareils regroupés au même endroit.</li>
+</ul>
+
+<div class="field-note">
+<strong>Cas typique :</strong> si plusieurs capteurs dépendent d’une ampoule Zigbee alimentée par un interrupteur mural classique, couper physiquement cette ampoule peut faire disparaître un élément du mesh. L’éclairage peut fonctionner parfaitement… tout en étant un mauvais choix pour porter une partie critique du réseau.
+</div>
+
+<div class="affiliate-box">
+  <div class="affiliate-box-title">Si tu dois ajouter du matériel Zigbee</div>
+  <p>Commence par identifier le besoin : routeur permanent, prise utile, micromodule ou capteur. N’achète pas un « répéteur » par réflexe tant que le placement du coordinateur et la structure du réseau n’ont pas été vérifiés.</p>
+  <p style="font-size:.84rem;color:#725b34">Lien partenaire : DomoRepère peut percevoir une commission sur certains achats, sans surcoût pour toi.</p>
+  <a class="btn btn-affiliate" href="https://www.domadoo.fr/fr/?domid=147" rel="noopener sponsored" target="_blank">Voir le matériel Zigbee chez Domadoo</a>
+</div>
+
+<h2 id="5-placement-coordinateur">5. Où placer le coordinateur Zigbee ?</h2>
+
+<p>C’est probablement la correction la plus rentable avant d’acheter quoi que ce soit.</p>
+
+<p>Un coordinateur USB branché directement derrière un mini-PC, collé à un SSD, à un port USB 3.x ou à un routeur Wi‑Fi peut subir davantage de bruit électromagnétique et radio. Home Assistant comme Zigbee2MQTT recommandent d’éloigner le coordinateur de ces sources d’interférences, notamment à l’aide d’une <strong>rallonge USB correctement blindée</strong>.</p>
+
+<p>Je chercherais donc d’abord un emplacement :</p>
+<ul>
+<li>dégagé, plutôt que coincé derrière une machine ou dans un coffret métallique ;</li>
+<li>éloigné du point d’accès Wi‑Fi et des périphériques USB 3.x ;</li>
+<li>pas collé à des alimentations, SSD ou câbles fortement perturbateurs ;</li>
+<li>si possible assez central par rapport au premier noyau de routeurs.</li>
+</ul>
+
+<figure class="article-figure">
+  <img src="assets/images/articles/zigbee/zigbee-placement-coordinateur-interferences.webp"
+       alt="Bon et mauvais placement d’un coordinateur Zigbee à proximité d’un mini-PC et d’un routeur Wi-Fi"
+       width="1600" height="900" loading="lazy" decoding="async">
+  <figcaption>Une rallonge USB et quelques dizaines de centimètres de séparation peuvent être plus utiles qu’un changement de canal fait au hasard.</figcaption>
+</figure>
+
+<div class="highlight-box">
+<strong>Avant tout diagnostic logiciel :</strong> déporte physiquement le coordinateur. C’est simple, réversible et suffisamment important pour être recommandé explicitement par les documentations ZHA et Zigbee2MQTT.
+</div>
+
+<h2 id="6-zigbee-wifi-canaux">6. Zigbee et Wi‑Fi : pourquoi peuvent-ils se gêner ?</h2>
+
+<p>Le Zigbee résidentiel 2,4 GHz partage une partie du spectre avec le Wi‑Fi 2,4 GHz. Les deux technologies ne découpent pas la bande de la même façon : Zigbee utilise des canaux plus étroits — de 11 à 26 dans cette bande — alors qu’un canal Wi‑Fi occupe une largeur beaucoup plus importante.</p>
+
+<p>Le résultat est simple : selon les canaux choisis et la puissance des réseaux voisins, un coordinateur Zigbee peut se retrouver dans une zone radio très chargée.</p>
+
+<h3>Faut-il changer le canal Zigbee ?</h3>
+
+<p>Pas automatiquement. Il n’existe pas un « meilleur canal Zigbee » valable dans toutes les maisons. Home Assistant recommande d’ailleurs de ne pas modifier le canal ZHA par défaut sans raison et de commencer par les bonnes pratiques de placement et d’interférence.</p>
+
+<p>Si tu crées un réseau neuf, réfléchir au plan radio dès le départ est pertinent. Si ton réseau existe déjà et fonctionne globalement, je ne changerais pas de canal juste parce qu’un tableau trouvé sur Internet affirme qu’un autre est meilleur.</p>
+
+<div class="warning-box">
+<strong>Pourquoi je suis prudent :</strong> un changement de canal sur un réseau existant peut demander du temps aux appareils pour retrouver le réseau, et certains appareils peuvent nécessiter une intervention supplémentaire. Le canal est un paramètre de diagnostic, pas un bouton « améliorer le Zigbee ».
+</div>
+
+<h2 id="7-construire-reseau">7. Comment construire un bon réseau Zigbee dès le départ ?</h2>
+
+<p>Si je devais créer un réseau aujourd’hui, je procéderais dans cet ordre :</p>
+
+<div class="checklist">
+  <div class="checklist-item"><span>1.</span><div><strong>Placer correctement le coordinateur.</strong><br>Avant d’appairer cinquante appareils, je l’éloigne des sources de bruit et je choisis un emplacement cohérent.</div></div>
+  <div class="checklist-item"><span>2.</span><div><strong>Définir le canal avant le déploiement.</strong><br>Je regarde l’environnement Wi‑Fi plutôt que d’appliquer une valeur universelle.</div></div>
+  <div class="checklist-item"><span>3.</span><div><strong>Installer quelques routeurs permanents.</strong><br>Des prises ou micromodules répartis forment l’ossature du réseau.</div></div>
+  <div class="checklist-item"><span>4.</span><div><strong>Étendre progressivement vers les zones éloignées.</strong><br>Je construis un chemin radio plutôt que de commencer directement par le capteur au fond du garage.</div></div>
+  <div class="checklist-item"><span>5.</span><div><strong>Ajouter ensuite les appareils sur batterie.</strong><br>Ils rejoignent un réseau qui possède déjà des parents et des routes utilisables.</div></div>
+  <div class="checklist-item"><span>6.</span><div><strong>Observer avant de corriger.</strong><br>Un appareil qui rate une commande une fois ne justifie pas immédiatement trois répéteurs supplémentaires.</div></div>
+</div>
+
+<figure class="article-figure">
+  <img src="assets/images/articles/zigbee/construire-bon-reseau-zigbee.webp"
+       alt="Méthode en six étapes pour construire un réseau Zigbee fiable"
+       width="1600" height="900" loading="lazy" decoding="async">
+  <figcaption>Le bon ordre : coordinateur, environnement radio, routeurs, extension du mesh, puis terminaux.</figcaption>
+</figure>
+
+<p>Cette méthode évite aussi un problème fréquent : appairer tous les capteurs près du coordinateur, puis les déplacer à leur emplacement définitif en espérant que tout se reconstruise instantanément. Zigbee sait réorganiser des routes, mais autant lui donner dès le départ une infrastructure cohérente.</p>
+
+<h2 id="8-diagnostic">8. Comment diagnostiquer un réseau Zigbee instable ?</h2>
+
+<p>Quand un appareil devient indisponible ou répond mal, je ne commence pas par accuser le produit. Je cherche à déterminer <strong>où se situe la panne</strong>.</p>
+
+<h3>1. Le problème concerne-t-il un seul appareil ?</h3>
+<p>Vérifie la batterie, l’alimentation, le firmware éventuel et la qualité de son emplacement. Un capteur isolé qui décroche n’indique pas forcément un défaut global du mesh.</p>
+
+<h3>2. Plusieurs appareils d’une même zone sont-ils touchés ?</h3>
+<p>Regarde les routeurs présents dans cette zone. Une prise débranchée ou un module supprimé peut avoir retiré un chemin important.</p>
+
+<h3>3. Les problèmes touchent-ils surtout l’appairage ou tout le réseau ?</h3>
+<p>Un coordinateur mal placé, une forte interférence 2,4 GHz, un firmware ancien ou un adaptateur dépassé peuvent créer des symptômes plus larges.</p>
+
+<h3>4. La carte réseau permet-elle de conclure ?</h3>
+
+<p>Une carte de réseau est utile pour visualiser le coordinateur, les routeurs, les terminaux et certains liens. Zigbee2MQTT permet par exemple de générer une network map avec des valeurs de qualité de lien et des routes actives.</p>
+
+<p>Mais je n’en ferais pas un verdict. Le <strong>LQI</strong> ou la carte prise à un instant donné ne résument pas à eux seuls la stabilité d’un réseau réel. Ce sont des indices à croiser avec les symptômes, l’emplacement et l’historique.</p>
+
+<div class="question-box">
+<p><strong>Le bon diagnostic n’est pas : « mon LQI est mauvais ».</strong></p>
+<p>La vraie question est : quel appareil ne communique plus correctement, par quel type de lien, depuis quand, et qu’est-ce qui a changé autour de lui ?</p>
+</div>
+
+<h2 id="9-home-assistant">9. Zigbee avec Home Assistant : ZHA ou Zigbee2MQTT ?</h2>
+
+<p>Les deux approches permettent de construire un réseau Zigbee avec Home Assistant, mais leur architecture n’est pas identique.</p>
+
+<div class="comparison-table-wrapper">
+<table class="comparison-table">
+<thead><tr><th></th><th>ZHA</th><th>Zigbee2MQTT</th></tr></thead>
+<tbody>
+<tr><td><strong>Principe</strong></td><td>Intégration Zigbee directement dans Home Assistant</td><td>Service Zigbee séparé relié à Home Assistant via MQTT</td></tr>
+<tr><td><strong>Coordinateur</strong></td><td>Adaptateur compatible avec zigpy / ZHA</td><td>Adaptateur compatible avec Zigbee2MQTT</td></tr>
+<tr><td><strong>Intégration HA</strong></td><td>Native dans l’interface Home Assistant</td><td>Via MQTT Discovery et l’intégration MQTT</td></tr>
+<tr><td><strong>Choix</strong></td><td colspan="2">À faire selon le matériel, les appareils à intégrer et la manière dont tu veux administrer le réseau — pas sur un classement universel.</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>ZHA peut remplacer de nombreuses passerelles propriétaires et crée directement le réseau depuis Home Assistant. Zigbee2MQTT fonctionne comme une couche séparée et publie les appareils vers Home Assistant via MQTT.</p>
+
+<p>Je ne transformerais pas cette section en duel. Si ton objectif est de savoir lequel correspond le mieux à ton installation, ce sujet mérite un guide dédié avec les mêmes appareils testés sur les deux solutions.</p>
+
+<div class="field-note">
+<strong>Dans le Lab DomoRepère :</strong> Home Assistant et ZHA permettent déjà d’avoir une vraie visibilité sur les appareils Zigbee sans multiplier les passerelles propriétaires. Cela ne change cependant rien aux règles radio : un bon logiciel ne compense pas un coordinateur mal placé ou un mesh mal construit.
+</div>
+
+<h2 id="10-zigbee-4-suzi">10. Zigbee 4.0 et Suzi : qu’est-ce qui change en 2026 ?</h2>
+
+<p>Zigbee continue d’évoluer. La Connectivity Standards Alliance a annoncé <strong>Zigbee 4.0</strong> en novembre 2025 avec des évolutions de sécurité, de mise en service, de stabilité réseau et de compatibilité. La spécification reste rétrocompatible avec Zigbee 3.0 et Smart Energy.</p>
+
+<p>L’évolution la plus visible est l’ouverture vers le <strong>sub‑GHz</strong> avec <strong>Suzi</strong>. Cette extension reprend le routage maillé Zigbee sur des fréquences plus basses afin de viser davantage de portée et certains environnements plus exigeants. Le programme de certification des produits Suzi a officiellement ouvert le <strong>2 septembre 2026</strong>.</p>
+
+<p>Pour autant, cela ne signifie pas que ton réseau Zigbee 2,4 GHz actuel devient obsolète. La CSA présente Suzi comme une <strong>extension complémentaire</strong>, pas comme un remplacement du Zigbee classique. En septembre 2026, le sujet est surtout important pour comprendre où évolue l’écosystème, pas pour jeter ses capteurs actuels.</p>
+
+<div class="highlight-box">
+<strong>Ce que je retiens en 2026 :</strong> Zigbee n’est pas figé. Mais pour une maison équipée aujourd’hui, les bases restent les mêmes : placement du coordinateur, qualité des routeurs, environnement radio et compatibilité réelle des appareils.
+</div>
+
+<h2 id="11-erreurs">11. Les erreurs que j’éviterais sur un réseau Zigbee</h2>
+
+<ul>
+<li><strong>Brancher le coordinateur directement derrière le serveur</strong> puis chercher le problème uniquement dans les réglages.</li>
+<li><strong>Construire un réseau presque uniquement avec des capteurs sur pile</strong> et s’étonner que le maillage reste pauvre.</li>
+<li><strong>Utiliser des ampoules coupées physiquement comme infrastructure principale</strong>.</li>
+<li><strong>Changer de canal au hasard</strong> sans regarder l’environnement Wi‑Fi ni essayer d’abord un meilleur placement.</li>
+<li><strong>Ajouter des répéteurs sans diagnostic</strong> : plus d’appareils n’est pas toujours synonyme de meilleur réseau.</li>
+<li><strong>Supposer qu’un appareil Zigbee sera parfaitement supporté parce qu’il porte le logo Zigbee</strong> : les fonctions réellement exposées peuvent encore dépendre du fabricant, du coordinateur et de la couche logicielle.</li>
+</ul>
+
+<h2 id="12-resume">12. À quoi ressemble un bon réseau Zigbee ?</h2>
+
+<p>Un bon réseau Zigbee n’est pas celui qui affiche le plus de lignes sur une carte. C’est celui qui continue à faire son travail quand tu n’es plus en train de le regarder.</p>
+
+<p>Je chercherais donc une architecture simple : <strong>un coordinateur bien placé, plusieurs routeurs permanents répartis dans le logement, des terminaux sur batterie qui trouvent facilement un parent et un plan radio cohérent avec le Wi‑Fi environnant.</strong></p>
+
+<p>Ensuite seulement, j’utiliserais les outils de diagnostic pour affiner ce qui pose réellement problème.</p>
+
+<p>Et si tu débutes encore dans la structure générale d’une installation, commence par <a href="article-1.html"><strong>le guide pour débuter en domotique</strong></a>. Le protocole n’est qu’une partie de l’architecture globale.</p>
+
+<h2 id="faq">Questions fréquentes</h2>
+
+<h3>Un appareil Zigbee sur secteur est-il toujours un routeur ?</h3>
+<p>Non. Beaucoup d’appareils alimentés en permanence sont conçus comme routeurs, mais ce n’est pas une règle absolue à appliquer à n’importe quel produit. Vérifie le comportement réel du modèle et ne bâtis pas une installation critique sur une hypothèse.</p>
+
+<h3>Un capteur Zigbee sur pile améliore-t-il le maillage ?</h3>
+<p>En général non. Les capteurs sur pile sont le plus souvent des terminaux, parfois endormis, qui s’appuient sur un coordinateur ou un routeur parent sans relayer les messages du reste du réseau.</p>
+
+<h3>Quel est le meilleur canal Zigbee ?</h3>
+<p>Il n’existe pas de réponse universelle. Le bon choix dépend surtout de l’occupation locale de la bande 2,4 GHz, de tes réseaux Wi‑Fi et de l’environnement radio autour du coordinateur.</p>
+
+<h3>Une rallonge USB améliore-t-elle vraiment Zigbee ?</h3>
+<p>Elle peut fortement aider lorsqu’un coordinateur USB est trop proche d’un ordinateur, d’un SSD, d’un port USB 3.x ou d’autres sources de perturbations. C’est une recommandation commune aux documentations ZHA et Zigbee2MQTT.</p>
+
+<h3>Faut-il appairer un appareil Zigbee à son emplacement définitif ?</h3>
+<p>Ce n’est pas une obligation absolue, mais construire progressivement le réseau et rejoindre les appareils dans une zone déjà couverte évite de dépendre d’une reconstruction ultérieure des routes. Pour un appareil difficile à joindre, l’appairage près du coordinateur ou d’un routeur peut cependant rester utile pour le diagnostic.</p>
+
+<h3>ZHA ou Zigbee2MQTT : lequel est le meilleur ?</h3>
+<p>Il n’y a pas de gagnant universel. ZHA est directement intégré à Home Assistant ; Zigbee2MQTT fonctionne comme un service séparé via MQTT. Le choix dépend surtout de ton matériel, des appareils visés et de la façon dont tu souhaites administrer le réseau.</p>
+
+<div class="sources">
+<strong>Sources techniques principales</strong>
+<ul>
+<li><a href="https://csa-iot.org/all-solutions/zigbee/" target="_blank" rel="noopener">Connectivity Standards Alliance — Zigbee</a></li>
+<li><a href="https://csa-iot.org/newsroom/the-connectivity-standards-alliance-announces-zigbee-4-0-and-suzi-empowering-the-next-generation-of-secure-interoperable-iot-devices/" target="_blank" rel="noopener">CSA — Zigbee 4.0 et Suzi</a></li>
+<li><a href="https://csa-iot.org/newsroom/suzi-product-certification-is-now-open/" target="_blank" rel="noopener">CSA — ouverture de la certification Suzi, 2 septembre 2026</a></li>
+<li><a href="https://www.home-assistant.io/integrations/zha" target="_blank" rel="noopener">Home Assistant — intégration ZHA et bonnes pratiques Zigbee</a></li>
+<li><a href="https://www.zigbee2mqtt.io/advanced/zigbee/02_improve_network_range_and_stability.html" target="_blank" rel="noopener">Zigbee2MQTT — améliorer portée et stabilité</a></li>
+<li><a href="https://www.zigbee2mqtt.io/guide/usage/mqtt_topics_and_messages.html" target="_blank" rel="noopener">Zigbee2MQTT — network map et qualité des liens</a></li>
+<li><a href="https://docs.silabs.com/zigbee/9.0.0/zigbee-fundamentals/03-network-node-types" target="_blank" rel="noopener">Silicon Labs — coordinateur, routeurs et end devices</a></li>
+</ul>
+</div>
+
+</article>
+
+<div class="next-links">
+  <a class="next-card" href="article-1.html"><span>Pour débuter</span><strong>Bien commencer en domotique →</strong></a>
+  <a class="next-card" href="article-2.html"><span>Comparer les technologies</span><strong>Wi‑Fi, Zigbee, Z-Wave, Thread et Matter →</strong></a>
+</div>
+</div>
+
+<aside class="sidebar" aria-label="Navigation de l'article">
+<div class="side-card">
+<h2>Dans ce guide</h2>
+<ul>
+<li><a href="#1-protocole-zigbee">1. Qu’est-ce que Zigbee ?</a></li>
+<li><a href="#2-trois-roles">2. Les trois rôles</a></li>
+<li><a href="#3-maillage-zigbee">3. Le maillage Zigbee</a></li>
+<li><a href="#4-bons-routeurs">4. Les bons routeurs</a></li>
+<li><a href="#5-placement-coordinateur">5. Placer le coordinateur</a></li>
+<li><a href="#6-zigbee-wifi-canaux">6. Zigbee et Wi‑Fi</a></li>
+<li><a href="#7-construire-reseau">7. Construire le réseau</a></li>
+<li><a href="#8-diagnostic">8. Diagnostiquer</a></li>
+<li><a href="#9-home-assistant">9. Home Assistant</a></li>
+<li><a href="#10-zigbee-4-suzi">10. Zigbee 4.0 et Suzi</a></li>
+<li><a href="#11-erreurs">11. Les erreurs</a></li>
+<li><a href="#12-resume">12. En résumé</a></li>
+<li><a href="#faq">FAQ</a></li>
+</ul>
+</div>
+
+<div class="side-card">
+<h2>À retenir</h2>
+<p>Le mesh Zigbee dépend surtout des routeurs disponibles, du placement du coordinateur et de l’environnement radio. Les capteurs sur pile ne remplacent pas cette infrastructure.</p>
+</div>
+</aside>
+
+</div></div>
+</main>
+
+<footer>
+<p>© 2026 DomoRepère. Édité par Yohann DESCAMPS. Tous droits réservés.</p>
+<p style="margin-top:.45rem"><a href="index.html#contact">Contact</a> — <a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p>
+<div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div>
+</footer>
+</body>
+</html>
