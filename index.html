@@ -132,6 +132,14 @@
     .project-tag.priority { background:var(--accent-soft); color:#755d31; }
     .affiliation-notice { margin-top:1.5rem; padding-top:1rem; border-top:1px dashed var(--border-color); font-size:.825rem; color:var(--text-muted); text-align:center; }
 
+    .result-card { min-width:0; overflow-wrap:anywhere; }
+    .result-card a { text-decoration:underline; text-underline-offset:3px; }
+    .product-item { padding:1rem 0; border-top:1px solid var(--border-color); }
+    .product-item:first-of-type { border-top:0; }
+    .product-item .btn { margin-top:.7rem; text-decoration:none; }
+    .result-status { font-weight:750; color:var(--primary); }
+    .option-btn:focus-visible,.btn:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+    @media(max-width:400px){ .options-grid,.result-grid{grid-template-columns:minmax(0,1fr)} .quiz-actions .btn{width:100%} }
     /* POURQUOI DOMOGUIDE */
     .values-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-bottom:4rem; }
     .value-card { background:#fff; border:1px solid var(--border-color); border-radius:var(--radius); padding:1.35rem; box-shadow:var(--shadow); }
@@ -527,7 +535,15 @@
       return q.id in state ? state[q.id] : state.diagnostic[q.id];
     }
     function setAnswer(q,val) {
+      const previous=getAnswer(q);
       if (q.id in state) state[q.id]=val; else state.diagnostic[q.id]=val;
+      if(q.id==='objectifs' && !val.includes(state.priorite)) { state.priorite=null; state.diagnostic={}; }
+      if(q.id==='priorite' && previous!==val) state.diagnostic={};
+      if(q.id==='equipement' && val==='aucun') { state.plateformes=[]; state.protocoles=[]; }
+      if(q.id==='logement' && val!=='maison') state.niveaux=null;
+      if(q.id==='volet_type' && previous!==val) { delete state.diagnostic.volet_commande; delete state.diagnostic.volet_neutre; }
+      if(q.id==='acces_existant' && val!=='oui') delete state.diagnostic.acces_contact;
+      if(q.id==='securite_fonctions' && !val.includes('cameras')) delete state.diagnostic.securite_reseau;
     }
 
     function visibleQuestions() { return questions.filter(q=>!q.condition || q.condition()); }
@@ -548,13 +564,14 @@
       let html = `<div class="quiz-step active"><h3>${q.title}</h3>${q.help?`<p class="quiz-help">${q.help}</p>`:''}<div class="options-grid">`;
       opts.forEach(([value,label])=>{
         const selected = Array.isArray(answer) ? answer.includes(value) : answer===value;
-        html += `<button type="button" class="option-btn ${selected?'selected':''}" data-value="${value}" onclick="chooseAnswer('${q.id}','${q.type}','${value}',this,${q.max||0})">${label}</button>`;
+        html += `<button type="button" class="option-btn ${selected?'selected':''}" aria-pressed="${selected}" data-value="${value}" onclick="chooseAnswer('${q.id}','${q.type}','${value}',this,${q.max||0})">${label}</button>`;
       });
       html += `</div>`;
       if(q.type==='multi') html += `<span class="quiz-counter" id="quiz-counter">${(answer||[]).length}${q.max?` / ${q.max}`:''} sélectionné(s)</span>`;
       if(q.id==='niveauElectrique') html += `<div class="quiz-notice safety">⚡ Pour toute intervention sur le 230 V, les recommandations devront rester adaptées aux compétences réelles de l’utilisateur et aux règles de sécurité.</div>`;
       html += `<div class="quiz-actions">${currentIndex>0?'<button class="btn btn-secondary" onclick="goBack()">← Retour</button>':'<span></span>'}<button class="btn btn-primary" id="quiz-next" onclick="goNext()" ${isAnswered(q)?'':'disabled'}>${currentIndex===visible.length-1?'Continuer le diagnostic →':'Question suivante →'}</button></div></div>`;
       host.innerHTML=html;
+      host.querySelector('h3').setAttribute('tabindex','-1');
     }
 
     function chooseAnswer(id,type,value,btn,max) {
@@ -580,22 +597,15 @@
     function goBack(){ if(currentIndex>0){currentIndex--;renderQuestion();} }
 
     function goNext(){
-      let visible=visibleQuestions();
+      const visible=visibleQuestions();
       const q=visible[currentIndex];
       if(!isAnswered(q)) return;
+      if(!q.branch) {
+        questions=baseQuestions().concat((branchQuestions[state.priorite]||[]).map(x=>({...x,branch:true})));
+      }
       currentIndex++;
-      visible=visibleQuestions();
-      if(currentIndex>=visible.length){
-        if(!questions.some(x=>x.branch===true)) addPriorityBranch();
-        else showResults();
-      } else renderQuestion();
-    }
-
-    function addPriorityBranch(){
-      const branch=(branchQuestions[state.priorite]||[]).map(q=>({...q,branch:true}));
-      if(branch.length===0){ showResults(); return; }
-      questions=questions.concat(branch);
-      renderQuestion();
+      if(currentIndex>=visibleQuestions().length) showResults();
+      else renderQuestion();
     }
 
     function computeScores(){
@@ -670,18 +680,6 @@
       return n>=3?'🔴 Technique':n>=1?'🟠 Intermédiaire':'🟢 Facile';
     }
 
-    function scoreCompatibility(){
-      let score=70;
-      if(state.solution) score+=5;
-      if(state.budget!=='nsp') score+=5;
-      if(state.priorite) score+=5;
-      if(state.equipement==='aucun' || state.plateformes.length) score+=5;
-      const diagCount=Object.values(state.diagnostic).filter(v=>Array.isArray(v)?v.length:!!v).length;
-      score+=Math.min(8,diagCount*2);
-      if(Object.values(state.diagnostic).includes('nsp')) score-=5;
-      return Math.max(55,Math.min(96,score));
-    }
-
     function priorityPlan(){
       const p=state.priorite;
       const plans={
@@ -720,24 +718,173 @@
       return `Cette approche ressort notamment parce que ${bits.join(', ')}.`;
     }
 
-    function materialCategories(profile){
-      const p=state.priorite;
-      if(profile==='tenant') return ['Capteurs sans fil','Prises / ampoules connectées','Boutons et équipements réversibles'];
-      if(p==='energie'||p==='consommation') return ['Mesure de consommation','Capteurs température / énergie','Actionneurs adaptés aux charges à piloter'];
-      if(p==='chauffage') return ['Régulation compatible avec votre chauffage','Capteurs de température','Contrôleur / intégration adaptée'];
-      if(p==='securite'||p==='video') return ['Alarme dédiée installée par un professionnel','Détecteurs / ouvrants en complément domotique','Vidéo dédiée si nécessaire'];
-      if(p==='volets') return ['Interface ou passerelle compatible avec la motorisation','Module volet uniquement si câblage compatible','Capteurs / commandes complémentaires'];
-      if(p==='acces') return ['Interface contact sec / constructeur selon automatisme','Retour d’état si disponible','Contrôleur compatible'];
-      if(profile==='advanced') return ['Contrôleur local','Coordinateur / passerelles selon protocoles','Sauvegarde et infrastructure réseau'];
-      return ['Contrôleur / passerelle adaptée','Capteurs utiles au projet','Actionneurs compatibles avec l’existant'];
+    // Références vérifiées le 01/10/2026. Le diagnostic oriente sans certifier une installation.
+    const MATERIALS={
+      zbt:{name:'Home Assistant Connect ZBT-2',url:'https://www.domadoo.fr/fr/dongle-zigbee/8542-nabu-casa-home-assistant-connect-zbt-2-adaptateur-usb-zigbee-ou-matter-thread-0860011789741.html',why:'Ajouter une radio Zigbee à Home Assistant lorsqu’aucun coordinateur n’est déjà présent.',check:'Choisir Zigbee ou Thread pour cet adaptateur, pas les deux simultanément. Vérifier les intégrations et les appareils ; conserver votre coordinateur existant s’il convient.'},
+      green:{name:'Home Assistant Green',url:'https://www.domadoo.fr/fr/produits-compatibles-home-assistant/7046-nabu-casa-box-domotique-home-assistant-green-0860011789703.html',why:'Une base locale pour réunir plusieurs marques et créer des automatismes communs.',check:'À envisager seulement si vous acceptez la configuration et la maintenance. Ethernet nécessaire ; Zigbee nécessite un coordinateur ajouté séparément. Réutilisez votre serveur si vous en avez déjà un.'},
+      temp:{name:'SONOFF SNZB-02P — température et humidité',url:'https://www.domadoo.fr/fr/chauffage-connecte/6732-sonoff-capteur-de-temperature-et-d-humidite-zigbee-30-avec-support.html',why:'Observer la température des pièces avant de modifier la régulation.',check:'Passerelle Zigbee compatible avec cette référence nécessaire. Ce capteur seul ne pilote pas le chauffage ; sa position influence les mesures.'},
+      plug:{name:'SONOFF S60ZB — prise avec mesure de consommation',url:'https://www.domadoo.fr/fr/produits-zigbee/7851-sonoff-s60zbtpf-prise-connectee-zigbee-16a-mesure-consommation.html',why:'Mesurer un appareil sur prise ou piloter une lampe sans modifier le câblage.',check:'Passerelle Zigbee compatible nécessaire. Vérifier la fiche électrique, la charge et les courants de démarrage. Ne pas utiliser cette prise comme solution générique pour chauffe-eau, IRVE ou PAC.'},
+      fp:{name:'NodOn SIN-4-FP-21 — fil pilote Zigbee',url:'https://www.domadoo.fr/fr/chauffage-connecte/6828-nodon-module-chauffage-fil-pilote-connecte-zigbee-30.html',why:'Programmer les modes de radiateurs électriques équipés d’un fil pilote.',check:'Vérifier fil pilote, alimentation, puissance, installation et prise en charge des modes par la passerelle. Les ordres Confort/Eco ne sont pas une consigne universelle en degrés. Pose électrique à faire valider.'},
+      shutter:{name:'NodOn SIN-4-RS-20 — volet filaire Zigbee',url:'https://www.domadoo.fr/fr/volet-roulant-connecte-store/5690-nodon-sin-4-rs-20-module-volet-roulant-zigbee-compatible-home-assistant-3700313925201.html',why:'Intégrer un moteur de volet filaire compatible en conservant une commande locale.',check:'Vérifier moteur, puissance, neutre à l’emplacement du module, commande et volume disponible. Passerelle Zigbee compatible nécessaire. Ce module ne transforme pas un moteur radio RTS/io en moteur filaire.'},
+      tahoma:{name:'Somfy TaHoma switch',url:'https://www.domadoo.fr/fr/box-domotique/7532-somfy-box-domotique-somfy-tahoma-switch-rts-io-zigbee-30-1870595-3660849580308.html',why:'Une piste pour conserver des motorisations Somfy RTS ou io-homecontrol.',check:'Contrôler la référence exacte du moteur dans la liste Somfy. RTS ne fournit pas le même retour d’état que io. Vérifier séparément les fonctions locales et celles dépendant d’Internet ; ne pas acheter une seconde box si TaHoma est déjà présent.'}
+    };
+    function partnerUrl(url){const u=new URL(url);u.searchParams.set('domid','147');return u.href;}
+    function esc(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+    function canChangeWiring(){return state.travaux!=='aucun';}
+    function recommendations(){
+      const d=state.diagnostic,p=state.priorite;
+      const r={title:'',summary:'',tech:[],checks:[],tips:[],products:[],pending:[]};
+      const set=(title,summary)=>{r.title=title;r.summary=summary;};
+      const zigbee=(why)=>r.tech.push('Zigbee : '+why+' Prévoir une passerelle qui prend en charge les références choisies.');
+      switch(p){
+        case 'volets':
+          if(d.volet_type==='filaire') {
+            set('Conserver vos volets filaires, puis choisir leur interface','Un module volet peut être pertinent après validation du moteur et du câblage. Une radio standard ne suffit pas à rendre tous les moteurs compatibles.');
+            r.checks.push('Référence et tension du moteur, puissance, commande, profondeur du boîtier et emplacement du neutre.');
+            if(d.volet_neutre==='oui'&&['inter_monte_descend','double_poussoir'].includes(d.volet_commande)&&canChangeWiring()) {zigbee('une piste pour intégrer vos volets dans une base évolutive.');r.products.push('shutter');}
+            else r.pending.push('Faire identifier un emplacement de pose compatible avant de sélectionner un module. Le neutre absent derrière l’interrupteur peut imposer une autre implantation.');
+            if(['autre','nsp'].includes(d.volet_commande)) r.pending.push('Identifier le type exact de commande du volet.');
+          } else if(['somfy_rts','somfy_io'].includes(d.volet_type)) {
+            set('Conserver votre motorisation Somfy '+(d.volet_type==='somfy_rts'?'RTS':'io-homecontrol'),'Privilégier une interface compatible avec les moteurs déjà installés plutôt que remplacer la motorisation.');
+            r.tech.push(d.volet_type==='somfy_rts'?'RTS : commande radio sans retour d’état natif ; une position affichée peut être estimée.':'io-homecontrol : protocole propriétaire ; vérifier les fonctions et le retour d’état exposés par la passerelle choisie.');
+            r.checks.push('Référence du moteur et de la télécommande dans la liste officielle Somfy.');
+            if(!state.plateformes.includes('tahoma'))r.products.push('tahoma');
+            else r.tips.push('Réutiliser TaHoma et vérifier l’intégration disponible dans votre plateforme centrale.');
+          } else {set('Identifier la motorisation avant de choisir une passerelle','Le protocole d’un volet radio ne se déduit pas de son aspect ni du simple mot « radio ».');r.pending.push('Photographier la référence du moteur et de la télécommande ; rechercher la notice constructeur.');}
+          r.tips.push('Tester un seul volet avant de généraliser et conserver la commande manuelle.');break;
+        case 'chauffage':
+          if(d.chauffage_type==='electrique'&&d.chauffage_pilotage==='fil_pilote'){
+            set('Programmer vos radiateurs par fil pilote','Vous avez identifié la bonne famille de commande : agir sur les modes du radiateur, puis adapter les horaires aux usages réels.');
+            zigbee('adapté à un module fil pilote et aux capteurs de température.');
+            if(canChangeWiring())r.products.push('fp');else r.pending.push('Votre choix « aucun travaux » exclut la pose d’un nouveau module fil pilote ; utiliser la programmation existante.');
+            r.checks.push('Présence du fil pilote sur chaque radiateur, régulation existante et modes disponibles.');
+          }else if(d.chauffage_type==='collectif'){
+            set('Agir à l’échelle de votre logement','La régulation générale dépend du chauffage collectif. Commencer par mesurer les températures et vérifier les possibilités autorisées sur les émetteurs.');
+            r.pending.push('Vérifier avec le gestionnaire les robinets, le circuit et les interventions autorisées.');
+          }else{
+            set('Conserver la régulation, identifier son interface','Le type de chauffage seul ne permet pas de choisir un thermostat ou un relais. Une PAC, une chaudière et un plancher chauffant demandent des vérifications différentes.');
+            r.pending.push('Référence du générateur et du thermostat, interface constructeur, bus éventuel ou entrée thermostat. Ne pas assimiler un bus à un contact sec.');
+            r.tech.push('Interface constructeur ou thermostat compatible : à décider après lecture des notices.');
+            if(d.chauffage_pilotage==='thermostat_connecte')r.tips.push('Vérifier l’intégration du thermostat déjà installé avant de le remplacer.');
+          }
+          r.products.push('temp');
+          const heatTips={programmer:'Commencer par un planning simple tenant compte de l’inertie du chauffage.',pieces:'Vérifier si un pilotage par pièce est possible ; ne pas fermer arbitrairement les circuits d’un plancher ou d’une PAC.',economiser:'Mesurer consommation et confort avant et après chaque changement.',distance:'Conserver les protections et la régulation locale même sans Internet.',presence:'Éviter les changements rapides ; utiliser une présence fiable et tenir compte de l’inertie.',plusieurs:'Stabiliser d’abord un planning, puis ajouter une seule amélioration à la fois.'};
+          r.tips.push(heatTips[d.chauffage_but]||'Observer les températures avant de changer les réglages.');break;
+        case 'energie':case 'consommation':{
+          set('Mesurer les bons postes avant d’automatiser','Choisir la mesure selon le circuit et l’appareil. Le suivi donne une base de comparaison ; il ne garantit pas à lui seul une économie.');
+          const posts=d.energie_postes||[];
+          if(posts.includes('electromenager')) {zigbee('utile pour la mesure d’un appareil branché sur une prise.');r.products.push('plug');}
+          if(posts.includes('global'))r.checks.push('Pour la mesure globale : type de compteur, accès à la téléinformation et compatibilité de l’interface, ou pose d’un compteur adapté par un professionnel.');
+          if(posts.some(x=>['ecs','chauffage','pac','ve'].includes(x)))r.checks.push('Pour les gros consommateurs : mesurer le circuit avec un matériel dimensionné ; aucun pilotage par prise générique.');
+          if(d.energie_pv==='oui'||posts.includes('pv'))r.checks.push('Photovoltaïque : distinguer production, import et export ; vérifier l’onduleur et le sens des mesures.');
+          if(d.energie_pv==='projet')r.tips.push('Prévoir la mesure des flux dans le projet photovoltaïque.');
+          if(['oui','projet'].includes(d.energie_ve))r.checks.push('Recharge : identifier la borne et ses fonctions de délestage/pilotage ; étude IRVE si une modification est nécessaire.');
+          r.tips.push('Observer plusieurs semaines, comparer des périodes comparables et traiter d’abord le poste principal.');
+          if(!posts.length||posts.includes('autre'))r.pending.push('Préciser l’appareil ou le circuit à mesurer avant de choisir le capteur.');break;}
+        case 'eclairage':
+          if(d.eclairage_commande==='ampoules'||!canChangeWiring()){
+            set('Commencer avec un éclairage réversible','Des lampes sur prise ou des ampoules connectées permettent de tester les usages sans modifier les commandes électriques.');
+            zigbee('une piste pour ampoules et boutons, si la passerelle les prend en charge.');
+            r.tips.push('Une ampoule connectée doit rester alimentée pour recevoir des commandes ; prévoir une commande pratique pour toute la famille.');
+            r.checks.push('Culot, variation, alimentation permanente et compatibilité exacte avec votre passerelle.');
+            if(d.eclairage_portee==='quelques')r.products.push('plug');
+          } else {
+            set('Conserver les interrupteurs avec une interface adaptée','Un micromodule peut conserver la commande murale, mais le questionnaire ne connaît pas encore le câblage ni le type de luminaire.');
+            r.pending.push('Vérifier neutre, charge LED, variation, boîtier et commande avant de choisir une référence.');
+            r.tech.push('Zigbee, Z-Wave ou Wi-Fi local : choisir après validation du câblage et de la plateforme.');
+          }
+          if(d.eclairage_presence==='oui')r.tips.push('Distinguer mouvement et présence immobile ; prévoir une extinction temporisée et une commande manuelle.');
+          if(d.eclairage_presence==='peutetre')r.tips.push('Tester un éclairage sur horaire avant d’ajouter des détecteurs.');
+          if(d.eclairage_portee==='exterieur')r.checks.push('Usage extérieur : indice de protection, température et emplacement des équipements.');
+          if(['maison','pieces'].includes(d.eclairage_portee))r.tips.push('Valider une pièce pilote avant de déployer partout.');break;
+        case 'securite':case 'video':{
+          const cameras=p==='video'||(d.securite_fonctions||[]).includes('cameras');
+          set(cameras?'Étudier une vidéo dédiée, compléter la sécurité':'Faire étudier une alarme dédiée','La protection du logement mérite un système autonome adapté aux lieux. La domotique ajoute du confort et des informations, avec des limites clairement identifiées.');
+          r.checks.push('Zones à protéger, alimentation de secours, transmission des alertes et maintenance du système dédié.');
+          if(cameras){
+            r.tech.push(d.securite_reseau==='oui'?'Ethernet / PoE : une piste pour les caméras, avec enregistrement local et réseau adapté.':'Vidéo : étudier la couverture réseau, l’alimentation et l’enregistrement ; le Wi-Fi ne supprime pas le besoin d’alimentation.');
+            r.checks.push('Cadrage et respect de la vie privée : ne pas filmer les voisins ni la voie publique ; règles particulières pour un local professionnel.');
+            if(d.securite_reseau==='nsp'||!d.securite_reseau)r.pending.push('Confirmer les possibilités de câblage avant de recommander une caméra.');
+          }
+          if((d.securite_fonctions||[]).includes('presence'))r.tips.push('Simuler la présence par des éclairages variables, sans dépendre d’une simple notification.');
+          if(d.securite_zone==='exterieur')r.checks.push('Détection extérieure : implantation et risque de fausses alertes à étudier sur place.');
+          r.tips.push('Les capteurs domotiques d’ouverture peuvent informer ; ils ne constituent pas une alarme de protection certifiée.');
+          r.pending.push('Pour l’alarme, demander une étude professionnelle avant de constituer un panier de produits.');break;}
+        case 'acces':
+          set('Identifier la commande de votre accès','La bonne interface dépend de l’automatisme exact et de ses sécurités. Un portail, une gâche et une serrure ne se pilotent pas de la même manière.');
+          if(d.acces_existant==='oui'&&d.acces_contact==='oui'&&['portail','garage'].includes(d.acces_type)){
+            r.tech.push('Relais à contact sec impulsionnel : piste à vérifier dans la notice de l’automatisme.');
+            r.checks.push('Bornes exactes, durée d’impulsion, état ouvert/fermé, alimentation et compatibilité de l’entrée. Ne pas injecter de tension sur une entrée contact sec.');
+          }else r.pending.push('Obtenir la référence et la notice de l’accès ; aucune référence de relais universel ne peut être validée à ce stade.');
+          r.checks.push('Conserver cellules, arrêt, déverrouillage manuel et toutes les sécurités d’origine. Une commande seule ne prouve pas la position réelle.');
+          if(d.acces_type==='serrure')r.checks.push('Serrure : vérifier cylindre, fonctionnement mécanique et moyen de secours. Ne pas désarmer l’alarme sur un simple changement d’état non authentifié.');
+          r.tips.push('Tester le retour d’état et les sécurités avant toute commande à distance.');break;
+        case 'confort':case 'automatisations':
+          set('Construire quelques automatismes utiles et maintenables','Faire fonctionner un scénario simple, puis ajouter les conditions qui évitent les erreurs au quotidien.');
+          r.tech.push('La plateforme déjà installée doit porter les premiers scénarios ; ajouter des capteurs uniquement quand ils répondent à un besoin précis.');
+          if(p==='confort')r.tips.push('Vos scénarios à travailler : '+(d.confort_scenarios||[]).map(x=>({absence:'absence',nuit:'nuit',presence:'présence',volets:'volets selon soleil/chaleur',chauffage:'chauffage selon occupation',eclairage:'éclairage adaptatif'}[x])).join(', ')+'.');
+          if(d.auto_complexite==='avancees')r.tips.push('Documenter conditions, exceptions, redémarrage et reprise après panne avant de multiplier les scénarios.');
+          if(d.auto_complexite==='contextuelles')r.tips.push('Combiner des capteurs fiables avec des délais et une commande manuelle.');
+          r.checks.push('Définir le comportement sans Internet, en cas de capteur indisponible et après redémarrage.');
+          r.tips.push('Conserver un bouton ou une commande manuelle pour les fonctions essentielles.');break;
+        case 'distance':
+          set('Un accès distant sécurisé qui respecte le fonctionnement local','Choisir un accès adapté à votre plateforme et aux fonctions réellement utiles, puis tester ce qui reste disponible lors d’une coupure.');
+          r.tech.push('Service distant officiel de votre plateforme ou VPN maîtrisé ; éviter d’exposer directement l’interface sur Internet.');
+          r.checks.push('Authentification forte, comptes séparés, mises à jour et sauvegardes.');
+          if((d.distance_besoin||[]).includes('camera'))r.checks.push('Vidéo distante : droits d’accès, débit montant et conservation des enregistrements.');
+          if((d.distance_besoin||[]).includes('alertes'))r.tips.push('Les notifications à distance dépendent d’une connexion et d’un service de transmission ; prévoir un autre canal pour les besoins critiques.');
+          r.tips.push('Commencer par consulter les états, puis autoriser les commandes nécessaires.');break;
+        case 'local':
+          set('Définir les fonctions qui doivent rester autonomes','Une installation locale dépend de toute la chaîne : contrôleur, intégrations, réseau et actionneurs. Le protocole seul ne garantit pas l’autonomie.');
+          r.tech.push('Zigbee ou Z-Wave avec contrôleur local ; Wi-Fi seulement si le produit propose une API locale exploitable.');
+          if(d.local_niveau==='maximum')r.tips.push('Écarter les intégrations qui nécessitent le cloud pour les commandes essentielles et tester les mises à jour sans dépendance cachée.');
+          if(d.local_niveau==='essentiel')r.tips.push('Lister les fonctions essentielles et vérifier leur disponibilité lors d’une coupure WAN.');
+          r.checks.push('Sauvegardes restaurables, alimentation, comportement après panne et dépendances de chaque intégration.');break;
+        case 'centraliser':
+          set('Relier l’existant avant de le remplacer','Une plateforme centrale peut réunir plusieurs marques ; elle ne rend pas automatiquement chaque fonction compatible ni locale.');
+          r.tech.push('Intégrations officielles ou documentées de vos passerelles et appareils ; identifier les fonctions réellement exposées.');
+          r.pending.push('Établir la liste des références, passerelles et fonctions à réunir.');
+          if((d.centraliser_but||[]).includes('automatisations'))r.tips.push('Commencer par une automatisation entre deux marques et tester la continuité de fonctionnement.');
+          if((d.centraliser_but||[]).includes('apps'))r.tips.push('La centralisation peut réduire les applications utilisées chaque jour ; garder celles nécessaires à la maintenance constructeur.');
+          r.tips.push('Migrer fonction par fonction et conserver les commandes d’origine.');break;
+        default:
+          set('Choisir un premier usage concret','Commencer petit : une fonction utile, une base compatible et un résultat observable avant d’étendre le système.');
+          r.tech.push('Comparer Zigbee, Z-Wave, Wi-Fi et Matter selon l’usage et les équipements déjà présents.');
+          const learn={bases:'Lire le guide débutant, puis choisir une pièce pilote.',protocoles:'Lire le comparatif, puis vérifier les prérequis de deux produits.',budget:'Chiffrer l’ensemble : appareil, passerelle éventuelle, pose et abonnement.',idees:'Choisir un cas concret : lampe, température ou mesure d’un appareil.'};
+          r.tips.push(learn[d.decouvrir_but]||learn.bases);
+      }
+      // Cross-cutting constraints remain more important than a profile score.
+      if(state.plateformes.length)r.tips.push('Votre existant : '+state.plateformes.map(x=>PLATFORM_LABELS[x]||'à identifier').join(', ')+'. Vérifier ses compatibilités avant d’ajouter une box.');
+      if(state.protocoles.includes('knx')||state.plateformes.includes('knx'))r.tech.push('KNX déjà présent : conserver les fonctions câblées et étudier une interface KNX/IP adaptée avec l’intégrateur.');
+      if(state.protocoles.includes('zwave'))r.tech.push('Z-Wave déjà présent : privilégier votre contrôleur et des appareils de la même région radio, avec fonctions prises en charge.');
+      if(state.protocoles.includes('matter')||state.protocoles.includes('thread'))r.checks.push('Matter n’est pas un protocole radio. Un appareil Matter sur Thread nécessite un routeur de bordure Thread et un contrôleur Matter adapté ; Zigbee n’est pas Thread.');
+      if(['100_150','plus150'].includes(state.surface)||['2','3plus'].includes(state.niveaux))r.checks.push('Couverture : tester chaque niveau, placer le contrôleur correctement et répartir des routeurs compatibles alimentés en permanence. Les capteurs sur pile ne renforcent pas le maillage.');
+      if(state.statut==='locataire')r.tips.push('Privilégier une installation démontable ; obtenir les accords nécessaires avant les modifications fixes.');
+      if(!canChangeWiring())r.tips.push('Respecter votre choix sans travaux : commandes constructeur, appareils sur prise et capteurs sans fil.');
+      if(['aucun','petit'].includes(state.niveauElectrique)&&canChangeWiring())r.checks.push('Faire réaliser les raccordements électriques par un professionnel qualifié.');
+      if(['important','max'].includes(state.localImportance))r.checks.push('Tester commandes et automatismes après coupure d’Internet ; la présence d’une passerelle ne prouve pas un fonctionnement local.');
+      if(state.budget==='moins100')r.tips.push('Moins de 100 € : un essai ciblé. Une nouvelle box, la radio et la pose peuvent dépasser ce budget ; réutiliser l’existant et demander un devis avant d’acheter.');
+      else if(state.budget==='nsp')r.tips.push('Chiffrer d’abord le premier usage, avec passerelle, matériel, pose et frais récurrents éventuels.');
+      else r.tips.push('Réserver le budget au besoin prioritaire ; inclure passerelle, pose, accessoires et frais récurrents dans le chiffrage.');
+      const central=['local','centraliser','automatisations','confort'].includes(p)||architecture()==='avancee';
+      if(central&&!state.plateformes.some(x=>['home_assistant','jeedom','knx'].includes(x))&&state.solution!=='simple'&&!['moins100','100_300'].includes(state.budget)&&!['securite','video','acces'].includes(p))r.products.push('green');
+      if(r.products.some(x=>['temp','plug','fp','shutter'].includes(x)))r.checks.push('Zigbee : vérifier la référence dans la liste de votre passerelle ou intégration. Une box Aqara, Hue ou Tuya n’accepte pas forcément tous les appareils Zigbee tiers.');
+      if(state.objectifs.length>1)r.tips.push('Les autres objectifs restent à traiter ensuite : ce diagnostic technique porte sur votre priorité. Refaire le questionnaire pour étudier un autre usage.');
+      if((r.products.includes('green')||state.plateformes.includes('home_assistant'))&&r.products.some(x=>['temp','plug','fp','shutter'].includes(x))&&!state.protocoles.includes('zigbee'))r.products.push('zbt');
+      r.products=[...new Set(r.products)];
+      if(r.pending.length===0)r.checks.push('Avant achat : confirmer les références, les notices et toutes les fonctions nécessaires avec le fabricant ou l’installateur.');
+      return r;
     }
-
-    function guides(){
-      const g=[['article-1.html','Bien débuter en domotique']];
-      if(['local','centraliser','energie','consommation','automatisations','decouvrir'].includes(state.priorite)) g.push(['article-2.html','Zigbee, Z-Wave, Matter ou Wi-Fi ?']);
-      if(state.objectifs.includes('volets')||state.objectifs.includes('eclairage')) g.push(['article-3.html','Comprendre le fil neutre et les micromodules']);
-      if(['volets','eclairage','acces'].some(x=>state.objectifs.includes(x))) g.push(['securite-electrique.html','Sécurité électrique en domotique']);
-      return g.slice(0,4);
+    function guides(r){
+      const g=[];const add=(url,title,why)=>{if(!g.some(x=>x[0]===url))g.push([url,title,why]);};
+      if(['debutant','notions'].includes(state.niveauDomotique)||state.priorite==='decouvrir')add('article-1.html','Bien débuter en domotique','Définir un premier besoin et éviter les achats dispersés.');
+      if(['volets','eclairage','chauffage','acces','energie','consommation'].includes(state.priorite))add('securite-electrique.html','Sécurité électrique','Préparer les vérifications avant une modification électrique.');
+      if(['volets','eclairage'].includes(state.priorite))add('article-3.html','Volets, interrupteurs et fil neutre','Comprendre les contraintes de pose des modules.');
+      if(r.products.some(x=>['temp','plug','fp','shutter'].includes(x))||state.protocoles.includes('zigbee'))add('protocole-zigbee.html','Construire un réseau Zigbee fiable','Passerelle, routeurs, placement et interférences.');
+      if(state.protocoles.includes('zwave'))add('z-wave-domotique.html','Le guide Z-Wave','Réseau et compatibilité avant d’étendre votre installation.');
+      add('article-2.html','Zigbee, Z-Wave, Matter ou Wi-Fi ?','Comparer les technologies avant de choisir une architecture.');
+      if(['local','centraliser','confort','automatisations'].includes(state.priorite))add('mon-installation.html','Le Lab DomoRepère','Un exemple de centralisation à adapter à vos contraintes.');
+      return g;
     }
 
     function securityNotice(){
@@ -745,47 +892,32 @@
       return `<div class="quiz-notice safety"><strong>🛡️ Position DomoRepère :</strong> pour la protection réelle d’un logement, nous recommandons une <strong>alarme dédiée installée par un professionnel</strong>. Il est préférable de séparer alarme et domotique pour des raisons de sécurité, de fiabilité et de continuité de fonctionnement. La domotique peut toutefois compléter le système : simulation de présence, vérification des ouvrants, alertes et éventuellement déclenchement d’une sirène. Ces fonctions ne remplacent pas un véritable système d’alarme professionnel, par exemple un système dédié de type AJAX adapté au site.</div>`;
     }
 
-    function uncertaintyNotice(){
-      if(Object.values(state.diagnostic).includes('nsp')) return `<div class="quiz-notice warning"><strong>ℹ️ Information manquante :</strong> au moins une donnée technique reste inconnue. DomoRepère ne doit pas deviner : identifiez la référence, le câblage ou la technologie concernée avant de choisir un matériel précis.</div>`;
-      return '';
-    }
-
     function showResults(){
       document.getElementById('quiz-shell').style.display='none';
       document.getElementById('step-result').classList.add('active');
-      const scores=computeScores();
-      const profileKey=profileFromScores(scores);
-      const profile=profiles[profileKey];
-      const arch=architecture();
-      const comp=scoreCompatibility();
-      const plan=priorityPlan();
-      const mats=materialCategories(profileKey);
-      const guideList=guides();
-      const objectiveTags=state.objectifs.map(o=>`<span class="project-tag ${o===state.priorite?'priority':''}">${OBJECTIVES[o].label}${o===state.priorite?' · Priorité':''}</span>`).join('');
-      let html=`
-        <div class="result-hero">
-          <div style="font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:800;">Votre profil DomoRepère</div>
-          <h3>${profile.icon} ${profile.name}</h3>
-          <p style="color:#cbd5e1;">${profile.desc}</p>
-          <div class="result-meta"><span class="result-pill">${architectureText(arch)}</span><span class="result-pill">${difficulty()}</span><span class="result-pill">Priorité : ${OBJECTIVES[state.priorite].label}</span></div>
-        </div>
-        <div class="result-grid">
-          <div class="result-card"><h4>Pourquoi cette recommandation ?</h4><p>${whyText(profileKey)}</p></div>
-          <div class="result-card"><h4>Indice DomoRepère</h4><div class="score-box"><div class="score-number">${comp}/100</div><p>Compatibilité estimée avec vos objectifs, vos contraintes, votre niveau et votre préférence d’architecture.</p></div></div>
-        </div>
-        ${securityNotice()}${uncertaintyNotice()}
-        <div class="result-card"><h4>Vos projets</h4><div class="project-tags">${objectiveTags}</div></div>
-        <div class="result-grid">
-          <div class="result-card"><h4>Vos 3 prochaines étapes</h4><ol>${plan.map(x=>`<li>${x}</li>`).join('')}</ol></div>
-          <div class="result-card"><h4>Matériel à envisager</h4><ul>${mats.map(x=>`<li>${x}</li>`).join('')}</ul><p style="margin-top:.7rem;"><strong>Principe :</strong> vérifier la compatibilité avant d’acheter. DomoRepère privilégie l’existant quand il peut être conservé.</p></div>
-        </div>
-        <div class="result-grid">
-          <div class="result-card"><h4>Guides DomoRepère recommandés</h4><ul>${guideList.map(([url,label])=>`<li><a href="${url}">${label}</a></li>`).join('')}</ul></div>
-          <div class="result-card"><h4>Deux alternatives</h4><p><strong>Plus simple :</strong> réduire le projet à votre besoin prioritaire et limiter le nombre de technologies.</p><p style="margin-top:.65rem;"><strong>Plus évolutive :</strong> choisir une plateforme centrale locale/multiprotocole et avancer fonction par fonction.</p></div>
-        </div>
-        <div class="quiz-notice"><strong>Prochaine évolution :</strong> les résultats pourront ensuite proposer des produits précis chez nos partenaires uniquement après validation de la compatibilité technique.</div>`;
+      const profile=profiles[profileFromScores(computeScores())];
+      const r=recommendations();
+      const list=items=>`<ul>${items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+      const card=(title,body)=>`<div class="result-card"><h4>${esc(title)}</h4>${body}</div>`;
+      const tags=state.objectifs.map(o=>`<span class="project-tag ${o===state.priorite?'priority':''}">${esc(OBJECTIVES[o].label)}${o===state.priorite?' · Priorité':''}</span>`).join('');
+      const products=r.products.map(key=>{const m=MATERIALS[key];return `<article class="product-item"><h5>${esc(m.name)}</h5><p>${esc(m.why)}</p><p><strong>Avant achat :</strong> ${esc(m.check)}</p><a class="btn btn-affiliate" href="${esc(partnerUrl(m.url))}" target="_blank" rel="noopener noreferrer sponsored">Voir la fiche chez Domadoo ↗</a></article>`;}).join('');
+      const related=guides(r).map(([url,title,why])=>`<li><a href="${esc(url)}">${esc(title)}</a> — ${esc(why)}</li>`).join('');
+      let html=`<div class="result-hero"><p>Votre orientation DomoRepère</p><h3 tabindex="-1">${esc(r.title)}</h3><p>${esc(r.summary)}</p><div class="result-meta"><span class="result-pill">${esc(profile.name)}</span><span class="result-pill">${esc(architectureText(architecture()))}</span><span class="result-pill">Priorité : ${esc(OBJECTIVES[state.priorite].label)}</span></div></div>`;
+      html+=card('Pourquoi cette orientation ?',`<p>${esc(whyText())}</p><div class="project-tags">${tags}</div>`);
+      html+=`<div class="quiz-notice"><strong>Ce que ce diagnostic permet :</strong> orienter vos choix à partir de vos réponses. Il ne certifie ni le câblage ni la compatibilité d’une référence avec votre installation.</div>`;
+      html+=securityNotice();
+      if(r.pending.length)html+=`<div class="quiz-notice warning"><strong>À identifier avant de choisir le matériel</strong>${list(r.pending)}</div>`;
+      if(Object.values(state.diagnostic).some(v=>Array.isArray(v)?v.includes('nsp'):v==='nsp'))html+=`<div class="quiz-notice warning">Une réponse technique reste inconnue. Relever la référence ou consulter la notice avant achat ; les exemples ci-dessous restent conditionnels.</div>`;
+      html+=`<div class="result-grid">${card('Technologies et interfaces à envisager',list(r.tech.length?r.tech:['Conserver la technologie existante si elle répond au besoin ; identifier la bonne interface avant de changer de protocole.']))}${card('Vos conseils personnalisés',list(r.tips))}</div>`;
+      html+=card('Compatibilités et précautions à vérifier',list(r.checks));
+      html+=`<div class="result-grid">${card('Vos trois prochaines étapes',`<ol>${priorityPlan().map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`)}${card('Pour commencer progressivement',`<p>Valider un premier équipement ou scénario sur votre besoin prioritaire. Tester les commandes manuelles et le comportement en cas de panne avant d’étendre l’installation.</p>`)}</div>`;
+      html+=card('Matériel : des pistes à vérifier',products||'<p>Aucun produit précis ne peut encore être conseillé pour ce cas. Les vérifications ci-dessus permettront de sélectionner une référence adaptée ; conserver le matériel existant lorsqu’il convient.</p>');
+      if(products)html+=`<p class="affiliation-notice">Liens partenaires Domadoo : DomoRepère peut percevoir une commission, sans surcoût pour vous. Les références sont des exemples conditionnels, pas une liste d’achats obligatoire. Vérification des fiches : 1er octobre 2026 ; disponibilité et prix à consulter chez le marchand.</p>`;
+      html+=card('Les guides pour avancer',`<ul>${related}</ul>`);
+      if(state.priorite==='video'||(state.diagnostic.securite_fonctions||[]).includes('cameras'))html+=card('Vidéo et vie privée', '<p><a href="https://www.cnil.fr/fr/la-videosurveillance-videoprotection-chez-soi" target="_blank" rel="noopener noreferrer">Consulter les règles de la CNIL pour les caméras à domicile ↗</a></p>');
       document.getElementById('result-content').innerHTML=html;
       document.getElementById('quiz').scrollIntoView({behavior:'smooth',block:'start'});
+      document.querySelector('#result-content h3').focus({preventScroll:true});
     }
 
     function resetQuiz(){
