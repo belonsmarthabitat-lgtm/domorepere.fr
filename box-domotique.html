@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faut-il une box domotique en 2026 ? Home Assistant, Jeedom ou Homey</title>
+<meta name="description" content="Faut-il une box domotique ? Comparez Home Assistant, Jeedom, Homey et les passerelles constructeur selon compatibilité, cloud, maintenance et évolutivité.">
+<link rel="canonical" href="https://domorepere.fr/box-domotique.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0d665d">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="DomoRepère">
+<meta property="og:title" content="Faut-il une box domotique en 2026 ? Home Assistant, Jeedom ou Homey">
+<meta property="og:description" content="Comprendre les architectures domotiques avant de choisir une box : plateforme centrale, passerelle constructeur, local, cloud et compatibilité.">
+<meta property="og:url" content="https://domorepere.fr/box-domotique.html">
+<meta property="og:image" content="https://domorepere.fr/assets/brand/social-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Faut-il une box domotique en 2026 ?">
+<meta name="twitter:description" content="Home Assistant, Jeedom, Homey ou passerelle constructeur : choisir selon l’architecture, pas selon un classement.">
+<meta name="twitter:image" content="https://domorepere.fr/assets/brand/social-card.png">
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icons/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" sizes="180x180">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#0d665d;--primary-hover:#084f49;--primary-soft:#eaf5f2;--secondary:#273436;--accent:#c9aa72;--accent-soft:#f8f1e5;--bg-light:#f6f8f7;--text-main:#3d4b4d;--text-muted:#6d7b7d;--border:#dce5e3;--radius:16px;--shadow:0 8px 24px rgba(39,52,54,.07)}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text-main);background:var(--bg-light);line-height:1.72}a{color:var(--primary);text-decoration:none}a:hover{color:var(--primary-hover)}img{max-width:100%;height:auto}
+.site-header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}.nav-container{max-width:1200px;margin:0 auto;padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem}.logo{display:flex;align-items:center;gap:.7rem;color:var(--secondary);font-size:1.2rem;font-weight:800}.logo img{height:48px}.logo strong{color:var(--primary)}nav ul{display:flex;list-style:none;gap:1.55rem}nav a{color:var(--secondary);font-weight:650;font-size:.92rem}nav a.active{color:var(--primary)}
+.article-hero{background:linear-gradient(132deg,#273436 0%,#1f3434 48%,#0d665d 120%);color:#fff;padding:4.6rem 1.5rem 3.6rem}.article-hero-inner{max-width:920px;margin:0 auto}.breadcrumb{font-size:.86rem;color:#c6d2d1;margin-bottom:1.1rem}.breadcrumb a{color:#e6cf9f}.eyebrow{color:#e5c995;font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:.75rem}h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em}.lead{margin-top:1rem;max-width:830px;color:#d3dddd;font-size:1.06rem}.meta{display:flex;flex-wrap:wrap;gap:.7rem 1rem;margin-top:1.35rem;color:#c5d1cf;font-size:.88rem}.author-line{margin-top:.65rem;color:#e6cf9f;font-size:.86rem;font-weight:600}
+.page-wrap{max-width:1100px;margin:0 auto;padding:2.6rem 1.5rem 4rem}.content-grid{display:grid;grid-template-columns:minmax(0,760px) 250px;gap:2rem;align-items:start}.article-body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.2rem}.article-body h2{color:var(--secondary);font-size:1.55rem;line-height:1.25;margin:2.3rem 0 .85rem;scroll-margin-top:105px}.article-body h3{color:var(--secondary);font-size:1.15rem;margin:1.6rem 0 .55rem}.article-body p{margin-bottom:1.1rem}.article-body ul,.article-body ol{margin:0 0 1.4rem 1.25rem}.article-body li{margin-bottom:.55rem}
+.highlight-box{background:var(--primary-soft);border:1px solid #cfe7e1;border-left:5px solid var(--primary);border-radius:12px;padding:1.15rem 1.2rem;margin:1.5rem 0}.field-note{background:#fbfcfc;border:1px dashed #b8cbc7;border-radius:12px;padding:1.05rem 1.15rem;margin:1.5rem 0}.question-box{background:var(--secondary);color:#edf3f2;border-radius:14px;padding:1.35rem;margin:1.7rem 0}.question-box strong{color:#efd59f}.article-figure{margin:1.8rem 0}.article-figure img{display:block;width:100%;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow)}.article-figure figcaption{font-size:.82rem;color:var(--text-muted);margin-top:.55rem}
+.comparison-table-wrapper{overflow-x:auto;margin:1.6rem 0}.comparison-table{width:100%;border-collapse:collapse;font-size:.9rem}.comparison-table th,.comparison-table td{padding:.72rem .78rem;border:1px solid var(--border);text-align:left;vertical-align:top}.comparison-table th{background:var(--primary-soft);color:var(--secondary)}.checklist{background:var(--bg-light);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin:1.4rem 0}.checklist-item{display:flex;gap:.75rem;margin-bottom:1rem}.checklist-item>span{font-weight:800;color:var(--primary)}
+.sources{background:var(--bg-light);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-top:1.5rem}.sources ul{margin-bottom:0}.sources li{font-size:.9rem}.next-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.3rem}.next-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow)}.next-card span{display:block;color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase;margin-bottom:.35rem}.next-card strong{color:var(--secondary)}
+.sidebar{position:sticky;top:88px}.side-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;box-shadow:var(--shadow);margin-bottom:1rem}.side-card h2{font-size:1rem;color:var(--secondary);margin-bottom:.65rem}.side-card ul{list-style:none}.side-card li+li{margin-top:.55rem}.side-card a{font-size:.88rem}.side-card p{font-size:.88rem;color:var(--text-muted)}
+footer{background:var(--secondary);color:#b8c4c3;padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--accent)}footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
+@media(max-width:900px){.content-grid{grid-template-columns:1fr}.sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}}@media(max-width:720px){.nav-container{flex-direction:column}.nav-container nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}.article-hero{padding:3.6rem 1rem 3rem}.page-wrap{padding:2rem 1rem 3rem}.article-body{padding:1.35rem}.sidebar,.next-links{grid-template-columns:1fr}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Faut-il une box domotique en 2026 ? Home Assistant, Jeedom, Homey ou passerelle constructeur","description":"Comprendre les architectures domotiques avant de choisir une box : plateforme centrale, passerelle constructeur, local, cloud et compatibilité.","inLanguage":"fr-FR","mainEntityOfPage":"https://domorepere.fr/box-domotique.html","datePublished":"2026-10-02","dateModified":"2026-10-02","author":{"@type":"Person","name":"Yohann DESCAMPS"},"publisher":{"@type":"Organization","name":"DomoRepère","url":"https://domorepere.fr/"}}
+</script>
+</head>
+<body>
+<header class="site-header"><div class="nav-container"><a href="index.html" class="logo"><img src="assets/brand/logo.png" alt="Logo DomoRepère"><span>Domo<strong>Repère</strong></span></a><nav><ul><li><a href="index.html">Accueil</a></li><li><a href="index.html#quiz">Guide interactif</a></li><li><a class="active" href="articles.html">Guides &amp; articles</a></li><li><a href="mon-installation.html">Le Lab</a></li><li><a href="index.html#contact">Contact</a></li></ul></nav></div></header>
+<main>
+<section class="article-hero"><div class="article-hero-inner"><div class="breadcrumb"><a href="index.html">Accueil</a> › <a href="articles.html">Guides</a> › Box domotique</div><div class="eyebrow">Architecture • centralisation • compatibilité</div><h1>Faut-il une box domotique en 2026 ? Home Assistant, Jeedom, Homey ou passerelle constructeur</h1><p class="lead">Une box peut simplifier une maison connectée… ou ajouter une couche de complexité dont tu n’avais pas besoin. Avant de choisir un produit, il faut surtout comprendre quelle architecture correspond à ton installation.</p><div class="meta"><span>⏱️ 16 min</span><span>🗓️ Mis à jour le 2 octobre 2026</span><span>📚 Architecture domotique</span></div><div class="author-line">Par Yohann DESCAMPS — DomoRepère</div></div></section>
+
+<div class="page-wrap"><div class="content-grid"><div>
+<article class="article-body">
+<p>Quand une installation commence à mélanger des volets, des capteurs, de l’éclairage, du chauffage et plusieurs marques, la question arrive vite : <strong>faut-il une box domotique pour mettre tout ça au même endroit ?</strong></p>
+<p>La réponse n’est pas automatiquement oui. Pour quelques appareils simples, une plateforme centrale peut être inutile. À l’inverse, quand les applications se multiplient, que les automatismes doivent faire dialoguer plusieurs écosystèmes ou que certaines fonctions doivent continuer sans Internet, la centralisation devient beaucoup plus intéressante.</p>
+<div class="highlight-box"><strong>La méthode DomoRepère :</strong> ne commence pas par « Home Assistant, Jeedom ou Homey ? ». Commence par « qu’est-ce que je veux centraliser, quelles fonctions doivent rester locales et combien de maintenance suis-je prêt à accepter ? »</div>
+
+<h2 id="1-role-box">1. Une box domotique, ça sert à quoi exactement ?</h2>
+<p>Une box domotique est avant tout un <strong>point de centralisation</strong>. Elle peut réunir des appareils de plusieurs marques, héberger des automatismes, proposer une interface commune et parfois intégrer directement certaines radios.</p>
+<p>Son rôle peut être très différent selon la solution. Une passerelle constructeur sert souvent principalement son propre écosystème. Une plateforme comme Home Assistant ou Jeedom peut être installée sur différents matériels et étendue avec des radios ou des intégrations. Homey Pro adopte une autre approche : davantage de technologies radio sont intégrées directement dans le produit.</p>
+<p>Il faut donc éviter une confusion : <strong>une box domotique n’est pas forcément une radio universelle.</strong> Installer Home Assistant ne donne pas automatiquement Zigbee ou Z-Wave à la machine. Selon l’architecture choisie, il faudra ajouter un coordinateur, un contrôleur ou conserver certaines passerelles.</p>
+
+<h2 id="2-faut-il-box">2. Faut-il vraiment une box domotique ?</h2>
+<h3>Quand on peut très bien s’en passer</h3>
+<p>Si ton installation se limite à quelques appareils autonomes — deux prises Wi‑Fi, un thermostat bien intégré ou quelques équipements Matter déjà pilotés par ton environnement habituel — une plateforme supplémentaire n’est pas forcément utile.</p>
+<p>Ajouter une box uniquement parce qu’une installation « sérieuse » devrait en avoir une revient à ajouter une chose de plus à mettre à jour, sauvegarder et dépanner.</p>
+<h3>Quand une box commence à avoir du sens</h3>
+<ul><li>faire travailler ensemble plusieurs marques ou protocoles ;</li><li>créer des automatismes qui dépassent une application constructeur ;</li><li>réduire le nombre d’applications utilisées au quotidien ;</li><li>conserver davantage de fonctions en local ;</li><li>avoir une vision globale des états, capteurs et scénarios ;</li><li>faire évoluer l’installation sans repartir de zéro à chaque nouveau produit.</li></ul>
+<div class="question-box"><p><strong>Le bon critère :</strong></p><p>Une box devient utile quand elle simplifie réellement l’architecture. Si elle ne fait qu’ajouter une couche entre toi et trois appareils déjà simples à utiliser, elle n’apporte pas forcément grand-chose.</p></div>
+
+<h2 id="3-architectures">3. Sans centrale, passerelle constructeur ou plateforme centrale : trois architectures différentes</h2>
+<figure class="article-figure"><img src="assets/images/articles/box-domotique/architectures-box-domotique.webp" alt="Trois architectures domotiques : sans centrale, passerelle constructeur et plateforme domotique centrale" width="1600" height="900" loading="lazy"><figcaption>Avant de choisir une marque de box, il faut choisir le niveau de centralisation dont le projet a réellement besoin.</figcaption></figure>
+<p><strong>Sans centrale</strong>, chaque appareil ou service reste principalement géré par son application ou son cloud. C’est simple tant que le nombre de produits reste faible et que les interactions entre eux sont limitées.</p>
+<p>Avec une <strong>passerelle constructeur</strong>, plusieurs appareils d’une même famille sont déjà regroupés : Hue pour l’éclairage, Aqara pour une partie de ses appareils, TaHoma pour l’écosystème Somfy, par exemple.</p>
+<p>Une <strong>plateforme centrale</strong> vise plutôt à rassembler plusieurs univers dans une logique commune. Elle devient le cerveau transversal de l’installation, tout en pouvant continuer à s’appuyer sur certaines passerelles lorsqu’elles sont utiles.</p>
+
+<h2 id="4-passerelle-constructeur">4. Une passerelle constructeur est-elle forcément une mauvaise solution ?</h2>
+<p>Non. Et chercher à supprimer toutes les passerelles à tout prix peut même compliquer inutilement une installation.</p>
+<ul><li>compatibilité officiellement testée avec les produits de la marque ;</li><li>fonctions spécifiques que les intégrations tierces n’exposent pas toujours ;</li><li>installation plus simple pour quelqu’un qui ne souhaite pas administrer une plateforme centrale ;</li><li>support constructeur plus clair en cas de problème.</li></ul>
+<p>Son principal défaut apparaît lorsque chaque nouvel achat ajoute son propre hub et sa propre application. À partir d’un certain point, le système reste fonctionnel mais devient difficile à comprendre.</p>
+<div class="field-note"><strong>Dans une installation existante :</strong> je ne supprimerais pas une passerelle fiable uniquement pour avoir une architecture « plus pure ». Si elle fonctionne bien et apporte des fonctions utiles, la plateforme centrale peut simplement l’intégrer.</div>
+
+<h2 id="5-home-assistant">5. Home Assistant : très ouvert, mais pas une box magique</h2>
+<p>Home Assistant est une plateforme open source qui met le <strong>contrôle local et la confidentialité</strong> au centre de son fonctionnement. Le projet annonce aujourd’hui plus de 1 500 intégrations et stocke les données localement sur le matériel qui héberge Home Assistant.</p>
+<p>Son intérêt est surtout sa capacité à réunir des équipements très différents dans une même logique. Zigbee, Z-Wave, Matter, Thread ou de nombreuses intégrations LAN peuvent fonctionner localement lorsque les appareils eux-mêmes le permettent.</p>
+<p>Mais cette souplesse a une contrepartie : <strong>tu deviens davantage responsable de l’architecture.</strong> Il faut choisir le matériel, prévoir les radios nécessaires, organiser les sauvegardes et accepter de maintenir la plateforme dans le temps.</p>
+<p>Home Assistant Cloud existe comme service optionnel pour simplifier l’accès à distance et certaines intégrations vocales. Home Assistant lui-même fonctionne sans cet abonnement.</p>
+<p>Je m’arrête volontairement ici : le futur guide <strong>« Home Assistant est-il fait pour vous ? »</strong> ira beaucoup plus loin sur ce que cette liberté implique réellement au quotidien.</p>
+
+<h2 id="6-jeedom">6. Jeedom : une autre approche de la domotique ouverte</h2>
+<p>Jeedom est également un logiciel open source et peut fonctionner sans abonnement ni service cloud obligatoire. Il peut être installé sur différents matériels compatibles ou utilisé via des box officielles.</p>
+<p>L’écosystème repose beaucoup sur les plugins pour étendre les possibilités et connecter les équipements. Certains sont gratuits, d’autres payants ou peuvent eux-mêmes nécessiter un accès Internet selon le service utilisé.</p>
+<p>Comme Home Assistant, Jeedom permet donc de construire une architecture très locale et personnalisable. La comparaison intéressante n’est pas « lequel est le meilleur ? », mais <strong>quelle manière d’administrer la maison te convient le mieux</strong> : interface, plugins, matériel, maintenance et habitudes.</p>
+
+<h2 id="7-homey">7. Homey : l’approche multiprotocole plus intégrée</h2>
+<p>Homey Pro 2026 prend une direction différente : le matériel intègre directement plusieurs technologies, notamment Zigbee, Z-Wave, Matter, Thread, Bluetooth, 433 MHz et infrarouge.</p>
+<p>La logique principale de Homey Pro est exécutée localement. Les modèles récents permettent aussi de créer des utilisateurs locaux pour accéder à l’interface Web sur le réseau local sans dépendre de l’authentification cloud.</p>
+<p>Cela donne une architecture plus « produit fini » : moins de radios externes à assembler, une interface commune et un écosystème d’applications propre à Homey.</p>
+<p>Il faut toutefois distinguer <strong>Homey Pro</strong> de <strong>Homey Cloud</strong>. Le premier est une plateforme matérielle locale ; le second est une offre cloud avec un modèle et des contraintes différents.</p>
+
+<h2 id="8-comparatif">8. Home Assistant, Jeedom, Homey Pro ou passerelle constructeur : que compare-t-on vraiment ?</h2>
+<div class="comparison-table-wrapper"><table class="comparison-table"><thead><tr><th>Critère</th><th>Home Assistant</th><th>Jeedom</th><th>Homey Pro</th><th>Passerelle constructeur</th></tr></thead><tbody>
+<tr><td><strong>Logique</strong></td><td>Plateforme ouverte à composer</td><td>Plateforme ouverte à composer</td><td>Plateforme + matériel intégré</td><td>Écosystème d’une marque</td></tr>
+<tr><td><strong>Local</strong></td><td>Au cœur du projet</td><td>Sans cloud obligatoire</td><td>Traitement local</td><td>Dépend du fabricant</td></tr>
+<tr><td><strong>Radios</strong></td><td>À ajouter selon le matériel</td><td>Selon la box ou les contrôleurs</td><td>Plusieurs radios intégrées</td><td>Celles prévues par l’écosystème</td></tr>
+<tr><td><strong>Extensions</strong></td><td>Intégrations</td><td>Plugins</td><td>Apps Homey</td><td>Plus limitées</td></tr>
+<tr><td><strong>Maintenance</strong></td><td>Utilisateur impliqué</td><td>Utilisateur impliqué</td><td>Plus intégrée au produit</td><td>Principalement fabricant</td></tr>
+<tr><td><strong>Évolutivité</strong></td><td>Très large selon intégrations et matériel</td><td>Large selon plugins et contrôleurs</td><td>Large dans le cadre Homey</td><td>Plus centrée sur la marque</td></tr>
+</tbody></table></div>
+<p>Ce tableau ne donne pas de gagnant. Il montre surtout que les quatre approches ne demandent pas le même investissement à l’utilisateur.</p>
+
+<h2 id="9-approches">9. Home Assistant ou Jeedom ? Homey ou Home Assistant ?</h2>
+<p>Home Assistant et Jeedom peuvent tous les deux fonctionner largement en local et être fortement personnalisés. Les différences se jouent donc beaucoup dans l’écosystème logiciel, les extensions disponibles, l’interface et la manière dont chacun préfère administrer sa maison.</p>
+<p>Le contraste avec Homey Pro est plus visible : Homey intègre davantage de radios directement dans un appareil conçu comme un produit complet. Home Assistant peut être extrêmement ouvert, mais l’architecture matérielle dépend davantage de ce que tu décides d’assembler.</p>
+<p>Le choix oppose donc moins des listes de compatibilité qu’un niveau de <strong>liberté et de responsabilité technique</strong>.</p>
+
+<h2 id="10-local-cloud">10. Local et cloud : ce que cela change vraiment</h2>
+<p>« Fonctionne en local » est devenu un argument marketing, mais il faut regarder ce que cela signifie concrètement. Pour chaque fonction importante, demande-toi où l’automatisme est exécuté, ce qui se passe si Internet tombe et de quoi dépend l’accès à distance.</p>
+<figure class="article-figure"><img src="assets/images/articles/box-domotique/box-domotique-local-cloud.webp" alt="Différence entre une logique domotique locale et une architecture dépendant de services cloud" width="1600" height="900" loading="lazy"><figcaption>Le local et le cloud ne sont pas mutuellement exclusifs : une bonne architecture peut utiliser le local pour le cœur et le cloud uniquement là où il apporte quelque chose.</figcaption></figure>
+<p>Une installation locale n’est pas automatiquement meilleure sur tous les critères. Le cloud peut simplifier l’accès à distance, certaines commandes vocales ou des services externes. L’objectif est surtout de ne pas rendre une fonction essentielle dépendante d’Internet sans le savoir.</p>
+
+<h2 id="11-matter">11. Matter rend-il les box domotiques inutiles ?</h2>
+<p>Non. Matter réduit certaines barrières entre écosystèmes, mais il ne supprime pas les rôles d’une plateforme de maison connectée.</p>
+<p>Un équipement peut jouer le rôle de <strong>Matter Controller</strong>, un autre de <strong>Thread Border Router</strong>, et certains hubs regroupent plusieurs de ces fonctions. La Connectivity Standards Alliance distingue justement contrôleur, bridge, plateforme, hub et routeur de bordure Thread.</p>
+<p>Matter peut donc réduire le besoin de certaines passerelles propriétaires et améliorer l’interopérabilité. Mais si tu veux centraliser des automatismes, agréger des historiques ou faire dialoguer plusieurs technologies non-Matter, une plateforme centrale garde tout son intérêt.</p>
+
+<h2 id="12-sept-questions">12. Les 7 questions que je poserais avant de choisir une box</h2>
+<figure class="article-figure"><img src="assets/images/articles/box-domotique/choisir-box-domotique-7-questions.webp" alt="Sept questions à se poser avant de choisir une box domotique" width="1600" height="900" loading="lazy"><figcaption>Le choix devient plus simple quand on part du projet plutôt que du produit.</figcaption></figure>
+<div class="checklist">
+<div class="checklist-item"><span>1.</span><div><strong>Qu’est-ce qui existe déjà ?</strong><br>Remplacer un écosystème fiable uniquement pour repartir sur une architecture « parfaite » est rarement prioritaire.</div></div>
+<div class="checklist-item"><span>2.</span><div><strong>Quels protocoles dois-tu réellement gérer ?</strong><br>Wi‑Fi, Zigbee, Z-Wave, Matter, Thread, 433 MHz : la liste détermine une partie du matériel nécessaire.</div></div>
+<div class="checklist-item"><span>3.</span><div><strong>Que doit-il continuer à fonctionner sans Internet ?</strong><br>Éclairage, chauffage, volets et sécurité n’ont pas tous les mêmes exigences.</div></div>
+<div class="checklist-item"><span>4.</span><div><strong>Combien de marques veux-tu réunir ?</strong><br>Plus elles sont nombreuses, plus la centralisation peut apporter de valeur.</div></div>
+<div class="checklist-item"><span>5.</span><div><strong>Qui assurera la maintenance ?</strong><br>Une plateforme très ouverte reste un système informatique qu’il faut sauvegarder et mettre à jour.</div></div>
+<div class="checklist-item"><span>6.</span><div><strong>Le reste du foyer doit-il comprendre le système ?</strong><br>Une maison connectée ne doit pas devenir inutilisable dès que son administrateur n’est pas là.</div></div>
+<div class="checklist-item"><span>7.</span><div><strong>Jusqu’où veux-tu faire évoluer l’installation ?</strong><br>Trois objets aujourd’hui et cinquante équipements demain ne conduisent pas forcément au même choix.</div></div>
+</div>
+
+<h2 id="13-garder-passerelle">13. Dans quels cas je garderais simplement la passerelle du fabricant ?</h2>
+<p>Si l’installation est homogène et répond déjà au besoin, je ne chercherais pas à centraliser pour le principe.</p>
+<p>Un logement principalement équipé dans un même écosystème peut très bien rester sur sa passerelle native. Une plateforme centrale devient surtout intéressante lorsque tu veux <strong>faire dialoguer plusieurs univers</strong>, créer des automatismes plus transversaux ou réduire une dépendance devenue gênante.</p>
+<p>Et même dans ce cas, centraliser ne signifie pas nécessairement supprimer la passerelle : elle peut rester la couche radio ou constructeur pendant que Home Assistant, Jeedom ou une autre plateforme orchestre l’ensemble.</p>
+
+<h2 id="14-debut-projet">14. Faut-il prévoir une box dès le début de son projet ?</h2>
+<p>Pas obligatoirement. Pour commencer, je préfère un premier usage bien choisi à une grosse architecture préparée « au cas où ».</p>
+<p>En revanche, réfléchir tôt à la direction générale évite de cumuler des achats incompatibles. C’est exactement l’objectif du <a href="article-1.html"><strong>guide DomoRepère pour débuter en domotique</strong></a>.</p>
+<p>Si tu sais déjà que ton projet utilisera beaucoup de capteurs Zigbee ou plusieurs équipements Z-Wave, les guides dédiés permettent aussi de comprendre ce que la plateforme devra réellement prendre en charge : <a href="protocole-zigbee.html"><strong>guide Zigbee</strong></a> et <a href="z-wave-domotique.html"><strong>guide Z-Wave</strong></a>.</p>
+
+<h2 id="15-resume">15. En résumé : quelle architecture choisir ?</h2>
+<p>Une box domotique n’est pas une obligation. C’est un outil de centralisation, et son intérêt augmente avec la diversité de l’installation, le besoin d’automatismes transversaux et l’importance donnée au fonctionnement local.</p>
+<p><strong>Une bonne box n’est pas celle qui sait théoriquement piloter le plus d’appareils. C’est celle qui centralise ce qui mérite de l’être sans rendre la maison plus difficile à maintenir.</strong></p>
+<p>Avant de regarder les marques, décide donc ce qui doit être local, quelles technologies sont déjà présentes, qui administrera le système et jusqu’où il devra évoluer. Le choix entre Home Assistant, Jeedom, Homey ou une passerelle constructeur devient alors beaucoup moins abstrait.</p>
+
+<h2 id="faq">Questions fréquentes</h2>
+<h3>Peut-on faire de la domotique sans box ?</h3><p>Oui. De nombreux appareils Wi‑Fi ou Matter peuvent fonctionner sans box domotique dédiée. Une centrale devient surtout utile pour réunir plusieurs marques, protocoles et automatismes.</p>
+<h3>Quelle box domotique choisir pour Zigbee et Z-Wave ?</h3><p>Il faut d’abord vérifier la présence réelle des radios ou la possibilité d’ajouter des contrôleurs compatibles. Homey Pro intègre notamment Zigbee et Z-Wave ; Home Assistant ou Jeedom peuvent gérer ces protocoles avec le matériel radio adapté.</p>
+<h3>Home Assistant fonctionne-t-il sans Internet ?</h3><p>Oui pour les fonctions et intégrations locales. Certaines intégrations cloud ou certains services distants nécessitent évidemment Internet. Home Assistant Cloud est optionnel.</p>
+<h3>Jeedom a-t-il besoin du cloud ?</h3><p>Non. La documentation Jeedom indique que le logiciel peut fonctionner localement sans abonnement ni cloud obligatoire. Certains plugins ou services optionnels peuvent toutefois utiliser Internet.</p>
+<h3>Homey Pro fonctionne-t-il sans Internet ?</h3><p>Le traitement principal de Homey Pro est local et Homey indique qu’il peut continuer à fonctionner lors d’une panne Internet. Certaines fonctions en ligne ou intégrations externes nécessitent naturellement une connexion.</p>
+<h3>Matter remplace-t-il une box domotique ?</h3><p>Pas forcément. Matter améliore surtout l’interopérabilité. Il ne remplace pas à lui seul les fonctions de centralisation, d’automatisation, d’historique ou de gestion de protocoles non-Matter.</p>
+
+<div class="sources"><strong>Sources techniques principales</strong><ul>
+<li><a href="https://www.home-assistant.io/" target="_blank" rel="noopener">Home Assistant — plateforme et intégrations</a></li>
+<li><a href="https://www.home-assistant.io/faq/is-my-data-private/" target="_blank" rel="noopener">Home Assistant — données locales et confidentialité</a></li>
+<li><a href="https://www.home-assistant.io/cloud" target="_blank" rel="noopener">Home Assistant Cloud — service optionnel</a></li>
+<li><a href="https://doc.jeedom.com/fr_FR/installation/" target="_blank" rel="noopener">Jeedom — installation et fonctionnement sans cloud obligatoire</a></li>
+<li><a href="https://doc.jeedom.com/fr_FR/core/4.4/faq" target="_blank" rel="noopener">Jeedom — FAQ cloud et abonnement</a></li>
+<li><a href="https://homey.app/fr-fr/homey-pro/" target="_blank" rel="noopener">Homey Pro — radios intégrées et traitement local</a></li>
+<li><a href="https://support.homey.app/hc/en-us/articles/360015447093-Homey-Pro-models-compared" target="_blank" rel="noopener">Homey — comparaison des modèles Pro</a></li>
+<li><a href="https://csa-iot.org/fr/newsroom/peeking-under-the-hood-of-your-matter-smart-home/" target="_blank" rel="noopener">CSA — rôles Matter, hubs et Thread Border Routers</a></li>
+</ul></div>
+</article>
+
+<div class="next-links"><a class="next-card" href="article-1.html"><span>Pour commencer</span><strong>Débuter en domotique →</strong></a><a class="next-card" href="article-2.html"><span>Choisir les technologies</span><strong>Comparer les protocoles →</strong></a></div>
+</div>
+
+<aside class="sidebar"><div class="side-card"><h2>Dans ce guide</h2><ul>
+<li><a href="#1-role-box">1. À quoi sert une box ?</a></li><li><a href="#2-faut-il-box">2. En faut-il vraiment une ?</a></li><li><a href="#3-architectures">3. Trois architectures</a></li><li><a href="#4-passerelle-constructeur">4. Passerelle constructeur</a></li><li><a href="#5-home-assistant">5. Home Assistant</a></li><li><a href="#6-jeedom">6. Jeedom</a></li><li><a href="#7-homey">7. Homey</a></li><li><a href="#8-comparatif">8. Comparaison</a></li><li><a href="#10-local-cloud">10. Local ou cloud</a></li><li><a href="#11-matter">11. Matter</a></li><li><a href="#12-sept-questions">12. Les 7 questions</a></li><li><a href="#15-resume">15. En résumé</a></li><li><a href="#faq">FAQ</a></li>
+</ul></div><div class="side-card"><h2>À retenir</h2><p>Ne choisis pas une box pour sa fiche technique. Choisis d’abord le niveau de centralisation, de fonctionnement local et de maintenance que tu veux réellement.</p></div></aside>
+</div></div>
+</main>
+<footer><p>© 2026 DomoRepère. Édité par Yohann DESCAMPS. Tous droits réservés.</p><p><a href="index.html#contact">Contact</a> — <a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p><div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div></footer>
+</body></html>
