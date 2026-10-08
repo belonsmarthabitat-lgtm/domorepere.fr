@@ -715,6 +715,8 @@
       if(state.plateformes.includes('home_assistant')) bits.push('Home Assistant est déjà présent');
       if(state.travaux==='aucun') bits.push('vous ne souhaitez pas réaliser de travaux');
       if(state.budget==='moins100') bits.push('votre budget de départ est volontairement contenu');
+      bits.unshift('votre priorité est « '+OBJECTIVES[state.priorite].label+' »');
+      if(state.plateformes.length&&!state.plateformes.includes('home_assistant'))bits.push('votre matériel existant doit être conservé lorsqu’il convient');
       return `Cette approche ressort notamment parce que ${bits.join(', ')}.`;
     }
 
@@ -787,7 +789,7 @@
             zigbee('une piste pour ampoules et boutons, si la passerelle les prend en charge.');
             r.tips.push('Une ampoule connectée doit rester alimentée pour recevoir des commandes ; prévoir une commande pratique pour toute la famille.');
             r.checks.push('Culot, variation, alimentation permanente et compatibilité exacte avec votre passerelle.');
-            if(d.eclairage_portee==='quelques')r.products.push('plug');
+            if(d.eclairage_portee==='quelques'&&d.eclairage_commande!=='ampoules')r.products.push('plug');
           } else {
             set('Conserver les interrupteurs avec une interface adaptée','Un micromodule peut conserver la commande murale, mais le questionnaire ne connaît pas encore le câblage ni le type de luminaire.');
             r.pending.push('Vérifier neutre, charge LED, variation, boîtier et commande avant de choisir une référence.');
@@ -809,7 +811,7 @@
           if((d.securite_fonctions||[]).includes('presence'))r.tips.push('Simuler la présence par des éclairages variables, sans dépendre d’une simple notification.');
           if(d.securite_zone==='exterieur')r.checks.push('Détection extérieure : implantation et risque de fausses alertes à étudier sur place.');
           r.tips.push('Les capteurs domotiques d’ouverture peuvent informer ; ils ne constituent pas une alarme de protection certifiée.');
-          r.pending.push('Pour l’alarme, demander une étude professionnelle avant de constituer un panier de produits.');break;}
+          if(p==='securite'||state.objectifs.includes('securite'))r.pending.push('Pour l’alarme, demander une étude professionnelle avant de constituer un panier de produits.');break;}
         case 'acces':
           set('Identifier la commande de votre accès','La bonne interface dépend de l’automatisme exact et de ses sécurités. Un portail, une gâche et une serrure ne se pilotent pas de la même manière.');
           if(d.acces_existant==='oui'&&d.acces_contact==='oui'&&['portail','garage'].includes(d.acces_type)){
@@ -869,10 +871,11 @@
       const central=['local','centraliser','automatisations','confort'].includes(p)||architecture()==='avancee';
       if(central&&!state.plateformes.some(x=>['home_assistant','jeedom','knx'].includes(x))&&state.solution!=='simple'&&!['moins100','100_300'].includes(state.budget)&&!['securite','video','acces'].includes(p))r.products.push('green');
       if(r.products.some(x=>['temp','plug','fp','shutter'].includes(x)))r.checks.push('Zigbee : vérifier la référence dans la liste de votre passerelle ou intégration. Une box Aqara, Hue ou Tuya n’accepte pas forcément tous les appareils Zigbee tiers.');
-      if(state.objectifs.length>1)r.tips.push('Les autres objectifs restent à traiter ensuite : ce diagnostic technique porte sur votre priorité. Refaire le questionnaire pour étudier un autre usage.');
+      if(state.objectifs.length>1)r.tips.push('Stabiliser votre priorité avant les autres usages. Les pistes complémentaires ci-dessous utilisent vos objectifs sélectionnés ; leurs détails techniques restent à identifier.');
       if((r.products.includes('green')||state.plateformes.includes('home_assistant'))&&r.products.some(x=>['temp','plug','fp','shutter'].includes(x))&&!state.protocoles.includes('zigbee'))r.products.push('zbt');
       r.products=[...new Set(r.products)];
       if(r.pending.length===0)r.checks.push('Avant achat : confirmer les références, les notices et toutes les fonctions nécessaires avec le fabricant ou l’installateur.');
+      refineResult(r);
       return r;
     }
     function guides(r){
@@ -884,7 +887,112 @@
       if(state.protocoles.includes('zwave'))add('z-wave-domotique.html','Le guide Z-Wave','Réseau et compatibilité avant d’étendre votre installation.');
       add('article-2.html','Zigbee, Z-Wave, Matter ou Wi-Fi ?','Comparer les technologies avant de choisir une architecture.');
       if(['local','centraliser','confort','automatisations'].includes(state.priorite))add('mon-installation.html','Le Lab DomoRepère','Un exemple de centralisation à adapter à vos contraintes.');
+      if(state.objectifs.some(x=>['volets','eclairage'].includes(x)))add('article-3.html','Volets, interrupteurs et fil neutre','Préparer aussi vos futurs projets de commandes murales.');
+      if(state.objectifs.some(x=>['chauffage','acces','energie','consommation'].includes(x)))add('securite-electrique.html','Sécurité électrique','Vérifier les contraintes de vos autres projets avant intervention.');
+      if(state.objectifs.some(x=>['local','centraliser','confort','automatisations'].includes(x)))add('mon-installation.html','Le Lab DomoRepère','Préparer la centralisation et les scénarios envisagés pour la suite.');
       return g;
+    }
+
+
+    // Result-only enrichment: no changes to questions, stored answers or navigation.
+    function refineResult(r){
+      const zigbeeItems=['temp','plug','fp','shutter'];
+      const existing=state.equipement!=='aucun';
+      const hasZigbee=state.protocoles.includes('zigbee');
+      const central=state.plateformes.some(x=>['home_assistant','jeedom'].includes(x));
+      if(existing&&state.plateformes.some(x=>['autre','nsp'].includes(x))){
+        r.products=r.products.filter(x=>x!=='green');
+        r.pending.push('Identifier votre plateforme actuelle et ses fonctions avant de proposer une nouvelle box.');
+      }
+      if(state.budget==='nsp'){
+        r.products=r.products.filter(x=>!['green','zbt'].includes(x));
+        r.tips.push('Le choix de la box et de la radio viendra après le chiffrage du premier usage.');
+      }
+      if(existing&&!hasZigbee&&!central&&r.products.some(x=>zigbeeItems.includes(x))){
+        r.products=r.products.filter(x=>!zigbeeItems.includes(x));
+        r.tech.push('Choisir en priorité un capteur ou un actionneur pris en charge par votre installation actuelle. Ajouter Zigbee seulement si ses avantages justifient une nouvelle passerelle.');
+        r.pending.push('Identifier l’interface compatible avec votre plateforme avant de retenir une référence Zigbee.');
+      }
+      if(state.protocoles.includes('nsp')){
+        r.products=r.products.filter(x=>x!=='zbt');
+        r.pending.push('Inventorier les radios et passerelles déjà présentes : « Je ne sais pas » ne signifie pas qu’un coordinateur manque.');
+      }
+      if(r.products.some(x=>zigbeeItems.includes(x))&&!hasZigbee){
+        r.checks.push('Ces exemples Zigbee nécessitent une base compatible. Le budget du premier équipement doit inclure la passerelle ou le coordinateur, sauf s’ils existent déjà.');
+      }
+      if(state.solution==='simple'&&['important','max'].includes(state.localImportance)){
+        r.tips.push('Vous souhaitez à la fois peu de configuration et un fonctionnement local : comparer une solution prête à l’emploi qui couvre votre usage avec une plateforme plus flexible, mais plus exigeante à maintenir.');
+      }
+      if(state.equipement==='important')r.tips.push('Une installation importante existe déjà : sauvegarder sa configuration et valider un seul ajout avant toute migration.');
+      if(state.niveauDomotique==='debutant')r.tips.push('Commencer par une commande manuelle dans l’application, puis un scénario simple. Garder une trace des références et de la configuration.');
+      if(state.priorite==='eclairage'&&state.diagnostic.eclairage_commande==='ampoules')r.tips.push('Pour votre préférence « ampoules connectées », chercher une ampoule compatible, puis un bouton adapté. Une prise connectée ne remplace pas la variation ou les couleurs d’une ampoule.');
+      if(state.objectifs.includes('distance')&&state.priorite!=='distance')r.checks.push('Pour votre objectif d’accès distant : vérifier le service officiel ou un VPN, l’authentification et les fonctions disponibles pendant une coupure Internet.');
+      if(state.objectifs.includes('local')&&state.priorite!=='local')r.checks.push('Votre objectif sans cloud doit aussi guider le premier achat : vérifier toute la chaîne de commande et pas uniquement le protocole.');
+      for(const k of ['tech','checks','tips','products','pending'])r[k]=[...new Set(r[k])];
+    }
+
+    function resultPlan(r){
+      const d=state.diagnostic;
+      let steps=priorityPlan().slice();
+      if(r.pending.length)steps[0]='Lever ce premier point : '+r.pending[0];
+      if(state.priorite==='volets'&&['somfy_rts','somfy_io'].includes(d.volet_type))steps=[
+        'Relever la référence du moteur et vérifier sa compatibilité avec votre passerelle Somfy.',
+        state.plateformes.includes('tahoma')?'Tester la commande d’un volet depuis TaHoma et son intégration éventuelle.':'Choisir une interface Somfy compatible et tester un seul volet.',
+        'Tester horaires et commandes manuelles ; vérifier si la position affichée est réelle ou estimée.'
+      ];
+      if(state.priorite==='chauffage'&&d.chauffage_type==='electrique'&&d.chauffage_pilotage==='fil_pilote')steps=[
+        canChangeWiring()?'Faire vérifier le fil pilote, l’alimentation et les modes d’un premier radiateur.':'Tester les possibilités de programmation déjà présentes sur votre radiateur.',
+        'Créer un planning Confort/Eco adapté à une pièce, sans assimiler ces modes à une température universelle.',
+        'Observer température et confort avant de généraliser aux autres pièces.'
+      ];
+      if(state.priorite==='eclairage'&&d.eclairage_commande==='ampoules')steps=[
+        'Vérifier culot, alimentation et compatibilité d’une première ampoule avec votre plateforme.',
+        'Prévoir une commande accessible à toute la famille qui laisse l’ampoule alimentée.',
+        d.eclairage_presence==='oui'?'Tester la temporisation, la présence immobile et la reprise en commande manuelle.':'Tester une scène ou un horaire simple avant d’ajouter d’autres lampes.'
+      ];
+      if(state.priorite==='centraliser'&&state.plateformes.some(x=>['home_assistant','jeedom'].includes(x)))steps=[
+        'Lister les appareils et fonctions encore absents de votre plateforme centrale actuelle.',
+        'Tester une intégration documentée, sans remplacer les passerelles qui fonctionnent.',
+        'Valider les commandes, les états et le fonctionnement après redémarrage avant la suite.'
+      ];
+      return steps;
+    }
+
+    function secondaryResults(){
+      const advice={
+        energie:'Relier vos prochains automatismes à une mesure avant/après ; prioriser les postes les plus importants.',
+        consommation:'Choisir une mesure globale ou ciblée selon le poste, puis observer les données avant de piloter une charge.',
+        chauffage:'Identifier la régulation et les possibilités par pièce ; réutiliser le thermostat ou la programmation existante.',
+        volets:'Relever moteur et commande : une intégration radio constructeur et un module filaire demandent des interfaces différentes.',
+        eclairage:'Choisir lampes, ampoules ou modules selon les commandes à conserver ; tester une seule pièce.',
+        securite:'Prévoir une alarme dédiée et une étude des zones ; garder la domotique comme complément.',
+        video:'Définir cadrage, alimentation, réseau et enregistrement avant de choisir une caméra.',
+        acces:'Relever la notice de l’automatisme et vérifier interface, retour d’état et sécurités avant toute commande distante.',
+        confort:'Après le premier usage, ajouter un scénario de quotidien avec une commande manuelle et des exceptions simples.',
+        automatisations:'Partir d’un déclencheur fiable, documenter les conditions et tester capteur indisponible ou redémarrage.',
+        distance:'Prévoir un accès officiel ou un VPN maîtrisé ; tester ce qui reste utilisable lors d’une coupure.',
+        local:'Vérifier les dépendances Internet de chaque intégration ; maintenir les fonctions essentielles en local.',
+        centraliser:'Inventorier marques et fonctions ; tester leur intégration sans remplacer l’existant qui convient.',
+        decouvrir:'Lire un guide lié à votre priorité, puis tester un premier usage concret.'
+      };
+      return state.objectifs.filter(x=>x!==state.priorite).map(x=>({title:OBJECTIVES[x].label,text:advice[x]}));
+    }
+
+    function productContext(key){
+      if(key==='green')return 'Option de centralisation : comparer avec les possibilités de votre matériel actuel avant de prévoir une nouvelle box.';
+      if(key==='zbt')return 'Accessoire de la base Home Assistant, seulement si aucun coordinateur Zigbee utilisable n’est déjà disponible.';
+      if(key==='tahoma')return 'Cette piste conserve les moteurs Somfy identifiés ; vérifier la compatibilité exacte avant achat.';
+      if(key==='temp')return 'Exemple de capteur pour observer une pièce ; réutiliser un capteur existant si sa mesure est exploitable.';
+      if(key==='plug')return state.priorite==='eclairage'?'Exemple pour une lampe sur prise, sans variation : vérifier que cet usage correspond à votre luminaire.':'Exemple pour un appareil sur prise : commencer par une seule mesure ciblée.';
+      if(key==='fp')return 'Exemple pour votre chauffage électrique à fil pilote ; prévoir la pose et la passerelle dans le budget.';
+      return 'Exemple pour votre volet filaire identifié ; valider un seul moteur avant de généraliser.';
+    }
+
+    function budgetText(){
+      if(state.budget==='moins100')return 'Votre enveloppe de moins de 100 € convient à un essai ciblé. Sans passerelle compatible, chiffrer la base avant de commander le premier appareil.';
+      if(state.budget==='100_300')return 'Avec 100 à 300 €, concentrer le démarrage sur une pièce ou un usage. Comparer le coût avec et sans réutilisation de votre passerelle.';
+      if(state.budget==='nsp')return 'Établir un devis pour un premier usage : matériel, base compatible, accessoires, pose et éventuels services récurrents.';
+      return 'Votre enveloppe permet d’étudier une base et un premier usage, mais ne valide pas un panier complet. Répartir le budget entre équipements, interfaces, pose et maintenance avant d’étendre le projet.';
     }
 
     function securityNotice(){
@@ -900,7 +1008,7 @@
       const list=items=>`<ul>${items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`;
       const card=(title,body)=>`<div class="result-card"><h4>${esc(title)}</h4>${body}</div>`;
       const tags=state.objectifs.map(o=>`<span class="project-tag ${o===state.priorite?'priority':''}">${esc(OBJECTIVES[o].label)}${o===state.priorite?' · Priorité':''}</span>`).join('');
-      const products=r.products.map(key=>{const m=MATERIALS[key];return `<article class="product-item"><h5>${esc(m.name)}</h5><p>${esc(m.why)}</p><p><strong>Avant achat :</strong> ${esc(m.check)}</p><a class="btn btn-affiliate" href="${esc(partnerUrl(m.url))}" target="_blank" rel="noopener noreferrer sponsored">Voir la fiche chez Domadoo ↗</a></article>`;}).join('');
+      const products=r.products.map(key=>{const m=MATERIALS[key];return `<article class="product-item"><h5>${esc(m.name)}</h5><p>${esc(m.why)}</p><p><strong>Pour votre projet :</strong> ${esc(productContext(key))}</p><p><strong>Avant achat :</strong> ${esc(m.check)}</p><a class="btn btn-affiliate" href="${esc(partnerUrl(m.url))}" target="_blank" rel="noopener noreferrer sponsored">Voir la fiche chez Domadoo ↗</a></article>`;}).join('');
       const related=guides(r).map(([url,title,why])=>`<li><a href="${esc(url)}">${esc(title)}</a> — ${esc(why)}</li>`).join('');
       let html=`<div class="result-hero"><p>Votre orientation DomoRepère</p><h3 tabindex="-1">${esc(r.title)}</h3><p>${esc(r.summary)}</p><div class="result-meta"><span class="result-pill">${esc(profile.name)}</span><span class="result-pill">${esc(architectureText(architecture()))}</span><span class="result-pill">Priorité : ${esc(OBJECTIVES[state.priorite].label)}</span></div></div>`;
       html+=card('Pourquoi cette orientation ?',`<p>${esc(whyText())}</p><div class="project-tags">${tags}</div>`);
@@ -910,9 +1018,12 @@
       if(Object.values(state.diagnostic).some(v=>Array.isArray(v)?v.includes('nsp'):v==='nsp'))html+=`<div class="quiz-notice warning">Une réponse technique reste inconnue. Relever la référence ou consulter la notice avant achat ; les exemples ci-dessous restent conditionnels.</div>`;
       html+=`<div class="result-grid">${card('Technologies et interfaces à envisager',list(r.tech.length?r.tech:['Conserver la technologie existante si elle répond au besoin ; identifier la bonne interface avant de changer de protocole.']))}${card('Vos conseils personnalisés',list(r.tips))}</div>`;
       html+=card('Compatibilités et précautions à vérifier',list(r.checks));
-      html+=`<div class="result-grid">${card('Vos trois prochaines étapes',`<ol>${priorityPlan().map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`)}${card('Pour commencer progressivement',`<p>Valider un premier équipement ou scénario sur votre besoin prioritaire. Tester les commandes manuelles et le comportement en cas de panne avant d’étendre l’installation.</p>`)}</div>`;
+      html+=`<div class="result-grid">${card('Vos trois prochaines étapes',`<ol>${resultPlan(r).map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`)}${card('Pour commencer progressivement',`<p>Valider un premier équipement ou scénario sur votre besoin prioritaire. Tester les commandes manuelles et le comportement en cas de panne avant d’étendre l’installation.</p>`)}</div>`;
+      html+=card('Votre budget de démarrage',`<p>${esc(budgetText())}</p>`);
+      const secondary=secondaryResults();
+      if(secondary.length)html+=card('Vos autres objectifs',`<p>Ces pistes préparent la suite. Le questionnaire a approfondi votre priorité ; les références techniques des autres usages restent à vérifier.</p><div class="result-grid">${secondary.map(x=>card(x.title,`<p>${esc(x.text)}</p>`)).join('')}</div>`);
       html+=card('Matériel : des pistes à vérifier',products||'<p>Aucun produit précis ne peut encore être conseillé pour ce cas. Les vérifications ci-dessus permettront de sélectionner une référence adaptée ; conserver le matériel existant lorsqu’il convient.</p>');
-      if(products)html+=`<p class="affiliation-notice">Liens partenaires Domadoo : DomoRepère peut percevoir une commission, sans surcoût pour vous. Les références sont des exemples conditionnels, pas une liste d’achats obligatoire. Vérification des fiches : 1er octobre 2026 ; disponibilité et prix à consulter chez le marchand.</p>`;
+      if(products)html+=`<p class="affiliation-notice">Liens partenaires Domadoo : DomoRepère peut percevoir une commission, sans surcoût pour vous. Les références sont des exemples conditionnels, pas une liste d’achats obligatoire. Disponibilité, prix et compatibilité exacte à vérifier sur la fiche du marchand avant achat.</p>`;
       html+=card('Les guides pour avancer',`<ul>${related}</ul>`);
       if(state.priorite==='video'||(state.diagnostic.securite_fonctions||[]).includes('cameras'))html+=card('Vidéo et vie privée', '<p><a href="https://www.cnil.fr/fr/la-videosurveillance-videoprotection-chez-soi" target="_blank" rel="noopener noreferrer">Consulter les règles de la CNIL pour les caméras à domicile ↗</a></p>');
       document.getElementById('result-content').innerHTML=html;
