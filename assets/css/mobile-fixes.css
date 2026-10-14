@@ -409,6 +409,10 @@
   z-index: 1000;
   display: grid;
   grid-template-rows: auto 1fr;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background: rgba(20, 29, 30, 0.97);
   color: #fff;
 }
@@ -418,13 +422,16 @@
 }
 
 .mobile-image-viewer__bar {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   min-height: 58px;
-  padding: 0.55rem 0.8rem;
+  padding: calc(0.55rem + env(safe-area-inset-top)) 4.3rem 0.55rem 0.8rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(20, 29, 30, 0.98);
 }
 
 .mobile-image-viewer__bar span {
@@ -436,21 +443,29 @@
 }
 
 .mobile-image-viewer__close {
+  position: fixed;
+  top: calc(0.55rem + env(safe-area-inset-top));
+  right: calc(0.65rem + env(safe-area-inset-right));
+  z-index: 1002;
   width: 44px;
   height: 44px;
   flex: 0 0 auto;
-  border: 1px solid rgba(255, 255, 255, 0.32);
+  border: 2px solid rgba(255, 255, 255, 0.72);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: #273436;
   color: #fff;
   font: inherit;
   font-size: 1.35rem;
+  line-height: 1;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.38);
   cursor: pointer;
 }
 
 .mobile-image-viewer__canvas {
+  min-width: 0;
+  min-height: 0;
   overflow: auto;
-  padding: 1rem;
+  padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom));
   overscroll-behavior: contain;
   touch-action: pan-x pan-y pinch-zoom;
   -webkit-overflow-scrolling: touch;
