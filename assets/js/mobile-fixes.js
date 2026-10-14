@@ -8,8 +8,11 @@
   var viewer;
   var viewerImage;
   var viewerTitle;
+  var viewerCanvas;
   var closeButton;
   var lastTrigger;
+  var historyEntryActive = false;
+  var historyClosePending = false;
 
   function ensureViewer() {
     if (viewer) return;
@@ -30,11 +33,12 @@
     document.body.appendChild(viewer);
     viewerImage = viewer.querySelector('img');
     viewerTitle = viewer.querySelector('.mobile-image-viewer__bar span');
+    viewerCanvas = viewer.querySelector('.mobile-image-viewer__canvas');
     closeButton = viewer.querySelector('.mobile-image-viewer__close');
 
     closeButton.addEventListener('click', closeViewer);
-    viewer.addEventListener('click', function (event) {
-      if (event.target === viewer) closeViewer();
+    viewerCanvas.addEventListener('click', function (event) {
+      if (event.target === viewerCanvas) closeViewer();
     });
   }
 
@@ -47,10 +51,31 @@
     viewerTitle.textContent = image.alt || 'Illustration DomoRepère';
     viewer.hidden = false;
     document.body.classList.add('mobile-image-viewer-open');
+
+    try {
+      window.history.pushState({ mobileImageViewer: true }, '', window.location.href);
+      historyEntryActive = true;
+    } catch (error) {
+      historyEntryActive = false;
+    }
+
     closeButton.focus();
   }
 
   function closeViewer() {
+    if (!viewer || viewer.hidden) return;
+
+    if (historyEntryActive) {
+      if (historyClosePending) return;
+      historyClosePending = true;
+      window.history.back();
+      return;
+    }
+
+    hideViewer();
+  }
+
+  function hideViewer() {
     if (!viewer || viewer.hidden) return;
     viewer.hidden = true;
     viewerImage.removeAttribute('src');
@@ -78,5 +103,12 @@
 
   document.addEventListener('keydown', function (event) {
     if (event.key === 'Escape') closeViewer();
+  });
+
+  window.addEventListener('popstate', function () {
+    if (!viewer || viewer.hidden) return;
+    historyEntryActive = false;
+    historyClosePending = false;
+    hideViewer();
   });
 })();
