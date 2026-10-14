@@ -1,0 +1,480 @@
+/*
+ * DomoRepere — couche responsive mobile
+ * Chargee apres les styles existants pour conserver strictement le rendu desktop.
+ */
+
+@media (max-width: 900px) {
+  .page-article.article-modern .content-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page-article.article-modern .article-shell {
+    order: 0;
+  }
+
+  .page-article.article-modern .sidebar {
+    display: contents;
+  }
+
+  .page-article.article-modern .toc-card {
+    order: -1;
+    margin: 0 0 1rem;
+  }
+
+  .page-article.article-modern .takeaway-card {
+    order: 1;
+    margin: 1.25rem 0 0;
+  }
+}
+
+@media (max-width: 720px) {
+  html {
+    scroll-padding-top: 74px;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  body[class*="page-"] .site-header,
+  body[class*="page-"] > header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  body[class*="page-"] header .nav-container {
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 0.65rem !important;
+    padding: 0.52rem 0.75rem !important;
+  }
+
+  body[class*="page-"] header .logo {
+    flex: 0 0 auto;
+  }
+
+  body[class*="page-"] header .logo img {
+    width: auto;
+    height: 38px !important;
+  }
+
+  body[class*="page-"] header .logo span {
+    display: none;
+  }
+
+  body[class*="page-"] header nav {
+    min-width: 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  body[class*="page-"] header nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  body[class*="page-"] header nav ul {
+    display: flex;
+    width: max-content;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    gap: 0.35rem !important;
+  }
+
+  body[class*="page-"] header nav a {
+    display: flex;
+    min-height: 42px;
+    align-items: center;
+    padding: 0.45rem 0.65rem;
+    border-radius: 999px;
+    background: #f4f8f7;
+    font-size: 0.78rem !important;
+    line-height: 1.15;
+    white-space: nowrap;
+  }
+
+  body[class*="page-"] header nav a.active {
+    background: #e8f3f0;
+  }
+
+  /* Accueil */
+  .page-home .hero {
+    padding: 2.75rem 1rem 2.35rem !important;
+  }
+
+  .page-home .hero h1 {
+    font-size: clamp(2rem, 10vw, 2.6rem);
+    line-height: 1.08;
+  }
+
+  .page-home .hero p {
+    font-size: 1rem;
+    line-height: 1.62;
+  }
+
+  .page-home .container {
+    padding: 2.2rem 1rem !important;
+  }
+
+  .page-home .values-grid,
+  .page-home .article-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem;
+  }
+
+  .page-home .universe-grid,
+  .page-home .tech-cloud {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.7rem;
+  }
+
+  .page-home .universe-card {
+    min-height: 92px;
+    padding: 0.85rem 0.65rem;
+  }
+
+  .page-home .value-card,
+  .page-home .article-card {
+    padding: 1rem;
+  }
+
+  .page-home .quiz-card,
+  .page-home .about-card,
+  .page-home .contact-card,
+  .page-home .lab-card {
+    padding: 1.2rem !important;
+    border-radius: 16px;
+  }
+
+  .page-home .hero-actions,
+  .page-home .quiz-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .page-home .hero-actions .btn,
+  .page-home .quiz-actions .btn,
+  .page-home .contact-card button {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .page-home .social-wink {
+    padding: 0.9rem;
+  }
+
+  /* Liste des guides */
+  .page-list .hero {
+    padding: 2.7rem 1rem 2.35rem !important;
+  }
+
+  .page-list .hero h1 {
+    font-size: clamp(2rem, 9.5vw, 2.55rem);
+  }
+
+  .page-list .container {
+    padding: 2.15rem 1rem !important;
+  }
+
+  .page-list .intro {
+    gap: 0.8rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .page-list .intro-card,
+  .page-list .safety {
+    padding: 1.05rem 1.1rem;
+  }
+
+  .page-list .section-head {
+    margin: 1.7rem 0 1rem;
+  }
+
+  .page-list .articles-grid {
+    gap: 0.9rem;
+  }
+
+  .page-list .card-visual {
+    min-height: 92px;
+    font-size: 1.95rem;
+  }
+
+  .page-list .card-body {
+    padding: 1.05rem;
+  }
+
+  .page-list .card h3 {
+    font-size: 1.12rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .page-list .card p {
+    margin-bottom: 0.85rem;
+  }
+
+  .page-list .btn {
+    width: 100%;
+    min-height: 46px;
+  }
+
+  .page-list .journey {
+    margin-top: 1.6rem;
+    padding: 1.2rem;
+  }
+
+  /* Articles et Lab */
+  .page-article .article-hero {
+    padding: 2.25rem 1rem 2rem !important;
+  }
+
+  .page-article .article-hero h1,
+  .page-article .article-hero-inner > h1 {
+    font-size: clamp(1.85rem, 8.2vw, 2.25rem) !important;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  .page-article .article-hero .lead {
+    margin-top: 0.8rem;
+    font-size: 0.98rem;
+    line-height: 1.62;
+  }
+
+  .page-article .breadcrumb {
+    margin-bottom: 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .page-article .eyebrow {
+    font-size: 0.7rem;
+    line-height: 1.45;
+  }
+
+  .page-article .meta {
+    gap: 0.42rem;
+    margin-top: 1rem;
+  }
+
+  .page-article .meta span {
+    padding: 0.28rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .page-article .page-wrap {
+    padding: 1rem 0.75rem 3rem !important;
+  }
+
+  .page-article .article-body {
+    padding: 1.15rem 1rem 1.4rem !important;
+    border-radius: 16px !important;
+  }
+
+  .page-article .article-body > p:first-child {
+    font-size: 1.03rem;
+    line-height: 1.72;
+  }
+
+  .page-article .article-body h2 {
+    margin-top: 2.1rem !important;
+    padding-left: 0.75rem !important;
+    font-size: clamp(1.32rem, 6.2vw, 1.55rem) !important;
+    line-height: 1.25;
+  }
+
+  .page-article .article-body h3 {
+    margin-top: 1.45rem;
+    font-size: 1.08rem;
+  }
+
+  .page-article .article-body p,
+  .page-article .article-body li {
+    line-height: 1.68;
+  }
+
+  .page-article .article-body ul,
+  .page-article .article-body ol {
+    margin-left: 1.05rem;
+  }
+
+  .page-article .highlight-box,
+  .page-article .highlight,
+  .page-article .callout,
+  .page-article .field-note,
+  .page-article .question-box {
+    padding: 1rem !important;
+    margin: 1.25rem 0 !important;
+  }
+
+  .page-article .side-card {
+    padding: 1rem;
+    border-radius: 15px;
+  }
+
+  .page-article .toc-toggle {
+    min-height: 52px;
+  }
+
+  .page-article .article-figure {
+    position: relative;
+    margin: 1.45rem 0;
+  }
+
+  .page-article .article-figure img {
+    cursor: zoom-in;
+  }
+
+  .page-article .article-figure.mobile-zoom-ready::after {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    padding: 0.38rem 0.58rem;
+    border-radius: 999px;
+    background: rgba(39, 52, 54, 0.9);
+    color: #fff;
+    content: "Agrandir";
+    font-size: 0.72rem;
+    font-weight: 750;
+    pointer-events: none;
+  }
+
+  .page-article .article-figure figcaption {
+    font-size: 0.78rem;
+  }
+
+  .page-article .comparison-table-wrapper {
+    position: relative;
+    margin: 1.35rem -0.15rem;
+    padding-bottom: 0.35rem;
+    border: 1px solid #dce6e4;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: inset -14px 0 14px -16px rgba(39, 52, 54, 0.55);
+    overscroll-behavior-inline: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .page-article .comparison-table {
+    min-width: 680px;
+  }
+
+  .page-article .comparison-table th,
+  .page-article .comparison-table td {
+    padding: 0.68rem 0.72rem;
+    font-size: 0.86rem;
+  }
+
+  .page-article .btn,
+  .page-article .next-card {
+    min-height: 46px;
+  }
+
+  .page-article .btn {
+    width: 100%;
+  }
+
+  .page-article .next-links {
+    gap: 0.8rem;
+  }
+
+  /* Pages legales */
+  .page-legal .legal-wrap {
+    margin: 1rem auto 2.5rem !important;
+    padding: 0 0.75rem !important;
+  }
+
+  .page-legal .legal-card {
+    padding: 1.2rem 1rem !important;
+    border-radius: 16px !important;
+  }
+
+  .page-legal .legal-card h1 {
+    font-size: 1.7rem !important;
+  }
+
+  .page-legal .legal-card h2 {
+    margin-top: 1.5rem !important;
+    font-size: 1.16rem !important;
+  }
+}
+
+/* Visionneuse d'illustrations, creee uniquement au toucher sur mobile. */
+.mobile-image-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: rgba(20, 29, 30, 0.97);
+  color: #fff;
+}
+
+.mobile-image-viewer[hidden] {
+  display: none;
+}
+
+.mobile-image-viewer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 58px;
+  padding: 0.55rem 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.mobile-image-viewer__bar span {
+  overflow: hidden;
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mobile-image-viewer__close {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font: inherit;
+  font-size: 1.35rem;
+  cursor: pointer;
+}
+
+.mobile-image-viewer__canvas {
+  overflow: auto;
+  padding: 1rem;
+  overscroll-behavior: contain;
+  touch-action: pan-x pan-y pinch-zoom;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-image-viewer__canvas img {
+  display: block;
+  width: auto;
+  max-width: none;
+  min-width: 900px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 10px;
+  background: #fff;
+}
+
+body.mobile-image-viewer-open {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-image-viewer,
+  .mobile-image-viewer * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
