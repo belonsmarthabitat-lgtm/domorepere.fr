@@ -31,7 +31,11 @@
 
   const tocLinks = Array.from(document.querySelectorAll('.toc-nav a'));
   const sections = tocLinks
-    .map(function (link) { return document.querySelector(link.getAttribute('href')); })
+    .map(function (link) {
+      const href = link.getAttribute('href');
+      if (!href || href.charAt(0) !== '#') return null;
+      return document.getElementById(href.slice(1));
+    })
     .filter(Boolean);
 
   if ('IntersectionObserver' in window && sections.length) {
