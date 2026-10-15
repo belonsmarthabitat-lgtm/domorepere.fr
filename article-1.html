@@ -194,6 +194,7 @@ footer a{color:#e2ebe9}
   ]
 }
 </script>
+<link rel="stylesheet" href="assets/css/article-layout-v2.css">
 <link rel="stylesheet" href="assets/css/mobile-fixes.css">
 <script defer src="assets/js/mobile-fixes.js"></script>
 </head>
@@ -216,6 +217,7 @@ footer a{color:#e2ebe9}
       </ul>
     </nav>
   </div>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
 </header>
 
 <main>
@@ -501,10 +503,14 @@ footer a{color:#e2ebe9}
 
 </div>
 
-<aside class="sidebar" aria-label="Navigation de l'article">
-  <div class="side-card">
-    <h2>Dans ce guide</h2>
-    <ul>
+<aside class="sidebar" aria-label="Repères de lecture">
+  <section class="side-card toc-card">
+    <button class="toc-toggle" type="button" aria-expanded="true" aria-controls="article-toc">
+      <span><span class="side-kicker">Sommaire</span><strong>Dans ce guide</strong></span>
+      <span class="toc-chevron" aria-hidden="true"></span>
+    </button>
+    <nav class="toc-nav" id="article-toc" aria-label="Sommaire de l’article">
+    <ol>
       <li><a href="#1-definir-son-besoin">1. Commencer par le besoin</a></li>
       <li><a href="#2-choisir-son-niveau">2. Choisir son niveau</a></li>
       <li><a href="#3-premier-projet">3. Choisir un premier projet</a></li>
@@ -513,14 +519,15 @@ footer a{color:#e2ebe9}
       <li><a href="#6-faut-il-box">6. Faut-il une box ?</a></li>
       <li><a href="#7-cinq-conseils-pour-bien-commencer-en-domotique">7. Cinq conseils pour bien commencer</a></li>
       <li><a href="#faq">Questions fréquentes</a></li>
-    </ul>
-  </div>
+    </ol>
+    </nav>
+  </section>
 
-  <div class="side-card">
+  <section class="side-card">
     <h2>Besoin d’un point de départ ?</h2>
     <p>Le diagnostic DomoRepère aide à déterminer une orientation adaptée à ton logement, ton niveau et ta priorité.</p>
     <a class="btn btn-primary" style="margin-top:.8rem;width:100%" href="index.html#quiz">Lancer le diagnostic</a>
-  </div>
+  </section>
 </aside>
 
 </div>
@@ -538,5 +545,6 @@ footer a{color:#e2ebe9}
   <div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div>
 </footer>
 
+<script src="assets/js/article-layout-v2.js" defer></script>
 </body>
 </html>
