@@ -1,3 +1,67 @@
+(function () {
+  'use strict';
+
+  function initBackToTop() {
+    if (!document.body.classList.contains('page-article') ||
+        document.body.classList.contains('page-lab')) return;
+
+    var article = document.querySelector('.article-body');
+    if (!article) return;
+
+    var button = document.createElement('button');
+    button.className = 'back-to-top';
+    button.type = 'button';
+    button.setAttribute('aria-label', 'Retour en haut de la page');
+    button.setAttribute('title', 'Retour en haut');
+    button.setAttribute('aria-hidden', 'true');
+    button.tabIndex = -1;
+    button.innerHTML = '<span aria-hidden="true">↑</span>';
+    document.body.appendChild(button);
+
+    var footer = document.querySelector('footer');
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var threshold = Math.max(480, Math.round(window.innerHeight * 0.75));
+    var visible = false;
+    var ticking = false;
+
+    function updateButton() {
+      var shouldShow = window.scrollY > threshold;
+
+      if (shouldShow !== visible) {
+        visible = shouldShow;
+        button.classList.toggle('is-visible', visible);
+        button.setAttribute('aria-hidden', String(!visible));
+        button.tabIndex = visible ? 0 : -1;
+      }
+
+      var footerLift = 0;
+      if (visible && footer) {
+        var footerTop = footer.getBoundingClientRect().top;
+        footerLift = Math.max(0, Math.round(window.innerHeight - footerTop + 12));
+      }
+      button.style.setProperty('--back-to-top-lift', footerLift + 'px');
+      ticking = false;
+    }
+
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateButton);
+    }
+
+    button.addEventListener('click', function () {
+      window.scrollTo({
+        top: 0,
+        behavior: reducedMotion.matches ? 'auto' : 'smooth'
+      });
+    });
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', function () {
+      threshold = Math.max(480, Math.round(window.innerHeight * 0.75));
+      requestUpdate();
+    });
+    updateButton();
   }
 
   initBackToTop();
