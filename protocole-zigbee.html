@@ -136,6 +136,7 @@ footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:
   "publisher":{"@type":"Organization","name":"DomoRepère","url":"https://domorepere.fr/"}
 }
 </script>
+<link rel="stylesheet" href="assets/css/article-layout-v2.css">
 <link rel="stylesheet" href="assets/css/mobile-fixes.css">
 <script defer src="assets/js/mobile-fixes.js"></script>
 </head>
@@ -154,6 +155,7 @@ footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:
       </ul>
     </nav>
   </div>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
 </header>
 
 <main>
@@ -443,10 +445,14 @@ footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:
 </div>
 </div>
 
-<aside class="sidebar" aria-label="Navigation de l'article">
-<div class="side-card">
-<h2>Dans ce guide</h2>
-<ul>
+<aside class="sidebar" aria-label="Repères de lecture">
+<section class="side-card toc-card">
+<button class="toc-toggle" type="button" aria-expanded="true" aria-controls="article-toc">
+<span><span class="side-kicker">Sommaire</span><strong>Dans ce guide</strong></span>
+<span class="toc-chevron" aria-hidden="true"></span>
+</button>
+<nav class="toc-nav" id="article-toc" aria-label="Sommaire de l’article">
+<ol>
 <li><a href="#1-protocole-zigbee">1. Qu’est-ce que Zigbee ?</a></li>
 <li><a href="#2-trois-roles">2. Les trois rôles</a></li>
 <li><a href="#3-maillage-zigbee">3. Le maillage Zigbee</a></li>
@@ -460,13 +466,14 @@ footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:
 <li><a href="#11-erreurs">11. Les erreurs</a></li>
 <li><a href="#12-resume">12. En résumé</a></li>
 <li><a href="#faq">FAQ</a></li>
-</ul>
-</div>
+</ol>
+</nav>
+</section>
 
-<div class="side-card">
+<section class="side-card takeaway-card">
 <h2>À retenir</h2>
 <p>Le mesh Zigbee dépend surtout des routeurs disponibles, du placement du coordinateur et de l’environnement radio. Les capteurs sur pile ne remplacent pas cette infrastructure.</p>
-</div>
+</section>
 </aside>
 
 </div></div>
@@ -477,5 +484,6 @@ footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:
 <p style="margin-top:.45rem"><a href="index.html#contact">Contact</a> — <a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p>
 <div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div>
 </footer>
+<script src="assets/js/article-layout-v2.js" defer></script>
 </body>
 </html>
