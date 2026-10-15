@@ -20,7 +20,22 @@
 
     var footer = document.querySelector('footer');
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    var threshold = Math.max(480, Math.round(window.innerHeight * 0.75));
+    function calculateThreshold() {
+      var viewportThreshold = Math.max(320, Math.round(window.innerHeight * 0.5));
+      var maxScroll = Math.max(
+        0,
+        document.documentElement.scrollHeight - window.innerHeight
+      );
+
+      if (!maxScroll) return viewportThreshold;
+
+      return Math.min(
+        viewportThreshold,
+        Math.max(160, Math.round(maxScroll * 0.35))
+      );
+    }
+
+    var threshold = calculateThreshold();
     var visible = false;
     var ticking = false;
 
@@ -58,7 +73,7 @@
 
     window.addEventListener('scroll', requestUpdate, { passive: true });
     window.addEventListener('resize', function () {
-      threshold = Math.max(480, Math.round(window.innerHeight * 0.75));
+      threshold = calculateThreshold();
       requestUpdate();
     });
     updateButton();
