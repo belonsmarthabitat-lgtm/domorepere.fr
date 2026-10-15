@@ -1,5 +1,6 @@
-(function () {
-  'use strict';
+  }
+
+  initBackToTop();
 
   var mobile = window.matchMedia('(max-width: 720px)');
   var figures = Array.prototype.slice.call(document.querySelectorAll('.article-figure'));
