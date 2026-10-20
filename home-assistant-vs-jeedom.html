@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Home Assistant vs Jeedom : lequel choisir en 2026 ? — DomoRepère</title>
+<meta name="description" content="Home Assistant vs Jeedom : compare installation, interface, intégrations, automatisations, coût, cloud et protocoles pour choisir selon ton profil.">
+<link rel="canonical" href="https://domorepere.fr/home-assistant-vs-jeedom.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0d665d">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="DomoRepère">
+<meta property="og:title" content="Home Assistant vs Jeedom : lequel choisir en 2026 ? — DomoRepère">
+<meta property="og:description" content="Deux excellentes plateformes locales, mais deux façons différentes d’installer, d’administrer et de faire évoluer une maison connectée.">
+<meta property="og:url" content="https://domorepere.fr/home-assistant-vs-jeedom.html">
+<meta property="og:image" content="https://domorepere.fr/assets/brand/social-card.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Home Assistant vs Jeedom : lequel choisir en 2026 ?">
+<meta name="twitter:description" content="Installation, interface, intégrations, automatisations, local, coût et protocoles : compare Home Assistant et Jeedom selon ton profil.">
+<meta name="twitter:image" content="https://domorepere.fr/assets/brand/social-card.png">
+
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icons/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" sizes="180x180">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#0d665d;--primary-hover:#084f49;--primary-soft:#eaf5f2;
+  --secondary:#273436;--accent:#c9aa72;--accent-soft:#f8f1e5;
+  --bg-light:#f6f8f7;--card-bg:#fff;--text-dark:#273436;--text-main:#3d4b4d;
+  --text-muted:#6d7b7d;--border:#dce5e3;--danger:#a33d36;--danger-bg:#fff4f1;
+  --radius:16px;--shadow:0 8px 24px rgba(39,52,54,.07)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text-main);background:var(--bg-light);line-height:1.7}
+a{color:var(--primary);text-decoration:none;transition:.2s ease}
+a:hover{color:var(--primary-hover)}
+img{max-width:100%;height:auto}
+
+.site-header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-container{max-width:1200px;margin:0 auto;padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.7rem;color:var(--secondary);font-size:1.2rem;font-weight:800;white-space:nowrap}
+.logo img{height:48px;width:auto;display:block}
+.logo strong{color:var(--primary)}
+nav ul{display:flex;list-style:none;gap:1.55rem;align-items:center}
+nav a{color:var(--secondary);font-weight:650;font-size:.92rem}
+nav a:hover,nav a.active{color:var(--primary)}
+
+.article-hero{background:linear-gradient(132deg,#273436 0%,#1f3434 48%,#0d665d 120%);color:#fff;padding:4.6rem 1.5rem 3.6rem;position:relative;overflow:hidden}
+.article-hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid rgba(201,170,114,.28);right:-160px;top:-210px}
+.article-hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{font-size:.86rem;color:#c6d2d1;margin-bottom:1.1rem}
+.breadcrumb a{color:#e6cf9f}
+.eyebrow{color:#e5c995;font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:.75rem}
+h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;max-width:900px}
+.lead{margin-top:1rem;max-width:780px;color:#d3dddd;font-size:1.06rem}
+.meta{display:flex;flex-wrap:wrap;gap:.7rem 1rem;margin-top:1.35rem;color:#c5d1cf;font-size:.88rem}
+
+.page-wrap{max-width:1100px;margin:0 auto;padding:2.6rem 1.5rem 4rem}
+.content-grid{display:grid;grid-template-columns:minmax(0,760px) 250px;gap:2rem;align-items:start}
+.article-shell{min-width:0}
+.article-body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.2rem}
+.article-body>p:first-child{font-size:1.06rem;color:var(--text-dark)}
+.article-body h2{color:var(--secondary);font-size:1.55rem;line-height:1.25;margin:2.3rem 0 .85rem;padding-top:.2rem;scroll-margin-top:105px}
+.article-body h2:first-of-type{margin-top:1.6rem}
+.article-body h3{color:var(--secondary);font-size:1.15rem;line-height:1.35;margin:1.6rem 0 .55rem;scroll-margin-top:105px}
+.article-body p{margin-bottom:1.1rem}
+.article-body ul,.article-body ol{margin:0 0 1.4rem 1.25rem}
+.article-body li{margin-bottom:.55rem;padding-left:.15rem}
+
+.highlight-box,.highlight,.callout{background:var(--primary-soft)!important;border:1px solid #cfe7e1!important;border-left:5px solid var(--primary)!important;border-radius:12px!important;padding:1.15rem 1.2rem!important;margin:1.5rem 0!important;color:var(--text-main)!important}
+.affiliate-box{background:var(--accent-soft)!important;border:1px solid #ead7b4!important;border-left:5px solid var(--accent)!important;border-radius:12px!important;padding:1.2rem!important;margin:1.5rem 0!important}
+.affiliate-box-title{color:#725b34!important;font-weight:800!important;margin-bottom:.4rem!important}
+.field-note{background:#fbfcfc;border:1px dashed #b8cbc7;border-radius:12px;padding:1.05rem 1.15rem;margin:1.5rem 0}
+.field-note strong{color:var(--primary)}
+.question-box{background:var(--secondary);color:#edf3f2;border-radius:14px;padding:1.35rem;margin:1.7rem 0}
+.question-box strong{color:#efd59f}
+.question-box p:last-child{margin-bottom:0}
+
+.checklist{background:var(--bg-light);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-top:1rem}
+.checklist-item{display:flex;gap:.75rem;margin-bottom:1rem}
+.checklist-item:last-child{margin-bottom:0}
+
+.comparison-table-wrapper{overflow-x:auto;margin:1.6rem 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.93rem}
+.comparison-table th,.comparison-table td{padding:.75rem .85rem;border:1px solid var(--border);text-align:left;vertical-align:top}
+.comparison-table th{background:var(--primary-soft);color:var(--secondary)}
+
+.article-figure{margin:1.8rem 0}
+.article-figure img{display:block;width:100%;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.article-figure figcaption{font-size:.82rem;color:var(--text-muted);margin-top:.55rem;line-height:1.45}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:.78rem 1rem;border-radius:10px;font-size:.91rem;font-weight:750}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-hover);color:#fff}
+.btn-affiliate{background:var(--accent);color:var(--secondary)}
+.btn-affiliate:hover{background:#b9975c;color:var(--secondary)}
+
+.next-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.3rem}
+.next-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow)}
+.next-card span{display:block;color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.next-card strong{color:var(--secondary);line-height:1.35}
+
+.sidebar{position:sticky;top:88px}
+.side-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.side-card h2{font-size:1rem;color:var(--secondary);margin-bottom:.65rem}
+.side-card ul{list-style:none}
+.side-card li+li{margin-top:.55rem}
+.side-card a{font-size:.88rem;line-height:1.35}
+.side-card p{font-size:.88rem;color:var(--text-muted)}
+
+footer{background:var(--secondary);color:#b8c4c3;padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--accent)}
+footer a{color:#e2ebe9}
+.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
+
+@media(max-width:900px){
+  .content-grid{grid-template-columns:1fr}
+  .sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+  .side-card{margin:0}
+}
+@media(max-width:720px){
+  .nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}
+  nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}
+  .article-hero{padding:3.6rem 1rem 3rem}
+  .page-wrap{padding:2rem 1rem 3rem}
+  .article-body{padding:1.35rem}
+  .sidebar,.next-links{grid-template-columns:1fr}
+}
+</style>
+
+<link rel="stylesheet" href="assets/css/article-layout-v2.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Home Assistant ou Jeedom : lequel choisir en 2026 ?",
+  "description":"Comparatif Home Assistant vs Jeedom : installation, interface, intégrations, automatisations, fonctionnement local, maintenance, coût et protocoles.",
+  "inLanguage":"fr-FR",
+  "mainEntityOfPage":"https://domorepere.fr/home-assistant-vs-jeedom.html",
+  "datePublished":"2026-10-20",
+  "dateModified":"2026-10-20",
+  "author":{"@type":"Person","name":"Yohann DESCAMPS"},
+  "publisher":{"@type":"Organization","name":"DomoRepère","url":"https://domorepere.fr/"}
+}
+</script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <img src="assets/brand/logo.png" alt="Logo DomoRepère">
+      <span>Domo<strong>Repère</strong></span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#quiz">Guide interactif</a></li>
+        <li><a class="active" href="articles.html">Guides &amp; articles</a></li>
+        <li><a href="mon-installation.html">Le Lab</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
+</header>
+
+<main>
+
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Accueil</a> › <a href="articles.html">Guides</a> › Plateformes domotiques
+    </div>
+    <div class="eyebrow">Home Assistant • Jeedom • choix de plateforme</div>
+    <h1>Home Assistant ou Jeedom : lequel choisir en 2026 ?</h1>
+    <p class="lead">Tu as déjà décidé d’utiliser une plateforme domotique ouverte et tu hésites entre Home Assistant et Jeedom ? On compare ce qui change réellement au quotidien : installation, interface, intégrations, automatisations, maintenance, coût et protocoles.</p>
+    <div class="meta">
+      <span>⏱️ 15 min</span>
+      <span>🗓️ Publié le 20 octobre 2026</span>
+      <span>📚 Plateformes domotiques</span>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrap">
+<div class="content-grid">
+
+<div class="article-shell">
+
+<article class="article-body">
+
+<p>Home Assistant et Jeedom sont souvent opposés comme s’il fallait choisir entre une solution « simple » et une solution « technique ». Ce raccourci aide peu. <strong>Les deux peuvent construire une excellente domotique locale, évolutive et très poussée.</strong> La vraie différence apparaît surtout dans la façon dont tu vas installer, organiser, étendre et maintenir ton système.</p>
+
+<p>Dans ce guide, on part donc d’une hypothèse précise : <strong>tu as déjà décidé d’utiliser une plateforme domotique ouverte</strong> et ton hésitation porte réellement sur Home Assistant ou Jeedom. Si tu te demandes encore s’il te faut une box centrale, une passerelle constructeur ou aucune plateforme supplémentaire, commence plutôt par notre guide <a href="box-domotique.html"><strong>Faut-il une box domotique en 2026 ?</strong></a></p>
+
+<div class="highlight-box">
+  <strong>Le point clé :</strong> ne choisis pas sur le nombre de logos compatibles ou sur une réputation de « facilité ». Choisis la plateforme dont la logique d’installation, d’administration et de maintenance correspond le mieux à ta façon de travailler.
+</div>
+
+<h2 id="1-difference-30-secondes">1. Home Assistant vs Jeedom : la différence en 30 secondes</h2>
+
+<p>Si je devais résumer sans fabriquer de gagnant artificiel :</p>
+
+<ul>
+  <li><strong>Home Assistant</strong> pousse aujourd’hui très loin l’intégration entre le logiciel, son interface, ses intégrations et Home Assistant OS. Avec un Home Assistant Green, on peut même démarrer sur un matériel prêt à l’emploi. L’interface permet de faire énormément de choses sans écrire de code, tout en laissant une grande profondeur aux utilisateurs avancés.</li>
+  <li><strong>Jeedom</strong> repose sur son Core et son écosystème de plugins. Il peut être utilisé sur une box officielle ou installé sur du matériel compatible sous Debian. Sa logique d’objets, d’équipements, de commandes et de scénarios est différente de celle de Home Assistant, sans être moins capable pour autant.</li>
+</ul>
+
+<div class="question-box">
+  <p><strong>La mauvaise question :</strong> « lequel est le meilleur ? »</p>
+  <p><strong>La bonne question :</strong> « lequel me donnera l’architecture que je comprends et que j’aurai encore envie de maintenir dans trois ans ? »</p>
+</div>
+
+<h2 id="2-philosophies">2. Deux plateformes ouvertes, mais deux philosophies</h2>
+
+<p>Les deux projets sont open source, fonctionnent localement et peuvent centraliser de nombreux fabricants. Mais leur organisation n’est pas identique.</p>
+
+<h3>Home Assistant : intégrations, appareils, entités et zones</h3>
+
+<p>Home Assistant organise la maison autour d’<strong>intégrations</strong> qui font remonter des appareils, des entités et des services. Les équipements peuvent ensuite être rangés dans des zones, des étages ou des étiquettes, puis utilisés dans les tableaux de bord, scènes, scripts et automatisations.</p>
+
+<p>Cette logique devient particulièrement cohérente avec <strong>Home Assistant OS</strong> : le système d’exploitation, Home Assistant et les applications complémentaires sont administrés depuis le même environnement. Cela ne rend pas toute la domotique automatique, mais cela réduit une partie du travail d’administration système.</p>
+
+<h3>Jeedom : Core, équipements, commandes et plugins</h3>
+
+<p>Jeedom suit une autre logique. Les objets représentent l’organisation de la maison, les équipements regroupent les fonctions d’un appareil ou d’un service, et les commandes représentent les informations ou actions exploitables. Les plugins viennent ensuite étendre la plateforme pour ajouter des protocoles, des marques ou des fonctions.</p>
+
+<p>Cette architecture est très lisible pour qui entre dans la logique Jeedom : <strong>Core → plugin → équipement → commandes → scénarios</strong>. Là encore, il ne s’agit pas de dire que cette approche est meilleure ou moins moderne. Elle structure simplement le système autrement.</p>
+
+<div class="field-note">
+  <strong>Conseil DomoRepère :</strong> si tu peux tester les deux interfaces avant d’acheter tout le matériel, fais-le. Le meilleur indice n’est pas la première impression graphique : c’est la facilité avec laquelle tu retrouves un appareil, comprends son état et modifies une automatisation six mois plus tard.
+</div>
+
+<h2 id="3-installation-materiel">3. Installation et matériel : qu’est-ce qu’il faut réellement prévoir ?</h2>
+
+<h3>Home Assistant : Home Assistant OS ou Container</h3>
+
+<p>En 2026, la documentation officielle de Home Assistant ne propose plus que <strong>deux types d’installation</strong> : Home Assistant OS et Home Assistant Container. Les anciennes méthodes « Core » et « Supervised » que l’on retrouve encore dans de vieux tutoriels ne sont plus des méthodes officiellement proposées.</p>
+
+<p><strong>Home Assistant OS est la méthode recommandée pour la majorité des utilisateurs.</strong> Il peut tourner sur le Home Assistant Green, sur un Raspberry Pi, sur une machine x86-64 ou dans une machine virtuelle. Home Assistant Green constitue aujourd’hui le démarrage le plus plug-and-play : le système est préinstallé et il suffit essentiellement de fournir alimentation et réseau.</p>
+
+<p><strong>Home Assistant Container</strong> s’adresse plutôt à quelqu’un qui administre déjà son hôte et ses conteneurs. Home Assistant fonctionne alors dans Docker, mais tu prends toi-même en charge le système, les mises à jour du conteneur et les services complémentaires. Certaines fonctions liées notamment à Thread ou Z-Wave demandent alors de déployer leurs serveurs séparément.</p>
+
+<h3>Jeedom : box officielle ou installation sur Debian</h3>
+
+<p>Jeedom peut être utilisé sur ses box officielles ou installé sur différents matériels prenant en charge Debian : Raspberry Pi, PC ou mini-PC, machine virtuelle et autres environnements documentés. Une installation Docker existe également, mais la documentation Jeedom la présente comme <strong>non recommandée</strong> et le support officiel ne prend pas en charge les instances Docker.</p>
+
+<p>Dans les deux cas, le choix du matériel change fortement l’expérience. Comparer un Home Assistant Green à un Jeedom DIY installé à la main n’a pas beaucoup de sens ; comparer deux solutions prêtes à l’emploi ou deux installations DIY est beaucoup plus pertinent.</p>
+
+<div class="highlight-box">
+  <strong>À retenir :</strong> « Home Assistant » et « Jeedom » ne désignent pas chacun une seule box. Le logiciel peut être très simple à démarrer sur un matériel dédié ou demander davantage d’administration sur une installation personnelle.
+</div>
+
+<h2 id="4-interface">4. Prise en main et interface : où vas-tu passer ton temps ?</h2>
+
+<p>Home Assistant a beaucoup évolué sur ce point. L’ajout d’intégrations, l’organisation des appareils et entités, la création de tableaux de bord et la majorité des automatisations se font désormais depuis l’interface graphique. Les zones et étages permettent de rapprocher l’organisation logicielle de la maison réelle.</p>
+
+<p>Jeedom expose davantage directement sa logique d’objets, d’équipements et de commandes. Son Dashboard, ses historiques, ses scénarios et ses pages de configuration reflètent cette architecture. Quelqu’un qui aime voir explicitement la chaîne « équipement → commande → scénario » peut trouver cette logique très naturelle.</p>
+
+<p>Il faut éviter une conclusion trop rapide du type « l’un est plus facile ». La difficulté dépend aussi de ce que tu demandes au système. Ajouter dix appareils standards et quelques automatismes simples n’a rien à voir avec maintenir plusieurs réseaux radio, des scripts avancés, un accès distant et cinquante intégrations.</p>
+
+<h2 id="5-integrations-plugins">5. Intégrations Home Assistant vs plugins Jeedom</h2>
+
+<p>Home Assistant utilise principalement le terme <strong>intégration</strong>. Beaucoup sont livrées directement avec le projet et configurables depuis l’interface. D’autres extensions communautaires existent en dehors du cœur officiel.</p>
+
+<p>Jeedom s’appuie fortement sur son <strong>Market de plugins</strong>. On y trouve des plugins développés par Jeedom SAS et d’autres par des développeurs tiers. Certains sont gratuits, d’autres payants. Le prix d’un plugin ne dit pas à lui seul s’il est meilleur : ce qui compte est son niveau de maintenance, les appareils réellement pris en charge et les fonctions qu’il expose.</p>
+
+<div class="field-note">
+  <strong>La méthode terrain :</strong> avant de choisir Home Assistant ou Jeedom, liste les 10 à 15 équipements ou services qui comptent vraiment chez toi. Vérifie ensuite leur compatibilité réelle sur les deux plateformes. Un chiffre global d’intégrations ou de plugins est beaucoup moins utile que la prise en charge exacte de ta serrure, ton chauffage, ton alarme ou tes volets.
+</div>
+
+<p>Cette vérification est encore plus importante avec les fabricants qui utilisent des fonctions propriétaires. Un appareil peut être « compatible » tout en n’exposant qu’une partie de ses réglages.</p>
+
+<h2 id="6-automatisations">6. Automatisations : jusqu’où peut-on aller sans coder ?</h2>
+
+<h3>Home Assistant : YAML n’est plus une obligation</h3>
+
+<p>L’idée selon laquelle il faut apprendre YAML avant d’utiliser Home Assistant est aujourd’hui dépassée. Home Assistant possède un <strong>éditeur visuel d’automatisations</strong> pour créer les déclencheurs, conditions et actions depuis l’interface. YAML reste disponible pour certains usages avancés, les templates ou pour ceux qui préfèrent travailler directement dans la configuration.</p>
+
+<p>On peut donc parfaitement créer des automatisations classiques — présence, horaires, éclairage, chauffage, notifications, volets — sans écrire une ligne de YAML.</p>
+
+<h3>Jeedom : les scénarios par blocs</h3>
+
+<p>Jeedom construit ses automatismes dans les <strong>scénarios</strong>. Les blocs permettent notamment de créer des conditions Si/Alors/Sinon, des actions, des boucles, des actions différées ou programmées. Un bloc Code permet aussi d’utiliser du PHP quand on veut dépasser les fonctions graphiques classiques.</p>
+
+<p>Les deux plateformes ont donc la même caractéristique importante : <strong>le code est une possibilité d’extension, pas une condition d’entrée.</strong></p>
+
+<div class="question-box">
+  <p><strong>Le vrai critère :</strong></p>
+  <p>Quand ton automatisation devient complexe, préfères-tu raisonner dans l’éditeur Home Assistant avec déclencheurs, conditions et actions, ou dans les scénarios en blocs de Jeedom ?</p>
+</div>
+
+<h2 id="7-local-cloud">7. Local, cloud et dépendances externes</h2>
+
+<p>Home Assistant et Jeedom peuvent tous les deux faire fonctionner leur cœur de domotique <strong>localement, sans abonnement cloud obligatoire</strong>. C’est un point commun important.</p>
+
+<p>Chez Home Assistant, le service optionnel de Nabu Casa historiquement appelé <strong>Home Assistant Cloud</strong> est en cours de renommage vers <strong>Home Assistant Link</strong> en 2026. Il sert notamment à simplifier l’accès distant, certaines connexions avec les assistants vocaux et des services en ligne. Home Assistant lui-même continue de fonctionner sans cet abonnement.</p>
+
+<p>Jeedom indique également que son logiciel est gratuit et ne requiert ni cloud ni abonnement pour fonctionner. Des services supplémentaires peuvent être utilisés, par exemple pour certaines sauvegardes ou selon les plugins choisis.</p>
+
+<p>Il reste néanmoins un piège commun aux deux plateformes : <strong>une plateforme locale ne transforme pas automatiquement un appareil cloud en appareil local.</strong> Si l’intégration ou le plugin dépend de l’API Internet du fabricant, cette dépendance reste présente.</p>
+
+<h2 id="8-maintenance-sauvegardes">8. Maintenance, mises à jour et sauvegardes</h2>
+
+<p>C’est probablement le critère le moins spectaculaire au moment d’acheter… et l’un des plus importants deux ans plus tard.</p>
+
+<h3>Home Assistant</h3>
+
+<p>Home Assistant OS centralise une grande partie de la maintenance dans l’interface et propose les mises à jour du système et de Home Assistant depuis le même environnement. Home Assistant intègre également les sauvegardes et permet de programmer des sauvegardes automatiques depuis l’interface.</p>
+
+<p>Avec Home Assistant Container, la responsabilité change : tu dois maintenir toi-même l’hôte, le conteneur et les éventuels services externes.</p>
+
+<h3>Jeedom</h3>
+
+<p>Jeedom intègre également un système de sauvegarde et de restauration. Une sauvegarde contient notamment la configuration, les équipements, commandes, historiques, scénarios et designs. Il est possible de télécharger les archives pour les conserver ailleurs, et un service de sauvegarde cloud optionnel existe également.</p>
+
+<div class="highlight-box">
+  <strong>Règle DomoRepère :</strong> une sauvegarde qui reste uniquement sur la machine domotique n’est pas une vraie stratégie de reprise. Quelle que soit la plateforme, garde régulièrement une copie hors de la machine qui héberge la domotique.
+</div>
+
+<p>Les mises à jour méritent la même prudence. Plus tu utilises d’extensions tierces, plus il faut accepter qu’un composant puisse parfois demander une mise à jour ou un ajustement après une évolution importante du système.</p>
+
+<h2 id="9-cout">9. Le coût réel des deux solutions</h2>
+
+<p>Comparer seulement le prix du logiciel donne une mauvaise réponse : <strong>Home Assistant et Jeedom sont tous les deux utilisables gratuitement comme logiciels open source.</strong></p>
+
+<p>Le coût réel vient ensuite de l’architecture :</p>
+
+<ul>
+  <li><strong>machine hôte</strong> : box officielle, Green, Raspberry Pi, mini-PC, VM ou matériel déjà disponible ;</li>
+  <li><strong>radios</strong> : coordinateur Zigbee, adaptateur Z-Wave, radio Thread ou autres interfaces selon le projet ;</li>
+  <li><strong>services optionnels</strong> : par exemple Home Assistant Link ou les services Jeedom choisis ;</li>
+  <li><strong>extensions</strong> : Home Assistant ne facture pas ses intégrations officielles, tandis que le Market Jeedom mélange plugins gratuits et payants ;</li>
+  <li><strong>temps de maintenance</strong> : difficile à chiffrer, mais très réel sur une installation complexe.</li>
+</ul>
+
+<p>Je déconseille donc les comparatifs du type « Home Assistant coûte X € et Jeedom Y € ». Deux installations utilisant les mêmes protocoles et les mêmes équipements peuvent avoir des coûts très différents selon le matériel choisi et les plugins ou services réellement nécessaires.</p>
+
+<h2 id="10-protocoles">10. Zigbee, Z-Wave, Matter et Thread : que faut-il prévoir ?</h2>
+
+<p>Cette section ne refait pas le comparatif des protocoles. Pour comprendre leurs différences, consulte plutôt notre <a href="article-2.html"><strong>comparatif Zigbee, Z-Wave, Wi-Fi, Thread et Matter</strong></a>. Ici, on regarde uniquement ce qu’ils impliquent pour Home Assistant et Jeedom.</p>
+
+<h3>Zigbee</h3>
+
+<p>Avec Home Assistant, l’intégration officielle <strong>ZHA</strong> permet de créer un réseau Zigbee avec un coordinateur compatible. D’autres architectures existent également, mais le point important est que Home Assistant Green n’intègre pas à lui seul une radio Zigbee : il faut ajouter le matériel adapté ou utiliser une passerelle existante.</p>
+
+<p>Jeedom s’appuie lui aussi sur un plugin et un coordinateur ou une radio compatible selon l’installation choisie. Le Market Jeedom propose notamment des solutions Zigbee officielles et communautaires.</p>
+
+<p>Pour le fonctionnement du maillage, le placement du coordinateur et les routeurs, renvoie-toi au <a href="protocole-zigbee.html"><strong>guide technique Zigbee DomoRepère</strong></a>.</p>
+
+<h3>Z-Wave</h3>
+
+<p>Home Assistant utilise aujourd’hui son intégration <strong>Z-Wave</strong> avec le pilote Z-Wave JS, un serveur Z-Wave et un adaptateur compatible. Sous Home Assistant OS, l’installation recommandée peut mettre en place l’application Z-Wave JS directement.</p>
+
+<p>Jeedom dispose également d’un plugin <strong>Z-Wave JS</strong> sur son Market. Dans les deux cas, le réseau Z-Wave reste lié à un contrôleur physique adapté.</p>
+
+<p>Pour les différences entre mesh classique, Z-Wave Plus et Long Range, consulte notre <a href="z-wave-domotique.html"><strong>guide Z-Wave en domotique</strong></a>.</p>
+
+<h3>Matter et Thread</h3>
+
+<p>Home Assistant possède une intégration Matter officielle et utilise son propre contrôleur via <strong>Matter Server</strong>. Pour un appareil Matter over Thread, il faut également un réseau Thread et un <strong>Thread Border Router</strong>. Home Assistant peut utiliser des Border Routers tiers et peut aussi en créer un avec du matériel compatible, mais sa documentation indique encore en 2026 que l’intégration Thread reste en cours de développement.</p>
+
+<p>Côté Jeedom, le Market propose actuellement un plugin <strong>Matter</strong> développé par un auteur tiers. Il faut donc vérifier la documentation et les prérequis du plugin au moment de construire l’installation plutôt que supposer que le fonctionnement est identique à celui de Home Assistant.</p>
+
+<div class="field-note">
+  <strong>Important :</strong> Thread et Matter ne sont pas deux concurrents de Zigbee à mettre dans la même case. Thread fournit un réseau IP maillé basse consommation ; Matter est un protocole applicatif sur IP qui peut notamment utiliser Thread. Ce point reste valable quelle que soit la plateforme choisie.
+</div>
+
+<h2 id="11-profils">11. Quel choix selon ton profil ?</h2>
+
+<p>Plutôt que de distribuer des points, voilà les situations dans lesquelles je regarderais d’abord l’une ou l’autre.</p>
+
+<h3>Home Assistant mérite d’être regardé en priorité si…</h3>
+
+<ul>
+  <li>tu veux profiter d’un environnement très intégré avec Home Assistant OS ;</li>
+  <li>tu veux pouvoir démarrer sur un Home Assistant Green prêt à l’emploi tout en gardant une grande profondeur d’évolution ;</li>
+  <li>tu utilises beaucoup d’écosystèmes différents et veux vérifier leurs intégrations dans une plateforme commune ;</li>
+  <li>Matter fait partie de tes priorités et tu veux suivre l’intégration officielle proposée par Home Assistant ;</li>
+  <li>tu apprécies la logique appareils, entités, zones, tableaux de bord et automatisations visuelles.</li>
+</ul>
+
+<h3>Jeedom mérite d’être regardé en priorité si…</h3>
+
+<ul>
+  <li>tu apprécies la logique objets, équipements, commandes et scénarios ;</li>
+  <li>tu veux construire ton installation autour du Market et de ses plugins ;</li>
+  <li>tu préfères partir sur une box Jeedom officielle ou gérer toi-même une installation Debian ;</li>
+  <li>tu es à l’aise avec les scénarios par blocs et veux pouvoir aller jusqu’au PHP pour certains besoins avancés ;</li>
+  <li>tes équipements essentiels disposent de plugins Jeedom bien maintenus qui répondent exactement à ton besoin.</li>
+</ul>
+
+<div class="highlight-box">
+  <strong>Et si ton installation fonctionne déjà bien ?</strong> Migrer uniquement parce qu’une autre plateforme semble plus à la mode est rarement une bonne raison. La migration devient intéressante lorsqu’elle résout un problème réel : matériel non pris en charge, maintenance devenue pénible, architecture bloquée ou automatisations impossibles à maintenir.
+</div>
+
+<h2 id="12-tableau">12. Tableau comparatif Home Assistant vs Jeedom</h2>
+
+<div class="comparison-table-wrapper">
+<table class="comparison-table">
+  <thead>
+    <tr>
+      <th>Critère</th>
+      <th>Home Assistant</th>
+      <th>Jeedom</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Logiciel</strong></td>
+      <td>Open source, gratuit</td>
+      <td>Open source, gratuit</td>
+    </tr>
+    <tr>
+      <td><strong>Solution prête à l’emploi</strong></td>
+      <td>Home Assistant Green</td>
+      <td>Box officielles Jeedom</td>
+    </tr>
+    <tr>
+      <td><strong>Installation DIY</strong></td>
+      <td>Home Assistant OS ou Container</td>
+      <td>Debian sur matériel compatible, VM et autres méthodes documentées</td>
+    </tr>
+    <tr>
+      <td><strong>Docker</strong></td>
+      <td>Home Assistant Container est officiellement proposé</td>
+      <td>Possible mais indiqué comme non recommandé et non supporté officiellement</td>
+    </tr>
+    <tr>
+      <td><strong>Extensions</strong></td>
+      <td>Intégrations</td>
+      <td>Plugins via le Market</td>
+    </tr>
+    <tr>
+      <td><strong>Automatisations graphiques</strong></td>
+      <td>Oui, éditeur visuel</td>
+      <td>Oui, scénarios par blocs</td>
+    </tr>
+    <tr>
+      <td><strong>Code obligatoire</strong></td>
+      <td>Non ; YAML et templates restent disponibles pour l’avancé</td>
+      <td>Non ; PHP reste disponible via les blocs Code pour l’avancé</td>
+    </tr>
+    <tr>
+      <td><strong>Fonctionnement local</strong></td>
+      <td>Oui</td>
+      <td>Oui</td>
+    </tr>
+    <tr>
+      <td><strong>Cloud obligatoire</strong></td>
+      <td>Non ; Home Assistant Link est optionnel</td>
+      <td>Non ; services supplémentaires optionnels</td>
+    </tr>
+    <tr>
+      <td><strong>Sauvegardes</strong></td>
+      <td>Oui, locales et automatisables depuis l’interface</td>
+      <td>Oui, sauvegarde/restauration et export d’archives</td>
+    </tr>
+    <tr>
+      <td><strong>Zigbee</strong></td>
+      <td>ZHA avec coordinateur compatible, entre autres possibilités</td>
+      <td>Selon plugin et matériel compatible</td>
+    </tr>
+    <tr>
+      <td><strong>Z-Wave</strong></td>
+      <td>Z-Wave JS + serveur + adaptateur</td>
+      <td>Plugin Z-Wave JS + contrôleur compatible</td>
+    </tr>
+    <tr>
+      <td><strong>Matter</strong></td>
+      <td>Intégration officielle + Matter Server</td>
+      <td>Plugin Matter tiers actuellement disponible sur le Market</td>
+    </tr>
+    <tr>
+      <td><strong>Thread</strong></td>
+      <td>Via un Thread Border Router ; intégration encore en évolution</td>
+      <td>Dépend de l’architecture Matter/Thread et des prérequis du plugin utilisé</td>
+    </tr>
+    <tr>
+      <td><strong>Plugins / intégrations payants</strong></td>
+      <td>Les intégrations officielles ne sont pas vendues ; services externes possibles</td>
+      <td>Market mélange plugins gratuits et payants</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Ce tableau ne permet toujours pas de désigner un « vainqueur », et c’est volontaire. Il permet surtout d’identifier <strong>où se situe la différence de responsabilité</strong> : système hôte, plugins, services complémentaires, radios et manière d’administrer l’ensemble.</p>
+
+<h2 id="13-faq">13. Questions fréquentes</h2>
+
+<h3>Home Assistant ou Jeedom : lequel est le plus simple pour débuter ?</h3>
+<p>Il n’y a pas de réponse universelle. Un Home Assistant Green sous Home Assistant OS est très différent d’un Home Assistant Container monté soi-même, tout comme une box Jeedom officielle est différente d’une installation DIY sous Debian. Pour débuter, compare surtout les solutions d’installation réellement envisagées et la logique d’interface qui te paraît la plus claire.</p>
+
+<h3>Faut-il savoir programmer pour utiliser Home Assistant ?</h3>
+<p>Non. La majorité des intégrations, tableaux de bord et automatisations courantes peuvent être configurés depuis l’interface. YAML et les templates sont surtout des outils supplémentaires pour les besoins avancés.</p>
+
+<h3>Faut-il savoir programmer pour utiliser Jeedom ?</h3>
+<p>Non. Les scénarios sont construits avec des blocs graphiques et les équipements sont gérés depuis l’interface. Le PHP est disponible dans les blocs Code pour les utilisateurs qui veulent aller plus loin.</p>
+
+<h3>Home Assistant et Jeedom fonctionnent-ils sans Internet ?</h3>
+<p>Oui pour leur cœur local. En revanche, certaines intégrations ou certains plugins peuvent eux-mêmes dépendre d’un service cloud constructeur. Il faut donc vérifier appareil par appareil si le fonctionnement souhaité reste local.</p>
+
+<h3>Peut-on utiliser Zigbee et Z-Wave avec les deux plateformes ?</h3>
+<p>Oui. Dans les deux cas, il faut prévoir les contrôleurs physiques et les composants logiciels adaptés. La différence se situe surtout dans la manière dont chaque plateforme intègre et administre ces réseaux.</p>
+
+<h3>Matter et Thread sont-ils mieux supportés par Home Assistant ou Jeedom ?</h3>
+<p>Home Assistant possède une intégration Matter officielle avec Matter Server et une documentation détaillée sur Thread et les Border Routers, même si l’intégration Thread reste encore en évolution. Jeedom propose actuellement Matter via un plugin tiers disponible sur son Market. Si Matter/Thread est un critère déterminant, vérifie donc l’état exact des intégrations et du matériel au moment de l’achat.</p>
+
+<h3>Peut-on passer de Jeedom à Home Assistant, ou l’inverse, sans réappairer tous les appareils ?</h3>
+<p>Pas toujours. Cela dépend du protocole, du contrôleur et de la façon dont le réseau a été construit. Des passerelles IP ou certaines intégrations peuvent parfois être reconnectées facilement, tandis qu’un réseau radio directement géré par la plateforme peut demander une migration spécifique ou un nouvel appairage. Il faut préparer la migration protocole par protocole plutôt que considérer la plateforme comme un simple logiciel à remplacer.</p>
+
+<h2 id="en-resume">En résumé</h2>
+
+<p><strong>Home Assistant et Jeedom savent tous les deux construire une domotique locale très poussée.</strong> Le bon choix dépend moins d’une liste de fonctions que de la manière dont tu veux installer, étendre, administrer et maintenir ta maison dans le temps.</p>
+
+<p>Home Assistant offre aujourd’hui une expérience particulièrement intégrée autour de Home Assistant OS, de ses intégrations et de son matériel officiel, tout en gardant une grande profondeur pour les utilisateurs avancés. Jeedom conserve une logique très modulable autour de son Core, de ses plugins, de ses équipements, commandes et scénarios.</p>
+
+<p>Avant de décider, fais donc trois choses : <strong>liste tes équipements indispensables, choisis le type de matériel sur lequel tu veux héberger la plateforme, puis vérifie quelle logique d’administration tu comprends le mieux.</strong></p>
+
+<p>Et si tu n’as pas encore décidé qu’une plateforme centrale était réellement nécessaire, reviens d’abord au guide <a href="box-domotique.html"><strong>Faut-il une box domotique en 2026 ?</strong></a></p>
+
+<div class="field-note">
+  <strong>Sources techniques principales</strong>
+  <ul>
+    <li><a href="https://www.home-assistant.io/installation/" target="_blank" rel="noopener">Home Assistant — méthodes d’installation officielles</a></li>
+    <li><a href="https://www.home-assistant.io/faq/what-hardware-do-i-need" target="_blank" rel="noopener">Home Assistant — matériel recommandé</a></li>
+    <li><a href="https://www.home-assistant.io/faq/do-i-need-yaml/" target="_blank" rel="noopener">Home Assistant — YAML et interface graphique</a></li>
+    <li><a href="https://www.home-assistant.io/integrations/backup/" target="_blank" rel="noopener">Home Assistant — sauvegardes</a></li>
+    <li><a href="https://www.home-assistant.io/integrations/zha/" target="_blank" rel="noopener">Home Assistant — Zigbee / ZHA</a></li>
+    <li><a href="https://www.home-assistant.io/integrations/zwave_js/" target="_blank" rel="noopener">Home Assistant — Z-Wave JS</a></li>
+    <li><a href="https://www.home-assistant.io/integrations/matter/" target="_blank" rel="noopener">Home Assistant — Matter</a></li>
+    <li><a href="https://www.home-assistant.io/integrations/thread/" target="_blank" rel="noopener">Home Assistant — Thread</a></li>
+    <li><a href="https://www.home-assistant.io/blog/2026/10/02/big-tech-ruined-the-cloud-so-were-renaming-ours/" target="_blank" rel="noopener">Home Assistant — renommage Home Assistant Cloud vers Home Assistant Link</a></li>
+    <li><a href="https://doc.jeedom.com/fr_FR/installation/index.html" target="_blank" rel="noopener">Jeedom — installation et fonctionnement sans abonnement obligatoire</a></li>
+    <li><a href="https://doc.jeedom.com/fr_FR/presentation/index" target="_blank" rel="noopener">Jeedom — présentation, historiques et scénarios</a></li>
+    <li><a href="https://doc.jeedom.com/fr_FR/core/4.4/scenario" target="_blank" rel="noopener">Jeedom — scénarios et blocs</a></li>
+    <li><a href="https://doc.jeedom.com/fr_FR/core/4.1/backup" target="_blank" rel="noopener">Jeedom — sauvegarde et restauration</a></li>
+    <li><a href="https://market.jeedom.com/index.php?compatibility=diy&p=market&status=stable&type=plugin&v=d" target="_blank" rel="noopener">Jeedom Market — plugins et protocoles disponibles</a></li>
+  </ul>
+</div>
+
+</article>
+
+<div class="next-links">
+  <a class="next-card" href="box-domotique.html">
+    <span>Architecture</span>
+    <strong>Faut-il une box domotique ? →</strong>
+  </a>
+  <a class="next-card" href="article-2.html">
+    <span>Technologies</span>
+    <strong>Comparer les protocoles →</strong>
+  </a>
+</div>
+
+</div>
+
+<aside class="sidebar" aria-label="Repères de lecture">
+  <section class="side-card toc-card">
+    <button class="toc-toggle" type="button" aria-expanded="true" aria-controls="article-toc">
+      <span><span class="side-kicker">Sommaire</span><strong>Dans ce guide</strong></span>
+      <span class="toc-chevron" aria-hidden="true"></span>
+    </button>
+    <nav class="toc-nav" id="article-toc" aria-label="Sommaire de l’article">
+      <ol>
+        <li><a href="#1-difference-30-secondes">Différence en 30 secondes</a></li>
+        <li><a href="#2-philosophies">Deux philosophies</a></li>
+        <li><a href="#3-installation-materiel">Installation et matériel</a></li>
+        <li><a href="#4-interface">Interface</a></li>
+        <li><a href="#5-integrations-plugins">Intégrations vs plugins</a></li>
+        <li><a href="#6-automatisations">Automatisations</a></li>
+        <li><a href="#7-local-cloud">Local et cloud</a></li>
+        <li><a href="#8-maintenance-sauvegardes">Maintenance</a></li>
+        <li><a href="#9-cout">Coût réel</a></li>
+        <li><a href="#10-protocoles">Protocoles</a></li>
+        <li><a href="#11-profils">Quel profil ?</a></li>
+        <li><a href="#12-tableau">Tableau final</a></li>
+        <li><a href="#13-faq">FAQ</a></li>
+        <li><a href="#en-resume">En résumé</a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <section class="side-card takeaway-card">
+    <span class="side-kicker">À retenir</span>
+    <h2>Pas de vainqueur universel</h2>
+    <p>Choisis la plateforme dont tu comprends la logique et que tu seras prêt à maintenir quand l’installation aura grandi.</p>
+    <a class="btn btn-primary" style="margin-top:.8rem;width:100%" href="box-domotique.html">Revoir l’architecture</a>
+  </section>
+</aside>
+
+</div>
+</div>
+
+</main>
+
+<footer>
+  <p>© 2026 DomoRepère. Édité par Yohann DESCAMPS. Tous droits réservés.</p>
+  <p style="margin-top:.45rem">
+    <a href="index.html#contact">Contact</a> —
+    <a href="mentions-legales.html">Mentions légales</a> —
+    <a href="politique-de-confidentialite.html">Politique de confidentialité</a>
+  </p>
+  <div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div>
+</footer>
+
+<script src="assets/js/article-layout-v2.js" defer></script>
+</body>
+</html>
