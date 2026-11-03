@@ -31,13 +31,26 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="assets/css/theme.css">
+
 <style>
 :root{
-  --primary:#0d665d;--primary-hover:#084f49;--primary-soft:#eaf5f2;
-  --secondary:#273436;--accent:#c9aa72;--accent-soft:#f8f1e5;
-  --bg-light:#f6f8f7;--card-bg:#fff;--text-dark:#273436;--text-main:#3d4b4d;
-  --text-muted:#6d7b7d;--border:#dce5e3;--danger:#a33d36;--danger-bg:#fff4f1;
-  --radius:16px;--shadow:0 8px 24px rgba(39,52,54,.07)
+  --primary:var(--brand-primary);
+  --primary-hover:var(--brand-primary-hover);
+  --primary-soft:var(--color-surface-soft);
+  --secondary:var(--color-text-strong);
+  --accent:var(--brand-accent);
+  --accent-soft:var(--color-surface-accent);
+  --bg-light:var(--color-page);
+  --card-bg:var(--color-surface);
+  --text-dark:var(--color-text-strong);
+  --text-main:var(--color-text);
+  --text-muted:var(--color-text-muted);
+  --border:var(--color-border);
+  --danger:var(--color-danger);
+  --danger-bg:var(--color-danger-soft);
+  --radius:var(--radius-md);
+  --shadow:var(--shadow-card)
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
