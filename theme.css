@@ -1,0 +1,78 @@
+/*
+ * Socle du thème DomoRepère.
+ * Ce fichier centralise uniquement les valeurs du thème clair actuel.
+ * Il reste sans effet tant qu'il n'est pas chargé par les pages du site.
+ */
+
+:root {
+  /* Marque */
+  --brand-primary: #0d665d;
+  --brand-primary-hover: #084f49;
+  --brand-accent: #c9aa72;
+  --brand-accent-hover: #ad8b50;
+
+  /* Page et surfaces */
+  --color-page: #f6f8f7;
+  --color-surface: #ffffff;
+  --color-surface-soft: #eaf5f2;
+  --color-surface-accent: #f8f1e5;
+  --color-surface-inverse: #273436;
+
+  /* Textes */
+  --color-text: #3d4b4d;
+  --color-text-strong: #273436;
+  --color-text-muted: #6d7b7d;
+  --color-text-inverse: #ffffff;
+  --color-text-inverse-muted: #b8c4c3;
+
+  /* Bordures et états */
+  --color-border: #dce5e3;
+  --color-border-strong: #b8cbc7;
+  --color-danger: #a33d36;
+  --color-danger-soft: #fff4f1;
+  --color-warning: #b56e22;
+  --color-warning-soft: #fff6e9;
+
+  /* Liens et focus */
+  --color-link: #0d665d;
+  --color-link-hover: #084f49;
+  --color-focus: #c9aa72;
+  --link-decoration: none;
+  --link-underline-thickness: auto;
+
+  /* Zones structurelles */
+  --color-header-bg: rgba(255, 255, 255, 0.96);
+  --color-footer-bg: #273436;
+  --color-hero-start: #263537;
+  --color-hero-mid: #1d4140;
+  --color-hero-end: #0d665d;
+  --color-field-bg: #ffffff;
+
+  /* Typographie */
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-handwritten: "Caveat", cursive;
+  --font-size-root: 100%;
+  --line-height-body: 1.7;
+  --line-height-heading: 1.2;
+
+  /* Espacements */
+  --paragraph-gap: 1rem;
+  --list-item-gap: 0.55rem;
+  --section-space: 4rem;
+  --card-padding: 1.25rem;
+  --control-min-height: 44px;
+
+  /* Formes et reliefs */
+  --border-width: 1px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+  --shadow-card: 0 8px 24px rgba(39, 52, 54, 0.07);
+  --shadow-elevated: 0 18px 45px rgba(39, 52, 54, 0.11);
+
+  /* Animations */
+  --motion-fast: 0.16s;
+  --motion-normal: 0.2s;
+  --motion-easing: ease;
+}
