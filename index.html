@@ -246,8 +246,10 @@
 }</script>
 <link href="assets/css/mobile-fixes.css" rel="stylesheet"/>
 <script defer src="assets/js/mobile-fixes.js"></script>
+  <link href="assets/css/skip-link.css" rel="stylesheet"/>
 </head>
 <body class="page-home">
+  <a class="skip-link" href="#main-content">Aller au contenu</a>
 <header>
 <div class="nav-container">
 <a class="logo" href="index.html"><img alt="Logo DomoRepère" decoding="async" height="145" src="assets/brand/logo.png" width="306"/><span>Domo<strong>Repère</strong></span></a>
@@ -262,7 +264,7 @@
 </nav>
 </div>
 </header>
-<main>
+<main id="main-content" tabindex="-1">
 <section class="hero">
 <figure class="hero-visual" aria-hidden="true">
 <img alt="" decoding="async" fetchpriority="high" height="900" src="assets/home/hero-domotique-maison.webp" width="1600"/>
@@ -1051,5 +1053,6 @@
   </script>
 </body>
 </html>
+
 
 

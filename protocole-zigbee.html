@@ -139,9 +139,11 @@ footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:
 <link rel="stylesheet" href="assets/css/article-layout-v2.css">
 <link rel="stylesheet" href="assets/css/mobile-fixes.css">
 <script defer src="assets/js/mobile-fixes.js"></script>
+  <link href="assets/css/skip-link.css" rel="stylesheet"/>
 </head>
 
 <body class="page-article article-classic">
+  <a class="skip-link" href="#main-content">Aller au contenu</a>
 <header class="site-header">
   <div class="nav-container">
     <a href="index.html" class="logo"><img src="assets/brand/logo.png" alt="Logo DomoRepère"><span>Domo<strong>Repère</strong></span></a>
@@ -158,7 +160,7 @@ footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:
   <div class="reading-progress" aria-hidden="true"><span></span></div>
 </header>
 
-<main>
+<main id="main-content" tabindex="-1">
 <section class="article-hero">
   <div class="article-hero-inner">
     <div class="breadcrumb"><a href="index.html">Accueil</a> › <a href="articles.html">Guides</a> › Zigbee</div>
@@ -487,3 +489,4 @@ footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:
 <script src="assets/js/article-layout-v2.js" defer></script>
 </body>
 </html>
+
