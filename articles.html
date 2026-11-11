@@ -71,7 +71,8 @@
     .journey strong{color:#e4c58c}.journey p{color:#d1dcda;margin-top:.3rem}
     footer{background:var(--secondary);color:#b8c4c3;padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--accent)}
     footer a{color:#e2ebe9}.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
-    @media(max-width:800px){.nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}.intro{grid-template-columns:1fr}.articles-grid{grid-template-columns:1fr}.hero{padding:3.8rem 1rem 3.4rem}.container{padding:3rem 1rem}}
+    .skip-link{position:fixed;left:1rem;top:.75rem;z-index:9999;padding:.7rem 1rem;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;transform:translateY(-160%);transition:transform .18s ease}.skip-link:focus{transform:translateY(0);color:#fff;outline:3px solid var(--accent);outline-offset:3px}main:focus{outline:none}
+@media(max-width:800px){.nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}.intro{grid-template-columns:1fr}.articles-grid{grid-template-columns:1fr}.hero{padding:3.8rem 1rem 3.4rem}.container{padding:3rem 1rem}}
   </style>
   <script type="application/ld+json">
   {
@@ -84,10 +85,9 @@
     "isPartOf":{"@type":"WebSite","name":"DomoRepère","url":"https://domorepere.fr/"}
   }
   </script>
-  <link href="assets/css/skip-link.css" rel="stylesheet"/>
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Aller au contenu</a>
+<a class="skip-link" href="#contenu-principal">Aller au contenu</a>
 <header class="site-header">
   <div class="nav-container">
     <a href="index.html" class="logo"><img src="assets/brand/logo.png" alt="Logo DomoRepère"><span>Domo<strong>Repère</strong></span></a>
@@ -102,7 +102,7 @@
   </div>
 </header>
 
-<main id="main-content" tabindex="-1">
+<main id="contenu-principal" tabindex="-1">
   <section class="hero">
     <div class="hero-content">
       <div class="eyebrow">Comprendre • choisir • installer • automatiser • entretenir</div>
@@ -187,6 +187,16 @@
         </div>
       </article>
 
+
+      <article class="card">
+        <div class="card-visual"><span class="badge">Chauffage</span>🌡️</div>
+        <div class="card-body">
+          <h3>Fil pilote et domotique : connecter ses radiateurs sans les remplacer</h3>
+          <p>Comprendre les ordres fil pilote, choisir une architecture et distinguer simple pilotage Confort/Éco d’une vraie régulation par température.</p>
+          <a class="btn btn-primary" href="fil-pilote-domotique.html">Lire le guide Fil pilote →</a>
+        </div>
+      </article>
+
       <article class="card">
         <div class="card-visual"><span class="badge">Électricité</span>⚡</div>
         <div class="card-body">
@@ -220,4 +230,3 @@
 </footer>
 </body>
 </html>
-

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fil pilote domotique : connecter ses radiateurs sans les remplacer — DomoRepère</title>
+<meta name="description" content="Fil pilote domotique : comment connecter et automatiser des radiateurs électriques existants avec module, sonde et thermostat, sans les remplacer.">
+<link rel="canonical" href="https://domorepere.fr/fil-pilote-domotique.html">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0d665d">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="DomoRepère">
+<meta property="og:title" content="Fil pilote domotique : connecter ses radiateurs sans les remplacer — DomoRepère">
+<meta property="og:description" content="Comprendre le fil pilote, choisir la bonne architecture et distinguer simple pilotage Confort/Éco d’une vraie régulation par température.">
+<meta property="og:url" content="https://domorepere.fr/fil-pilote-domotique.html">
+<meta property="og:image" content="https://domorepere.fr/assets/brand/social-card.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fil pilote et domotique : connecter ses radiateurs sans les remplacer">
+<meta name="twitter:description" content="Module fil pilote, thermostat, sonde de température et automatisations : comprendre ce qu’il faut réellement pour rendre un radiateur électrique connecté.">
+<meta name="twitter:image" content="https://domorepere.fr/assets/brand/social-card.png">
+
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icons/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" sizes="180x180">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#0d665d;--primary-hover:#084f49;--primary-soft:#eaf5f2;
+  --secondary:#273436;--accent:#c9aa72;--accent-soft:#f8f1e5;
+  --bg-light:#f6f8f7;--card-bg:#fff;--text-dark:#273436;--text-main:#3d4b4d;
+  --text-muted:#6d7b7d;--border:#dce5e3;--danger:#a33d36;--danger-bg:#fff4f1;
+  --radius:16px;--shadow:0 8px 24px rgba(39,52,54,.07)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text-main);background:var(--bg-light);line-height:1.7}
+a{color:var(--primary);text-decoration:none;transition:.2s ease}
+a:hover{color:var(--primary-hover)}
+img{max-width:100%;height:auto}
+
+.site-header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.nav-container{max-width:1200px;margin:0 auto;padding:.85rem 1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem}
+.logo{display:flex;align-items:center;gap:.7rem;color:var(--secondary);font-size:1.2rem;font-weight:800;white-space:nowrap}
+.logo img{height:48px;width:auto;display:block}
+.logo strong{color:var(--primary)}
+nav ul{display:flex;list-style:none;gap:1.55rem;align-items:center}
+nav a{color:var(--secondary);font-weight:650;font-size:.92rem}
+nav a:hover,nav a.active{color:var(--primary)}
+
+.article-hero{background:linear-gradient(132deg,#273436 0%,#1f3434 48%,#0d665d 120%);color:#fff;padding:4.6rem 1.5rem 3.6rem;position:relative;overflow:hidden}
+.article-hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid rgba(201,170,114,.28);right:-160px;top:-210px}
+.article-hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:1}
+.breadcrumb{font-size:.86rem;color:#c6d2d1;margin-bottom:1.1rem}
+.breadcrumb a{color:#e6cf9f}
+.eyebrow{color:#e5c995;font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:.75rem}
+h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;max-width:900px}
+.lead{margin-top:1rem;max-width:780px;color:#d3dddd;font-size:1.06rem}
+.meta{display:flex;flex-wrap:wrap;gap:.7rem 1rem;margin-top:1.35rem;color:#c5d1cf;font-size:.88rem}
+
+.page-wrap{max-width:1100px;margin:0 auto;padding:2.6rem 1.5rem 4rem}
+.content-grid{display:grid;grid-template-columns:minmax(0,760px) 250px;gap:2rem;align-items:start}
+.article-shell{min-width:0}
+.article-body{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.2rem}
+.article-body>p:first-child{font-size:1.06rem;color:var(--text-dark)}
+.article-body h2{color:var(--secondary);font-size:1.55rem;line-height:1.25;margin:2.3rem 0 .85rem;padding-top:.2rem;scroll-margin-top:105px}
+.article-body h2:first-of-type{margin-top:1.6rem}
+.article-body h3{color:var(--secondary);font-size:1.15rem;line-height:1.35;margin:1.6rem 0 .55rem;scroll-margin-top:105px}
+.article-body p{margin-bottom:1.1rem}
+.article-body ul,.article-body ol{margin:0 0 1.4rem 1.25rem}
+.article-body li{margin-bottom:.55rem;padding-left:.15rem}
+
+.highlight-box,.highlight,.callout{background:var(--primary-soft)!important;border:1px solid #cfe7e1!important;border-left:5px solid var(--primary)!important;border-radius:12px!important;padding:1.15rem 1.2rem!important;margin:1.5rem 0!important;color:var(--text-main)!important}
+.affiliate-box{background:var(--accent-soft)!important;border:1px solid #ead7b4!important;border-left:5px solid var(--accent)!important;border-radius:12px!important;padding:1.2rem!important;margin:1.5rem 0!important}
+.affiliate-box-title{color:#725b34!important;font-weight:800!important;margin-bottom:.4rem!important}
+.field-note{background:#fbfcfc;border:1px dashed #b8cbc7;border-radius:12px;padding:1.05rem 1.15rem;margin:1.5rem 0}
+.field-note strong{color:var(--primary)}
+.question-box{background:var(--secondary);color:#edf3f2;border-radius:14px;padding:1.35rem;margin:1.7rem 0}
+.question-box strong{color:#efd59f}
+.question-box p:last-child{margin-bottom:0}
+
+.checklist{background:var(--bg-light);border:1px solid var(--border);border-radius:12px;padding:1.2rem;margin-top:1rem}
+.checklist-item{display:flex;gap:.75rem;margin-bottom:1rem}
+.checklist-item:last-child{margin-bottom:0}
+
+.comparison-table-wrapper{overflow-x:auto;margin:1.6rem 0}
+.comparison-table{width:100%;border-collapse:collapse;font-size:.93rem}
+.comparison-table th,.comparison-table td{padding:.75rem .85rem;border:1px solid var(--border);text-align:left;vertical-align:top}
+.comparison-table th{background:var(--primary-soft);color:var(--secondary)}
+
+.article-figure{margin:1.8rem 0}
+.article-figure img{display:block;width:100%;border-radius:14px;border:1px solid var(--border);box-shadow:var(--shadow)}
+.article-figure figcaption{font-size:.82rem;color:var(--text-muted);margin-top:.55rem;line-height:1.45}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:.78rem 1rem;border-radius:10px;font-size:.91rem;font-weight:750}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-hover);color:#fff}
+.btn-affiliate{background:var(--accent);color:var(--secondary)}
+.btn-affiliate:hover{background:#b9975c;color:var(--secondary)}
+
+.next-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.3rem}
+.next-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow)}
+.next-card span{display:block;color:var(--primary);font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.next-card strong{color:var(--secondary);line-height:1.35}
+
+.sidebar{position:sticky;top:88px}
+.side-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:1.15rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.side-card h2{font-size:1rem;color:var(--secondary);margin-bottom:.65rem}
+.side-card ul{list-style:none}
+.side-card li+li{margin-top:.55rem}
+.side-card a{font-size:.88rem;line-height:1.35}
+.side-card p{font-size:.88rem;color:var(--text-muted)}
+
+footer{background:var(--secondary);color:#b8c4c3;padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--accent)}
+footer a{color:#e2ebe9}
+.footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
+
+@media(max-width:900px){
+  .content-grid{grid-template-columns:1fr}
+  .sidebar{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+  .side-card{margin:0}
+}
+@media(max-width:720px){
+  .nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}
+  nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}
+  .article-hero{padding:3.6rem 1rem 3rem}
+  .page-wrap{padding:2rem 1rem 3rem}
+  .article-body{padding:1.35rem}
+  .sidebar,.next-links{grid-template-columns:1fr}
+}
+
+.skip-link{position:fixed;left:1rem;top:.75rem;z-index:9999;padding:.7rem 1rem;border-radius:10px;background:var(--primary);color:#fff;font-weight:800;transform:translateY(-160%);transition:transform .18s ease}
+.skip-link:focus{transform:translateY(0);color:#fff;outline:3px solid var(--accent);outline-offset:3px}
+main:focus{outline:none}
+</style>
+
+<link rel="stylesheet" href="assets/css/article-layout-v2.css">
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Article",
+  "headline":"Fil pilote et domotique : comment connecter ses radiateurs électriques sans les remplacer ?",
+  "description":"Guide pratique pour comprendre le fil pilote, connecter des radiateurs électriques existants et distinguer pilotage de modes et véritable régulation de température.",
+  "inLanguage":"fr-FR",
+  "mainEntityOfPage":"https://domorepere.fr/fil-pilote-domotique.html",
+  "datePublished":"2026-11-11",
+  "dateModified":"2026-11-11",
+  "author":{"@type":"Person","name":"Yohann DESCAMPS"},
+  "publisher":{"@type":"Organization","name":"DomoRepère","url":"https://domorepere.fr/"}
+}
+</script>
+</head>
+<body>
+
+<a class="skip-link" href="#contenu-principal">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <img src="assets/brand/logo.png" alt="Logo DomoRepère">
+      <span>Domo<strong>Repère</strong></span>
+    </a>
+    <nav aria-label="Navigation principale">
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#quiz">Guide interactif</a></li>
+        <li><a class="active" href="articles.html">Guides &amp; articles</a></li>
+        <li><a href="mon-installation.html">Le Lab</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
+</header>
+
+<main id="contenu-principal" tabindex="-1">
+<section class="article-hero">
+  <div class="article-hero-inner">
+    <div class="breadcrumb"><a href="index.html">Accueil</a> › <a href="articles.html">Guides</a> › Chauffage &amp; automatisation</div>
+    <div class="eyebrow">Chauffage • fil pilote • automatisation</div>
+    <h1>Fil pilote et domotique : comment connecter ses radiateurs électriques sans les remplacer ?</h1>
+    <p class="lead">Tu as déjà des radiateurs électriques équipés d’un fil pilote ? Avant de les remplacer, il est souvent possible de les rendre pilotables et de les intégrer à une vraie logique de chauffage connecté. Encore faut-il distinguer simple ordre Confort/Éco et véritable régulation de température.</p>
+    <div class="meta"><span>⏱️ 14 min</span><span>🗓️ Publié le 11 novembre 2026</span><span>📚 Chauffage &amp; automatisation</span></div>
+  </div>
+</section>
+
+<div class="page-wrap"><div class="content-grid"><div class="article-shell">
+<article class="article-body">
+
+<p>Un radiateur électrique classique n’a pas besoin d’être remplacé pour devenir plus intelligent. S’il possède un <strong>fil pilote</strong>, il dispose déjà d’une entrée de commande prévue pour recevoir des ordres de chauffage. C’est une base très intéressante pour la domotique.</p>
+
+<p>Mais il faut bien comprendre ce que cette commande sait faire. <strong>Le fil pilote ne transmet pas directement une température comme « chauffe à 20,5 °C ».</strong> Il envoie un ordre de fonctionnement — Confort, Éco, Hors-gel, Arrêt, et parfois Confort -1 °C ou -2 °C — que le radiateur interprète ensuite avec son propre thermostat.</p>
+
+<div class="highlight-box"><strong>Le point clé :</strong> un module fil pilote rend un radiateur <em>pilotable</em>. Une sonde de température et une logique de thermostat peuvent ensuite le rendre réellement <em>régulé</em> à partir de la température de la pièce. Ce sont deux niveaux de fonctionnement différents.</div>
+
+<p>Dans ce guide, on va donc partir de l’existant : radiateurs déjà installés, fil pilote disponible, puis ajouter uniquement ce qui est nécessaire selon le niveau d’automatisation recherché.</p>
+
+<h2 id="1-fil-pilote">1. Fil pilote : ce qu’il commande réellement</h2>
+<p>Le fil pilote est un conducteur de commande présent sur de nombreux radiateurs électriques. Il permet à un programmateur, un gestionnaire de chauffage ou un système domotique d’envoyer un ordre au radiateur.</p>
+<p>Un système complet peut transmettre jusqu’à six ordres :</p>
+<ul>
+<li><strong>Confort</strong> : le radiateur travaille sur sa consigne interne habituelle ;</li>
+<li><strong>Éco</strong> : il applique une réduction par rapport à la consigne Confort, généralement de quelques degrés selon le constructeur ;</li>
+<li><strong>Hors-gel</strong> : il vise généralement une température minimale autour de 7 °C ;</li>
+<li><strong>Arrêt</strong> : arrêt de la chauffe ;</li>
+<li><strong>Confort -1 °C</strong> ;</li>
+<li><strong>Confort -2 °C</strong>.</li>
+</ul>
+<p>Tous les radiateurs ne savent pas forcément exploiter les six ordres. Les modèles plus simples peuvent ne gérer que les quatre principaux. C’est donc la notice du radiateur qui doit trancher.</p>
+<div class="field-note"><strong>Fait technique :</strong> le fil pilote ne remplace pas le thermostat interne du radiateur. Si ton radiateur est réglé sur 21 °C et reçoit l’ordre Confort, il continue normalement à utiliser sa propre régulation autour de cette consigne.</div>
+
+<h2 id="2-compatibilite">2. Comment savoir si ton radiateur est compatible ?</h2>
+<p>La première étape n’est pas d’acheter un module. Il faut vérifier que le radiateur accepte réellement une commande fil pilote.</p>
+<p>La méthode la plus fiable consiste à retrouver <strong>la notice ou la référence exacte de l’appareil</strong>. Le schéma de raccordement indique généralement la présence du fil pilote et les modes supportés.</p>
+<p>Sur de nombreux appareils, un troisième conducteur noir accompagne la phase et le neutre. C’est un indice courant, mais <strong>la couleur seule ne constitue jamais une preuve suffisante</strong>. Une installation existante peut avoir été modifiée et un conducteur ne doit pas être identifié uniquement à sa couleur.</p>
+<p>Il faut aussi vérifier le comportement du radiateur lui-même. Certains modèles possèdent un mode « programmation externe », « fil pilote », « prog » ou équivalent qui doit être sélectionné pour que les ordres extérieurs soient correctement interprétés.</p>
+<div class="highlight-box"><strong>Avant d’acheter :</strong> relève la référence du radiateur, consulte sa notice, vérifie la présence du fil pilote et confirme les ordres réellement supportés. C’est plus fiable que de choisir un module à partir d’une simple photo du câble.</div>
+
+<h2 id="3-module-thermostat-relais">3. Module fil pilote, thermostat ou relais : trois fonctions différentes</h2>
+<p>Ces trois termes sont souvent mélangés, alors qu’ils décrivent des rôles très différents.</p>
+<div class="comparison-table-wrapper"><table class="comparison-table"><thead><tr><th>Équipement</th><th>Son rôle</th><th>Ce qu’il ne fait pas automatiquement</th></tr></thead><tbody>
+<tr><td><strong>Module fil pilote</strong></td><td>Génère les ordres fil pilote envoyés au radiateur</td><td>Mesurer correctement la température de la pièce et décider seul d’une consigne</td></tr>
+<tr><td><strong>Thermostat</strong></td><td>Compare une température mesurée à une consigne et décide quand chauffer</td><td>Commander physiquement un radiateur sans actionneur compatible</td></tr>
+<tr><td><strong>Relais</strong></td><td>Ouvre ou ferme un circuit électrique</td><td>Reproduire à lui seul les différents ordres Confort, Éco, Hors-gel, etc.</td></tr>
+</tbody></table></div>
+<p>Un module fil pilote est donc avant tout un <strong>actionneur</strong>. Une plateforme domotique peut lui dire « Confort » ou « Hors-gel ». Pour aller plus loin et demander réellement 20 °C dans la pièce, il faut également disposer d’une température mesurée et d’une logique de régulation.</p>
+
+<h2 id="4-architectures">4. Quelles architectures pour rendre un chauffage connecté ?</h2>
+<p>Il n’existe pas une seule bonne architecture. Tout dépend de ce que tu veux obtenir.</p>
+<h3>Niveau 1 : programmation fil pilote classique</h3><p>Un programmateur ou gestionnaire de chauffage envoie des ordres selon les horaires. C’est simple, local et suffisant si ton besoin est uniquement de passer de Confort à Éco selon un planning.</p>
+<h3>Niveau 2 : module fil pilote connecté</h3><p>Un module Zigbee, Wi-Fi ou utilisant un autre réseau reçoit les commandes d’une application ou d’une plateforme. Tu peux alors piloter les modes à distance et créer des scénarios.</p>
+<h3>Niveau 3 : modules + plateforme domotique</h3><p>La plateforme centralise plusieurs radiateurs et peut tenir compte des horaires, de la présence, du mode Vacances, des fenêtres ouvertes ou d’autres informations de la maison.</p>
+<h3>Niveau 4 : modules + sondes indépendantes + thermostat logiciel</h3><p>C’est le niveau où l’on passe du simple pilotage à une <strong>régulation réellement basée sur la température de la pièce</strong>. Une sonde mesure la température dans une zone représentative, un thermostat logiciel compare cette mesure à la consigne, puis il commande le module fil pilote.</p>
+<p>Si tu hésites encore sur la nécessité d’une plateforme centrale, notre guide <a href="box-domotique.html"><strong>Faut-il une box domotique ?</strong></a> explique les différentes architectures sans se limiter au chauffage.</p>
+
+<h2 id="5-pilotage-vs-regulation">5. Confort/Éco n’est pas la même chose qu’une vraie régulation de température</h2>
+<p>C’est probablement la distinction la plus importante de ce guide.</p>
+<p>Imaginons un radiateur réglé sur 21 °C. Si la domotique lui envoie simplement l’ordre <strong>Confort</strong>, elle ne lui transmet pas « 21 °C ». Elle lui dit en substance : « utilise ton fonctionnement Confort ». C’est ensuite le thermostat interne du radiateur qui mesure la température à proximité de l’appareil et décide de chauffer.</p>
+<p>Cette mesure interne peut suffire. Mais elle n’est pas toujours représentative de la température ressentie au centre de la pièce : proximité immédiate de la résistance, mur froid, courant d’air, sèche-serviettes dans une salle de bain, etc.</p>
+<p>Avec une sonde externe, la logique change :</p>
+<ol><li>la sonde mesure la température dans la pièce ;</li><li>un thermostat logiciel compare cette température à la consigne demandée ;</li><li>il décide si une période de chauffe est nécessaire ;</li><li>le module traduit cette décision en ordre compréhensible par le radiateur.</li></ol>
+<div class="question-box"><p><strong>Simple pilotage :</strong> « passe le radiateur en Confort à 7 h ».</p><p><strong>Régulation :</strong> « maintiens réellement 20 °C dans la pièce en décidant quand demander de la chauffe ».</p></div>
+
+<h2 id="6-sonde-temperature">6. Pourquoi ajouter une sonde de température indépendante ?</h2>
+<p>Une sonde indépendante n’est pas obligatoire pour utiliser un module fil pilote. Elle devient intéressante dès que l’on veut que la plateforme régule elle-même la température.</p>
+<p>Sa valeur vient surtout de son emplacement. Elle doit mesurer la zone réellement vécue : ni collée au radiateur, ni en plein courant d’air, ni contre une fenêtre froide. Une sonde mal placée peut donner une régulation très sophistiquée… basée sur une mauvaise mesure.</p>
+<p>Une bonne mesure externe permet aussi de comparer plusieurs pièces avec la même logique et de bâtir des automatismes cohérents : salle de bain plus chaude le matin, chambres réduites la journée, hors-gel pendant une longue absence, etc.</p>
+
+<h2 id="7-automatisations">7. Ce qu’on peut réellement automatiser</h2>
+<p>Une fois les radiateurs intégrés dans une plateforme, beaucoup de scénarios deviennent possibles sans remplacer le chauffage :</p>
+<ul><li><strong>planning hebdomadaire</strong> différent selon les pièces ;</li><li><strong>Confort</strong> avant le réveil ou le retour à la maison ;</li><li><strong>Éco</strong> quand une pièce n’est pas utilisée ;</li><li><strong>Hors-gel</strong> en mode Vacances ou absence prolongée ;</li><li><strong>dérogation temporaire</strong> avec retour automatique au programme ;</li><li><strong>réaction à une fenêtre ouverte</strong> si un capteur est présent ;</li><li><strong>centralisation</strong> de plusieurs radiateurs dans un même mode maison ;</li><li><strong>suivi de consommation</strong> si le module ou le compteur utilisé remonte cette donnée.</li></ul>
+<p>Ces possibilités peuvent éviter de chauffer inutilement certaines pièces, mais il serait trompeur d’annoncer un pourcentage universel d’économie. Le résultat dépend de l’isolation, des températures demandées, des horaires, du climat, des habitudes et du chauffage existant.</p>
+
+<h2 id="8-protocole">8. Zigbee, Wi-Fi ou autre : le protocole n’est qu’un maillon</h2>
+<p>Le protocole de communication ne change pas le fonctionnement électrique du fil pilote. Il définit surtout la manière dont le module dialogue avec l’écosystème domotique.</p>
+<p>Un module Zigbee peut être intéressant dans une installation qui possède déjà un réseau Zigbee correctement construit. Un module Wi-Fi peut être pertinent dans une architecture différente. Le bon choix dépend donc davantage de l’installation existante que d’un classement universel.</p>
+<p>Pour éviter de refaire ici le comparatif des technologies, consulte plutôt notre <a href="article-2.html"><strong>guide des protocoles domotiques</strong></a> et, pour le maillage et les bonnes pratiques réseau, notre <a href="protocole-zigbee.html"><strong>guide technique Zigbee</strong></a>.</p>
+
+<h2 id="9-retour-domorepere">9. Notre installation DomoRepère : ce qu’on a réellement testé</h2>
+<div class="highlight-box"><strong>Retour d’expérience réel :</strong> la configuration ci-dessous correspond à une installation utilisée et testée chez DomoRepère. Elle sert d’exemple concret, pas de recette obligatoire.</div>
+<p>Nous utilisons deux sèche-serviettes électriques Atlantic équipés d’un fil pilote. Chacun est commandé par un <strong>NodOn SIN-4-FP-21</strong> intégré au réseau Zigbee de Home Assistant via ZHA.</p>
+
+<div class="affiliate-box">
+  <div class="affiliate-box-title">Le module fil pilote utilisé dans notre installation</div>
+  <p>Chez DomoRepère, nous utilisons le <strong>NodOn SIN-4-FP-21</strong> sur nos sèche-serviettes fil pilote. Ce n’est pas la seule solution possible, mais c’est le module sur lequel repose notre retour d’expérience présenté dans ce guide.</p>
+  <p style="font-size:.84rem;color:#725b34">Lien partenaire : DomoRepère peut percevoir une commission sur certains achats, sans surcoût pour toi.</p>
+  <a class="btn btn-affiliate" href="https://www.domadoo.fr/fr/chauffage-connecte/6828-nodon-module-chauffage-fil-pilote-connecte-zigbee-30.html?domid=147" rel="noopener sponsored" target="_blank">Voir le NodOn SIN-4-FP-21 chez Domadoo</a>
+</div>
+
+<p>La température n’est pas prise sur le sèche-serviettes. Elle est mesurée par des <strong>sondes Sonoff indépendantes</strong> placées dans les pièces. Home Assistant utilise ensuite <strong>Versatile Thermostat</strong> en mode <code>over_switch</code> pour créer le thermostat logique.</p>
+<p>Dans notre fonctionnement quotidien, nous utilisons notamment :</p>
+<ul><li>des presets <strong>Confort, Éco, Hors-gel et Boost</strong> ;</li><li>des plages horaires différentes selon les moments de la journée ;</li><li>une consigne Confort autour de 21 °C pour les salles de bain ;</li><li>un passage automatique en Éco hors des plages utiles ;</li><li>le mode Hors-gel lorsque la maison passe en mode Vacances.</li></ul>
+<p>Lors de nos tests, nous avons aussi vérifié un point très instructif : <strong>l’état affiché par le thermostat virtuel ne suffit pas à prouver l’ordre réellement appliqué au radiateur</strong>. À un moment du diagnostic, le thermostat indiquait un preset Éco alors que l’entité fil pilote était encore en Confort.</p>
+<p>Ce constat ne signifie pas qu’un des composants « ne fonctionne pas ». Il montre surtout qu’en cas de comportement étrange, il faut contrôler toute la chaîne :</p>
+<p><strong>sonde → température reçue → thermostat virtuel → calcul de chauffe → commande envoyée au NodOn → mode fil pilote réellement appliqué.</strong></p>
+<div class="field-note"><strong>Ce que notre installation nous a appris :</strong> un chauffage connecté ne se diagnostique pas en regardant une seule carte dans Home Assistant. Il faut savoir qui mesure, qui décide et qui exécute.</div>
+
+<h2 id="10-vtherm">10. Comment Versatile Thermostat régule nos sèche-serviettes</h2>
+<p>Dans notre cas, Versatile Thermostat n’est pas utilisé comme simple afficheur de température. Il reçoit la mesure de la sonde de pièce et une consigne, puis son algorithme TPI calcule un <strong>pourcentage de temps de chauffe</strong> sur une période donnée.</p>
+<p>Avec un VTherm de type <code>over_switch</code>, ce pourcentage est traduit en périodes de chauffe et d’arrêt. La documentation de Versatile Thermostat permet de personnaliser les commandes envoyées à un équipement qui expose un sélecteur plutôt qu’un simple interrupteur.</p>
+<p>C’est précisément ce qui rend le NodOn intéressant dans cette architecture : le module expose les modes fil pilote et peut recevoir des commandes personnalisées. Dans l’exemple documenté par VTherm, la chauffe peut être associée à <strong>Confort</strong> et la phase d’arrêt ou de réduction à un autre ordre adapté, comme le Hors-gel selon la stratégie retenue.</p>
+<div class="highlight-box"><strong>Attention à la nuance :</strong> VTherm ne transforme pas le fil pilote en thermostat numérique natif. Il utilise le fil pilote comme actionneur dans une boucle de régulation externe pilotée par Home Assistant.</div>
+<p>Cette architecture a un avantage : la température de référence devient celle de la pièce, mesurée à l’endroit choisi. Elle a aussi une contrepartie : la régulation dépend désormais de plusieurs éléments supplémentaires — sonde, réseau, Home Assistant, VTherm et module fil pilote.</p>
+
+<h2 id="11-limites">11. Les limites à connaître avant de se lancer</h2>
+<ul><li><strong>Tous les radiateurs ne gèrent pas six ordres.</strong> Il faut vérifier leur documentation.</li><li><strong>Le mode interne du radiateur compte.</strong> Un appareil mal réglé peut ignorer ou interpréter différemment une commande externe.</li><li><strong>Une sonde externe ajoute une dépendance.</strong> Si elle cesse de remonter une température fiable, la régulation doit avoir un comportement de sécurité prévu.</li><li><strong>Le réseau radio fait partie de la chaîne.</strong> Un module Zigbee mal intégré à son maillage peut rendre le chauffage moins prévisible.</li><li><strong>La plateforme devient un élément fonctionnel du chauffage</strong> lorsqu’elle assure réellement la régulation, et plus seulement la programmation.</li><li><strong>Les fonctions internes du radiateur restent propres au constructeur.</strong> Un module fil pilote ne donne pas accès à tous les réglages propriétaires de l’appareil.</li></ul>
+<p>C’est pour cette raison qu’une architecture simple est souvent préférable à une architecture impressionnante sur le papier mais difficile à diagnostiquer.</p>
+
+<h2 id="12-securite">12. Sécurité électrique : ce qu’on ne doit pas improviser</h2>
+<p>Le fil pilote fait partie d’une installation électrique secteur. Il ne doit pas être traité comme un simple fil de données basse tension.</p>
+<p>La norme et les règles d’installation prévoient notamment son <strong>sectionnement</strong> lorsqu’il est utilisé dans une gestion centralisée du chauffage. Les interventions doivent également tenir compte du circuit chauffage, des protections, des volumes dans les salles d’eau et des caractéristiques du matériel installé.</p>
+<div class="highlight-box"><strong>DomoRepère ne recommande pas de câbler un module à partir d’un schéma trouvé sur Internet sans vérifier l’installation réelle.</strong> Avant toute intervention, identifie le circuit, coupe les alimentations concernées, vérifie l’absence de tension avec le matériel adapté et suis la notice du module et du radiateur.</div>
+<p>Nous avons regroupé les précautions essentielles dans notre guide <a href="securite-electrique.html"><strong>Sécurité électrique en domotique</strong></a>.</p>
+
+<h2 id="13-quelle-architecture">13. Quelle architecture choisir selon ton besoin ?</h2>
+<div class="comparison-table-wrapper"><table class="comparison-table"><thead><tr><th>Ton besoin</th><th>Architecture suffisante</th><th>Ce que tu obtiens</th></tr></thead><tbody>
+<tr><td><strong>Changer de mode selon l’heure</strong></td><td>Programmateur fil pilote</td><td>Confort / Éco / Hors-gel selon planning</td></tr>
+<tr><td><strong>Piloter à distance</strong></td><td>Module fil pilote connecté</td><td>Ordres à distance et scénarios simples</td></tr>
+<tr><td><strong>Centraliser toute la maison</strong></td><td>Modules + plateforme domotique</td><td>Planning, présence, vacances, fenêtres, modes maison</td></tr>
+<tr><td><strong>Réguler réellement une température de pièce</strong></td><td>Module + sonde indépendante + thermostat logiciel</td><td>Boucle de régulation basée sur une température mesurée</td></tr>
+</tbody></table></div>
+<div class="question-box"><p><strong>La méthode DomoRepère :</strong></p><p>Ne commence pas par choisir un module. Commence par décider si tu veux simplement programmer des modes ou réellement réguler la température de chaque pièce.</p></div>
+
+<h2 id="faq">Questions fréquentes</h2>
+<h3>Peut-on domotiser un radiateur électrique sans le remplacer ?</h3><p>Oui, lorsqu’il possède une commande compatible — notamment un fil pilote — il est souvent possible d’ajouter un système de pilotage externe sans remplacer le radiateur. Il faut toutefois vérifier la notice et le comportement exact de l’appareil.</p>
+<h3>Le fil pilote permet-il de régler directement 20 °C ?</h3><p>Pas en tant que tel. Le fil pilote transmet des ordres comme Confort, Éco ou Hors-gel. La température correspondante dépend normalement du thermostat interne du radiateur. Pour réguler réellement sur 20 °C mesurés dans la pièce, il faut ajouter une mesure de température et une logique de thermostat externe.</p>
+<h3>Une sonde de température externe est-elle obligatoire ?</h3><p>Non pour un simple pilotage des modes. Elle devient particulièrement utile lorsqu’une plateforme doit assurer elle-même la régulation à partir de la température réelle de la pièce.</p>
+<h3>Un simple relais peut-il remplacer un module fil pilote ?</h3><p>Un relais simple ne reproduit pas automatiquement les différents ordres du fil pilote. Certaines architectures spécialisées utilisent des composants supplémentaires ou une logique électrique adaptée, mais pour une installation grand public il est préférable d’utiliser un matériel explicitement conçu pour le fil pilote et de suivre sa documentation.</p>
+<h3>Faut-il une box domotique pour utiliser le fil pilote ?</h3><p>Non. Un programmateur fil pilote classique peut fonctionner sans box domotique. Une plateforme centrale devient intéressante lorsque tu veux intégrer le chauffage aux autres informations de la maison, ajouter des scénarios ou mettre en place une régulation logicielle avancée.</p>
+<h3>Que se passe-t-il si Home Assistant tombe en panne ?</h3><p>Cela dépend de l’architecture. Si Home Assistant assure uniquement la programmation, le radiateur conserve généralement son thermostat interne mais restera dans le dernier mode reçu tant qu’aucune autre commande n’est envoyée. Si Home Assistant assure la régulation complète avec une sonde externe, la panne de la plateforme interrompt cette boucle de régulation. Il faut donc prévoir un état de repli cohérent.</p>
+
+<h2 id="en-resume">En résumé</h2>
+<p>Le fil pilote est une excellente porte d’entrée pour connecter des radiateurs électriques existants sans repartir de zéro. Mais il faut garder une distinction claire :</p>
+<p><strong>envoyer Confort ou Éco n’est pas la même chose que réguler réellement 20 °C dans la pièce.</strong></p>
+<p>Si ton besoin est simple, un module fil pilote ou un programmateur peut suffire. Si tu veux une régulation plus fine, une sonde indépendante et un thermostat logiciel peuvent transformer le module en véritable actionneur d’une boucle de chauffage plus intelligente.</p>
+<p>Notre propre installation avec NodOn, sondes Sonoff, Home Assistant et Versatile Thermostat montre que cette architecture fonctionne et qu’elle offre beaucoup de souplesse. Elle montre aussi qu’il faut rester capable de comprendre toute la chaîne lorsqu’un comportement paraît incohérent.</p>
+<p><strong>Le bon système n’est donc pas celui qui automatise le plus. C’est celui que tu peux encore comprendre, diagnostiquer et utiliser normalement quand quelque chose ne se passe pas comme prévu.</strong></p>
+
+<div class="field-note"><strong>Sources techniques principales</strong><ul>
+<li><a href="https://www.promotelec.com/faq/particuliers/quest-ce-quun-fil-pilote-et-a-quoi-sert-il/" target="_blank" rel="noopener">Promotelec — fonctionnement et ordres du fil pilote</a></li>
+<li><a href="https://www.se.com/fr/fr/work/support/local/reglementation/norme-nfc15-100/chauffage/" target="_blank" rel="noopener">Schneider Electric — chauffage électrique et sectionnement du fil pilote</a></li>
+<li><a href="https://nodon.fr/blogs/infos/connectez-vos-radiateurs-a-fil-pilote-en-zigbee-avec-le-module-encastrable-sin-4-fp-21" target="_blank" rel="noopener">NodOn — SIN-4-FP-21, six ordres et mesure de consommation</a></li>
+<li><a href="https://support.nodon.fr/support/solutions/articles/150000204001-combien-d-ordres-g%C3%A8re-le-module-fil-pilote-" target="_blank" rel="noopener">NodOn Support — compatibilité 4 et 6 ordres</a></li>
+<li><a href="https://github.com/jmcollin78/versatile_thermostat/blob/main/documentation/en/over-switch.md" target="_blank" rel="noopener">Versatile Thermostat — fonctionnement over_switch et commandes personnalisées</a></li>
+<li><a href="https://github.com/jmcollin78/versatile_thermostat/blob/main/documentation/fr/reference.md" target="_blank" rel="noopener">Versatile Thermostat — paramètres TPI et capteurs</a></li>
+</ul></div>
+
+</article>
+
+<div class="next-links">
+  <a class="next-card" href="securite-electrique.html"><span>À vérifier avant intervention</span><strong>Sécurité électrique en domotique →</strong></a>
+  <a class="next-card" href="protocole-zigbee.html"><span>Réseau</span><strong>Construire un bon réseau Zigbee →</strong></a>
+</div>
+
+</div>
+
+<aside class="sidebar" aria-label="Repères de lecture">
+  <section class="side-card toc-card">
+    <button class="toc-toggle" type="button" aria-expanded="true" aria-controls="article-toc">
+      <span><span class="side-kicker">Sommaire</span><strong>Dans ce guide</strong></span>
+      <span class="toc-chevron" aria-hidden="true"></span>
+    </button>
+    <nav class="toc-nav" id="article-toc" aria-label="Sommaire de l’article"><ol>
+      <li><a href="#1-fil-pilote">Ce que commande le fil pilote</a></li>
+      <li><a href="#2-compatibilite">Vérifier la compatibilité</a></li>
+      <li><a href="#3-module-thermostat-relais">Module, thermostat ou relais ?</a></li>
+      <li><a href="#4-architectures">Architectures possibles</a></li>
+      <li><a href="#5-pilotage-vs-regulation">Pilotage vs régulation</a></li>
+      <li><a href="#6-sonde-temperature">Sonde indépendante</a></li>
+      <li><a href="#7-automatisations">Automatisations</a></li>
+      <li><a href="#8-protocole">Zigbee, Wi-Fi…</a></li>
+      <li><a href="#9-retour-domorepere">Notre retour terrain</a></li>
+      <li><a href="#10-vtherm">Versatile Thermostat</a></li>
+      <li><a href="#11-limites">Limites</a></li>
+      <li><a href="#12-securite">Sécurité</a></li>
+      <li><a href="#13-quelle-architecture">Quelle architecture ?</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#en-resume">En résumé</a></li>
+    </ol></nav>
+  </section>
+
+  <section class="side-card takeaway-card">
+    <span class="side-kicker">À retenir</span>
+    <h2>Pilotage ≠ régulation</h2>
+    <p>Le fil pilote envoie un mode. La régulation réelle demande une température mesurée, une consigne et une logique de décision.</p>
+    <a class="btn btn-primary" style="margin-top:.8rem;width:100%" href="box-domotique.html">Voir les architectures</a>
+  </section>
+</aside>
+
+</div></div>
+</main>
+
+<footer>
+  <p>© 2026 DomoRepère. Édité par Yohann DESCAMPS. Tous droits réservés.</p>
+  <p style="margin-top:.45rem"><a href="index.html#contact">Contact</a> — <a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p>
+  <div class="footer-tagline">Comprendre • Choisir • Installer • Automatiser • Entretenir</div>
+</footer>
+
+<script src="assets/js/article-layout-v2.js" defer></script>
+</body>
+</html>
