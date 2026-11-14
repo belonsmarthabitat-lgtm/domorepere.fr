@@ -1,0 +1,59 @@
+{
+  "articles": [
+    {
+      "title": "Fil pilote et domotique : comment connecter ses radiateurs électriques sans les remplacer ?",
+      "url": "fil-pilote-domotique.html",
+      "datePublished": "2026-11-11",
+      "dateModified": "2026-11-11"
+    },
+    {
+      "title": "Home Assistant ou Jeedom : lequel choisir en 2026 ?",
+      "url": "home-assistant-vs-jeedom.html",
+      "datePublished": "2026-10-20",
+      "dateModified": "2026-10-20"
+    },
+    {
+      "title": "Faut-il une box domotique en 2026 ? Home Assistant, Jeedom, Homey ou passerelle constructeur",
+      "url": "box-domotique.html",
+      "datePublished": "2026-10-02",
+      "dateModified": "2026-10-20"
+    },
+    {
+      "title": "Zigbee ou Z-Wave : quel protocole domotique choisir ? Comparatif Wi‑Fi, Thread et Matter",
+      "url": "article-2.html",
+      "datePublished": "2026-08-26",
+      "dateModified": "2026-10-13"
+    },
+    {
+      "title": "Débuter en domotique facilement : par quoi commencer quand on n’y connaît rien ?",
+      "url": "article-1.html",
+      "datePublished": "2026-08-26",
+      "dateModified": "2026-09-26"
+    },
+    {
+      "title": "Protocole Zigbee : comment fonctionne le réseau et comment construire un bon maillage ?",
+      "url": "protocole-zigbee.html",
+      "datePublished": "2026-09-20",
+      "dateModified": "2026-09-20"
+    },
+    {
+      "title": "Z-Wave en domotique : faut-il encore choisir ce protocole en 2026 ?",
+      "url": "z-wave-domotique.html",
+      "datePublished": "2026-09-10",
+      "dateModified": "2026-09-10"
+    },
+    {
+      "title": "Sécurité électrique en domotique : les bons réflexes avant de toucher au 230 V",
+      "url": "securite-electrique.html",
+      "datePublished": "2026-08-26",
+      "dateModified": "2026-08-28"
+    },
+    {
+      "title": "Volets, interrupteurs et fil neutre : comprendre avant d’installer",
+      "url": "article-3.html",
+      "datePublished": "2026-08-26",
+      "dateModified": "2026-08-26"
+    }
+  ]
+}
+
