@@ -12,19 +12,19 @@
   opacity: 0;
   pointer-events: none;
   padding: 0.75rem 1rem;
-  background: var(--brand-primary, var(--primary, #0d665d));
-  color: var(--color-text-inverse, #fff);
-  border: 1px solid var(--brand-accent, var(--accent, #c9aa72));
-  border-radius: var(--radius-sm, 10px);
-  box-shadow: var(--shadow-elevated, 0 18px 45px rgba(39, 52, 54, 0.11));
-  font-family: var(--font-body, "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  background: var(--brand-primary);
+  color: var(--color-text-inverse);
+  border: 1px solid var(--brand-accent);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-elevated);
+  font-family: var(--font-body);
   font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.2;
   text-decoration: none;
   transition:
-    transform var(--motion-fast, 0.16s) var(--motion-easing, ease),
-    opacity var(--motion-fast, 0.16s) var(--motion-easing, ease);
+    transform var(--motion-fast) var(--motion-easing),
+    opacity var(--motion-fast) var(--motion-easing);
 }
 
 .skip-link:focus,
@@ -32,8 +32,8 @@
   transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
-  color: var(--color-text-inverse, #fff);
-  outline: 3px solid var(--color-focus, var(--accent, #c9aa72));
+  color: var(--color-text-inverse);
+  outline: 3px solid var(--color-focus);
   outline-offset: 3px;
 }
 
