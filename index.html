@@ -13,23 +13,8 @@
 
 <style>
     :root{
-  /* Ponts temporaires requis par home-v2.css. */
-  --primary:var(--brand-primary);
-  --primary-soft:var(--color-surface-soft);
-  --secondary:var(--color-text-strong);
-  --accent:var(--brand-accent);
-  --bg-light:var(--color-page);
-  --card-bg:var(--color-surface);
-  --text-dark:var(--color-text-strong);
-  --border-color:var(--color-border);
-  --radius:var(--radius-md);
-  --shadow:var(--shadow-card);
-  --shadow-lg:var(--shadow-elevated);
-
-  /* Teintes spécifiques à l'accueil, sans équivalent exact dans theme.css. */
+  /* Teinte spécifique à l'accueil, sans équivalent exact dans theme.css. */
   --primary-mid:#3b816e;
-  --secondary-soft:#344547;
-  --danger:#b83b3b
 }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -310,8 +295,8 @@
 <div class="container tech-layout">
 <div>
 <span class="section-kicker">Écosystèmes &amp; technologies</span>
-<h2 style="color:var(--secondary);font-size:2rem;line-height:1.2;margin-bottom:.8rem;">Comprendre ce qui peut réellement fonctionner ensemble</h2>
-<p style="color:var(--text-muted);">DomoRepère aborde les protocoles et plateformes qui structurent une installation connectée : ceux utilisés ou documentés régulièrement, mais aussi les alternatives pertinentes selon les projets.</p>
+<h2 style="color:var(--color-text-strong);font-size:2rem;line-height:1.2;margin-bottom:.8rem;">Comprendre ce qui peut réellement fonctionner ensemble</h2>
+<p style="color:var(--color-text-muted);">DomoRepère aborde les protocoles et plateformes qui structurent une installation connectée : ceux utilisés ou documentés régulièrement, mais aussi les alternatives pertinentes selon les projets.</p>
 <div class="tech-more"><strong>Et aussi :</strong> Z-Wave, EnOcean et d'autres solutions représentent de vraies possibilités. Même si je ne les utilise pas toutes au quotidien, elles feront progressivement l'objet de guides et de contenus dédiés.</div>
 </div>
 <div aria-label="Technologies abordées par DomoRepère" class="tech-cloud">
@@ -328,8 +313,8 @@
 <section class="quiz-card" id="quiz">
 <div id="quiz-intro">
 <span class="section-kicker">Diagnostic DomoRepère</span>
-<h2 style="color:var(--secondary);font-size:2rem;line-height:1.2;">Quel projet domotique vous correspond ?</h2>
-<p style="margin:1rem 0;color:var(--text-muted);">En 2 à 3 minutes, DomoRepère analyse votre logement, vos objectifs, votre niveau, votre matériel existant et vos contraintes. Vous pouvez sélectionner jusqu'à <strong>5 objectifs</strong>.</p>
+<h2 style="color:var(--color-text-strong);font-size:2rem;line-height:1.2;">Quel projet domotique vous correspond ?</h2>
+<p style="margin:1rem 0;color:var(--color-text-muted);">En 2 à 3 minutes, DomoRepère analyse votre logement, vos objectifs, votre niveau, votre matériel existant et vos contraintes. Vous pouvez sélectionner jusqu'à <strong>5 objectifs</strong>.</p>
 <div class="quiz-notice">Le résultat est une orientation personnalisée : DomoRepère privilégie la compatibilité et l'existant avant de proposer du nouveau matériel.</div>
 <button class="btn btn-primary" onclick="startQuiz()" style="margin-top:1.25rem">Lancer mon diagnostic →</button>
 </div>
