@@ -3,7 +3,7 @@
 body {
   background:
     radial-gradient(circle at 8% 22%, rgba(13, 102, 93, .055), transparent 24rem),
-    var(--bg-light);
+    var(--color-page);
 }
 
 .site-header {
@@ -24,7 +24,7 @@ body {
   display: block;
   width: 0;
   height: 100%;
-  background: linear-gradient(90deg, var(--accent), #e4c98e 42%, var(--primary));
+  background: linear-gradient(90deg, var(--brand-accent), #e4c98e 42%, var(--brand-primary));
   transition: width .08s linear;
 }
 
@@ -32,7 +32,7 @@ body {
   padding: 4rem 1.5rem 3.35rem;
   background:
     radial-gradient(circle at 82% 22%, rgba(201, 170, 114, .18), transparent 17rem),
-    linear-gradient(128deg, #263537 0%, #1d4140 58%, #0d665d 118%);
+    linear-gradient(128deg, var(--color-hero-start) 0%, var(--color-hero-mid) 58%, var(--color-hero-end) 118%);
 }
 
 .article-hero::before {
@@ -82,7 +82,7 @@ body {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--brand-accent);
   content: "";
   box-shadow: 0 0 0 4px rgba(201,170,114,.13);
 }
@@ -156,7 +156,7 @@ h1 {
   left: 0;
   width: 4px;
   border-radius: 99px;
-  background: linear-gradient(var(--primary), var(--accent));
+  background: linear-gradient(var(--brand-primary), var(--brand-accent));
   content: "";
 }
 
@@ -181,7 +181,7 @@ h1 {
 
 .highlight-box {
   padding: 1.35rem 1.4rem;
-  background: linear-gradient(120deg, var(--primary-soft), #f7fbfa);
+  background: linear-gradient(120deg, var(--color-surface-soft), #f7fbfa);
 }
 
 .highlight-box::after {
@@ -217,7 +217,7 @@ h1 {
 .side-kicker {
   display: block;
   margin-bottom: .18rem;
-  color: var(--primary);
+  color: var(--brand-primary);
   font-size: .69rem;
   font-weight: 800;
   letter-spacing: .095em;
@@ -227,7 +227,7 @@ h1 {
 .toc-card {
   padding: 0;
   overflow: hidden;
-  border-top: 4px solid var(--primary);
+  border-top: 4px solid var(--brand-primary);
 }
 
 .toc-toggle {
@@ -239,7 +239,7 @@ h1 {
   padding: 1.1rem 1.2rem .8rem;
   border: 0;
   background: transparent;
-  color: var(--secondary);
+  color: var(--color-text-strong);
   font: inherit;
   text-align: left;
 }
@@ -254,8 +254,8 @@ h1 {
   width: 10px;
   height: 10px;
   flex: 0 0 auto;
-  border-right: 2px solid var(--primary);
-  border-bottom: 2px solid var(--primary);
+  border-right: 2px solid var(--brand-primary);
+  border-bottom: 2px solid var(--brand-primary);
   transform: rotate(45deg);
   transition: transform .2s ease;
 }
@@ -291,7 +291,7 @@ h1 {
   align-items: start;
   padding: .48rem .55rem;
   border-radius: 9px;
-  color: var(--text-muted);
+  color: var(--color-text-muted);
   font-size: .8rem;
   font-weight: 600;
   line-height: 1.32;
@@ -303,8 +303,8 @@ h1 {
   height: 1.35rem;
   place-items: center;
   border-radius: 50%;
-  background: var(--bg-light);
-  color: var(--primary);
+  background: var(--color-page);
+  color: var(--brand-primary);
   content: counter(toc);
   font-size: .68rem;
   font-weight: 800;
@@ -312,21 +312,21 @@ h1 {
 
 .toc-nav a:hover,
 .toc-nav a[aria-current="true"] {
-  background: var(--primary-soft);
-  color: var(--primary-hover);
+  background: var(--color-surface-soft);
+  color: var(--brand-primary-hover);
 }
 
 .toc-nav a[aria-current="true"]::before {
-  background: var(--primary);
-  color: #fff;
+  background: var(--brand-primary);
+  color: var(--color-text-inverse);
 }
 
 .takeaway-card {
   background:
     radial-gradient(circle at 110% -20%, rgba(201,170,114,.22), transparent 9rem),
-    var(--secondary);
-  color: #fff;
-  border-color: var(--secondary);
+    var(--color-text-strong);
+  color: var(--color-text-inverse);
+  border-color: var(--color-text-strong);
 }
 
 .takeaway-card .side-kicker {
@@ -334,7 +334,7 @@ h1 {
 }
 
 .takeaway-card h2 {
-  color: #fff;
+  color: var(--color-text-inverse);
   font-size: 1.06rem;
 }
 
