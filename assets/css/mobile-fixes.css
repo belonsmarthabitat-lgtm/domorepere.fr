@@ -335,7 +335,7 @@
     padding: 0.38rem 0.58rem;
     border-radius: 999px;
     background: rgba(39, 52, 54, 0.9);
-    color: #fff;
+    color: var(--color-text-inverse);
     content: "Agrandir";
     font-size: 0.72rem;
     font-weight: 750;
@@ -352,7 +352,7 @@
     padding-bottom: 0.35rem;
     border: 1px solid #dce6e4;
     border-radius: 12px;
-    background: #fff;
+    background: var(--color-surface);
     box-shadow: inset -14px 0 14px -16px rgba(39, 52, 54, 0.55);
     overscroll-behavior-inline: contain;
     -webkit-overflow-scrolling: touch;
@@ -414,7 +414,7 @@
   height: 100dvh;
   overflow: hidden;
   background: rgba(20, 29, 30, 0.97);
-  color: #fff;
+  color: var(--color-text-inverse);
 }
 
 .mobile-image-viewer[hidden] {
@@ -452,8 +452,8 @@
   flex: 0 0 auto;
   border: 2px solid rgba(255, 255, 255, 0.72);
   border-radius: 50%;
-  background: #273436;
-  color: #fff;
+  background: var(--color-surface-inverse);
+  color: var(--color-text-inverse);
   font: inherit;
   font-size: 1.35rem;
   line-height: 1;
@@ -479,7 +479,7 @@
   height: auto;
   margin: 0 auto;
   border-radius: 10px;
-  background: #fff;
+  background: var(--color-surface);
 }
 
 body.mobile-image-viewer-open {
@@ -501,8 +501,8 @@ body.mobile-image-viewer-open {
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 50%;
-  background: var(--primary, #0d665d);
-  color: #fff;
+  background: var(--brand-primary);
+  color: var(--color-text-inverse);
   box-shadow: 0 8px 24px rgba(39, 52, 54, 0.22);
   font: inherit;
   font-size: 1.35rem;
@@ -533,7 +533,7 @@ body.mobile-image-viewer-open {
 }
 
 .back-to-top:focus-visible {
-  outline: 3px solid var(--accent, #c9aa72);
+  outline: 3px solid var(--color-focus);
   outline-offset: 3px;
   opacity: 1;
 }
