@@ -324,9 +324,9 @@ h1 {
 .takeaway-card {
   background:
     radial-gradient(circle at 110% -20%, rgba(201,170,114,.22), transparent 9rem),
-    var(--color-text-strong);
+    var(--color-surface-inverse);
   color: var(--color-text-inverse);
-  border-color: var(--color-text-strong);
+  border-color: var(--color-surface-inverse);
 }
 
 .takeaway-card .side-kicker {
