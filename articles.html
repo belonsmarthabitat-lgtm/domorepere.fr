@@ -71,6 +71,7 @@
     .skip-link{position:fixed;left:1rem;top:.75rem;z-index:9999;padding:.7rem 1rem;border-radius:10px;background:var(--brand-primary);color:var(--color-text-inverse);font-weight:800;transform:translateY(-160%);transition:transform .18s ease}.skip-link:focus{transform:translateY(0);color:var(--color-text-inverse);outline:3px solid var(--brand-accent);outline-offset:3px}main:focus{outline:none}
 @media(max-width:800px){.nav-container{flex-direction:column;gap:.7rem;padding:.7rem 1rem}nav ul{flex-wrap:wrap;justify-content:center;gap:.55rem 1rem}.intro{grid-template-columns:1fr}.articles-grid{grid-template-columns:1fr}.hero{padding:3.8rem 1rem 3.4rem}.container{padding:3rem 1rem}}
   </style>
+  <link rel="stylesheet" href="assets/css/sidebar-v2.css">
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -109,6 +110,8 @@
   </section>
 
   <div class="container">
+    <div class="guides-layout">
+      <div class="guides-main">
     <div class="intro">
       <section class="intro-card">
         <h2>Commencer par le besoin, pas par le produit</h2>
@@ -217,6 +220,9 @@
       <strong>La méthode DomoRepère</strong>
       <p>Comprendre → Choisir → Installer → Automatiser → Entretenir. Chaque nouveau guide viendra progressivement compléter ce parcours.</p>
     </section>
+      </div>
+      <aside class="sidebar guides-sidebar" aria-label="Repères DomoRepère" data-global-sidebar></aside>
+    </div>
   </div>
 </main>
 
@@ -225,5 +231,6 @@
   <p><a href="mentions-legales.html">Mentions légales</a> — <a href="politique-de-confidentialite.html">Politique de confidentialité</a></p>
   <p class="footer-tagline">DomoRepère — Comprendre • Choisir • Installer • Automatiser • Entretenir</p>
 </footer>
+<script src="assets/js/sidebar-v2.js" defer></script>
 </body>
 </html>
