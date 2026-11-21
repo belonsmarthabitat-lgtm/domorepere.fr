@@ -34,9 +34,13 @@
 
   /* Couleurs de composants */
   --color-on-accent: #273436;
+  --color-button-secondary: #e8eeec;
   --color-highlight-border: #cfe7e1;
   --color-affiliate-border: #ead7b4;
-  --color-accent-text: #725b34;
+  --color-accent-title: #725b34;
+  --color-accent-text: #715b36;
+  --color-accent-text-muted: #806a44;
+  --color-accent-tag: #755d31;
   --color-danger-border: #f2d7d0;
   --color-danger-heading: #7f302b;
   --color-note-surface: #fbfcfc;
@@ -138,9 +142,13 @@ html {
   --color-warning-soft: #332819;
 
   --color-on-accent: #273436;
+  --color-button-secondary: #1b302e;
   --color-highlight-border: #3d5d59;
   --color-affiliate-border: #6e5934;
+  --color-accent-title: #f0d59d;
   --color-accent-text: #e8cf9a;
+  --color-accent-text-muted: #d9c28f;
+  --color-accent-tag: #e6ce99;
   --color-danger-border: #71423d;
   --color-danger-heading: #ffaaa1;
   --color-note-surface: #182526;
@@ -277,12 +285,21 @@ html[data-theme] .safety {
   border-color: var(--color-affiliate-border) !important;
 }
 
-html[data-theme] .affiliate-box-title,
+html[data-theme] .affiliate-box-title {
+  color: var(--color-accent-title) !important;
+}
+
 html[data-theme] .safety strong,
-html[data-theme] .safety p,
-html[data-theme] .project-tag.priority,
 html[data-theme] .tech-more {
   color: var(--color-accent-text) !important;
+}
+
+html[data-theme] .safety p {
+  color: var(--color-accent-text-muted) !important;
+}
+
+html[data-theme] .project-tag.priority {
+  color: var(--color-accent-tag) !important;
 }
 
 html[data-theme] .alert-danger {
