@@ -4,56 +4,172 @@
       "title": "Fil pilote et domotique : comment connecter ses radiateurs électriques sans les remplacer ?",
       "url": "fil-pilote-domotique.html",
       "datePublished": "2026-11-11",
-      "dateModified": "2026-11-11"
+      "dateModified": "2026-11-11",
+      "category": "Chauffage",
+      "summary": "Fil pilote domotique : comment connecter et automatiser des radiateurs électriques existants avec module, sonde et thermostat, sans les remplacer.",
+      "keywords": [
+        "fil pilote",
+        "radiateur électrique",
+        "chauffage",
+        "thermostat",
+        "sonde température",
+        "module fil pilote",
+        "NodOn",
+        "Versatile Thermostat",
+        "Home Assistant"
+      ]
     },
     {
       "title": "Home Assistant ou Jeedom : lequel choisir en 2026 ?",
       "url": "home-assistant-vs-jeedom.html",
       "datePublished": "2026-10-20",
-      "dateModified": "2026-10-20"
+      "dateModified": "2026-10-20",
+      "category": "Plateformes",
+      "summary": "Home Assistant vs Jeedom : compare installation, interface, intégrations, automatisations, coût, cloud et protocoles pour choisir selon ton profil.",
+      "keywords": [
+        "Home Assistant",
+        "Jeedom",
+        "comparatif",
+        "plateforme domotique",
+        "automatisations",
+        "cloud",
+        "local",
+        "intégrations",
+        "box domotique"
+      ]
     },
     {
       "title": "Faut-il une box domotique en 2026 ? Home Assistant, Jeedom, Homey ou passerelle constructeur",
       "url": "box-domotique.html",
       "datePublished": "2026-10-02",
-      "dateModified": "2026-10-20"
+      "dateModified": "2026-10-20",
+      "category": "Architecture",
+      "summary": "Faut-il une box domotique ? Comparez Home Assistant, Jeedom, Homey et les passerelles constructeur selon compatibilité, cloud, maintenance et évolutivité.",
+      "keywords": [
+        "box domotique",
+        "Home Assistant",
+        "Jeedom",
+        "Homey",
+        "passerelle constructeur",
+        "hub domotique",
+        "cloud",
+        "local",
+        "architecture"
+      ]
     },
     {
       "title": "Zigbee ou Z-Wave : quel protocole domotique choisir ? Comparatif Wi‑Fi, Thread et Matter",
       "url": "article-2.html",
       "datePublished": "2026-08-26",
-      "dateModified": "2026-10-13"
+      "dateModified": "2026-10-13",
+      "category": "Protocoles",
+      "summary": "Zigbee ou Z-Wave ? Comparez portée, maillage, autonomie, prix et compatibilité, puis comprenez le rôle du Wi‑Fi, de Thread et de Matter en domotique.",
+      "keywords": [
+        "Zigbee",
+        "Z-Wave",
+        "Wi-Fi",
+        "Thread",
+        "Matter",
+        "protocole domotique",
+        "maillage",
+        "portée",
+        "compatibilité"
+      ]
     },
     {
       "title": "Débuter en domotique facilement : par quoi commencer quand on n’y connaît rien ?",
       "url": "article-1.html",
       "datePublished": "2026-08-26",
-      "dateModified": "2026-09-26"
+      "dateModified": "2026-09-26",
+      "category": "Bien débuter",
+      "summary": "Débuter en domotique facilement : 5 conseils pour un débutant, choisir ses premiers équipements, éviter les pièges et construire une installation évolutive.",
+      "keywords": [
+        "débuter domotique",
+        "débutant",
+        "premiers équipements",
+        "installation domotique",
+        "conseils",
+        "compatibilité",
+        "écosystème",
+        "automatisation"
+      ]
     },
     {
       "title": "Protocole Zigbee : comment fonctionne le réseau et comment construire un bon maillage ?",
       "url": "protocole-zigbee.html",
       "datePublished": "2026-09-20",
-      "dateModified": "2026-09-20"
+      "dateModified": "2026-09-20",
+      "category": "Zigbee",
+      "summary": "Protocole Zigbee : coordinateur, routeurs, maillage, interférences Wi-Fi, diagnostic et Home Assistant. Construis un réseau Zigbee fiable en 2026.",
+      "keywords": [
+        "Zigbee",
+        "coordinateur",
+        "routeur Zigbee",
+        "maillage",
+        "réseau maillé",
+        "interférences Wi-Fi",
+        "canal Zigbee",
+        "ZHA",
+        "Zigbee2MQTT",
+        "Home Assistant"
+      ]
     },
     {
       "title": "Z-Wave en domotique : faut-il encore choisir ce protocole en 2026 ?",
       "url": "z-wave-domotique.html",
       "datePublished": "2026-09-10",
-      "dateModified": "2026-09-10"
+      "dateModified": "2026-09-10",
+      "category": "Z-Wave",
+      "summary": "Z-Wave en domotique en 2026 : fonctionnement du réseau, 868 MHz, Z-Wave Plus, Long Range, compatibilité Home Assistant et cas où ce protocole reste pertinent.",
+      "keywords": [
+        "Z-Wave",
+        "868 MHz",
+        "Z-Wave Plus",
+        "Z-Wave Long Range",
+        "Z-Wave LR",
+        "Home Assistant",
+        "protocole domotique",
+        "maillage",
+        "compatibilité"
+      ]
     },
     {
       "title": "Sécurité électrique en domotique : les bons réflexes avant de toucher au 230 V",
       "url": "securite-electrique.html",
       "datePublished": "2026-08-26",
-      "dateModified": "2026-08-28"
+      "dateModified": "2026-08-28",
+      "category": "Sécurité",
+      "summary": "Avant d’installer un micromodule domotique en 230 V : mise hors tension, VAT, couleurs des fils, protections, charge du relais et limites à ne pas franchir.",
+      "keywords": [
+        "sécurité électrique",
+        "230 V",
+        "VAT",
+        "micromodule",
+        "disjoncteur",
+        "couleurs des fils",
+        "relais",
+        "câblage",
+        "domotique"
+      ]
     },
     {
       "title": "Volets, interrupteurs et fil neutre : comprendre avant d’installer",
       "url": "article-3.html",
       "datePublished": "2026-08-26",
-      "dateModified": "2026-08-26"
+      "dateModified": "2026-08-26",
+      "category": "Électricité",
+      "summary": "Comprendre le rôle du fil neutre, vérifier le câblage d’un interrupteur et préparer l’intégration d’un micromodule ou d’un volet roulant en domotique.",
+      "keywords": [
+        "fil neutre",
+        "interrupteur",
+        "volet roulant",
+        "micromodule",
+        "câblage",
+        "électricité",
+        "domotique",
+        "module volet",
+        "commande murale"
+      ]
     }
   ]
 }
-

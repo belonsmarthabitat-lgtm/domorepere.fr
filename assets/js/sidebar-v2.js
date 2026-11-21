@@ -18,6 +18,15 @@
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
+  const normalize = value => String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[’']/g, " ")
+    .replace(/[^a-z0-9+\-\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
   const parseDate = value => {
     const time = Date.parse(value + "T12:00:00");
     return Number.isNaN(time) ? 0 : time;
@@ -44,6 +53,169 @@
     section.innerHTML = html;
     return section;
   };
+
+  const searchCard = createCard("sidebar-search", `
+    <span class="side-kicker">Recherche</span>
+    <h2>Rechercher dans les guides</h2>
+    <div class="sidebar-search-form" role="search">
+      <label class="preferences-sr-only" for="sidebar-search-input">Rechercher un guide DomoRepère</label>
+      <div class="sidebar-search-field">
+        <input
+          id="sidebar-search-input"
+          class="sidebar-search-input"
+          type="search"
+          inputmode="search"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Ex. Zigbee, chauffage…"
+          aria-controls="sidebar-search-results"
+          aria-expanded="false"
+          disabled
+        >
+        <button class="sidebar-search-clear" type="button" aria-label="Effacer la recherche" hidden>×</button>
+      </div>
+      <p class="sidebar-search-status" id="sidebar-search-status" aria-live="polite">Chargement de l’index…</p>
+      <div class="sidebar-search-results" id="sidebar-search-results" hidden></div>
+    </div>
+  `);
+  mount.prepend(searchCard);
+
+  const searchInput = searchCard.querySelector(".sidebar-search-input");
+  const searchClear = searchCard.querySelector(".sidebar-search-clear");
+  const searchStatus = searchCard.querySelector(".sidebar-search-status");
+  const searchResults = searchCard.querySelector(".sidebar-search-results");
+
+  let searchArticles = [];
+
+  const scoreArticle = (article, query) => {
+    const normalizedQuery = normalize(query);
+    if (!normalizedQuery) return 0;
+
+    const tokens = normalizedQuery.split(" ").filter(token => token.length >= 2);
+    if (!tokens.length) return 0;
+
+    const title = normalize(article.title);
+    const summary = normalize(article.summary);
+    const category = normalize(article.category);
+    const keywords = normalize(Array.isArray(article.keywords) ? article.keywords.join(" ") : article.keywords);
+
+    let score = 0;
+    let matchedTokens = 0;
+
+    if (title === normalizedQuery) score += 40;
+    else if (title.includes(normalizedQuery)) score += 20;
+
+    if (keywords.includes(normalizedQuery)) score += 12;
+    if (summary.includes(normalizedQuery)) score += 7;
+    if (category.includes(normalizedQuery)) score += 6;
+
+    for (const token of tokens) {
+      let matched = false;
+      if (title.includes(token)) {
+        score += 8;
+        matched = true;
+      }
+      if (keywords.includes(token)) {
+        score += 5;
+        matched = true;
+      }
+      if (category.includes(token)) {
+        score += 4;
+        matched = true;
+      }
+      if (summary.includes(token)) {
+        score += 2;
+        matched = true;
+      }
+      if (matched) matchedTokens += 1;
+      else score -= 3;
+    }
+
+    const minimumMatchedTokens = tokens.length > 1
+      ? Math.ceil(tokens.length * 0.6)
+      : 1;
+
+    if (matchedTokens < minimumMatchedTokens) return 0;
+    return Math.max(score, 0);
+  };
+
+  const closeSearchResults = () => {
+    searchResults.hidden = true;
+    searchResults.innerHTML = "";
+    searchInput.setAttribute("aria-expanded", "false");
+  };
+
+  const renderSearchResults = query => {
+    const normalizedQuery = normalize(query);
+    searchClear.hidden = normalizedQuery.length === 0;
+
+    if (normalizedQuery.length < 2) {
+      closeSearchResults();
+      searchStatus.textContent = normalizedQuery.length ? "Saisissez au moins 2 caractères." : "Titre, sujet ou technologie.";
+      return;
+    }
+
+    const ranked = searchArticles
+      .map(article => ({ article, score: scoreArticle(article, normalizedQuery) }))
+      .filter(item => item.score > 0)
+      .sort((a, b) => b.score - a.score || mostRecentDate(b.article) - mostRecentDate(a.article))
+      .slice(0, 5);
+
+    if (!ranked.length) {
+      searchResults.innerHTML = '<p class="sidebar-search-empty">Aucun guide trouvé.</p>';
+      searchResults.hidden = false;
+      searchInput.setAttribute("aria-expanded", "true");
+      searchStatus.textContent = "Aucun résultat.";
+      return;
+    }
+
+    searchResults.innerHTML = ranked.map(({ article }) => `
+      <a class="sidebar-search-result" href="${escapeHtml(article.url)}">
+        <span class="sidebar-search-result-category">${escapeHtml(article.category || "Guide")}</span>
+        <strong>${escapeHtml(article.title)}</strong>
+        <span>${escapeHtml(article.summary || "")}</span>
+      </a>
+    `).join("");
+
+    searchResults.hidden = false;
+    searchInput.setAttribute("aria-expanded", "true");
+    searchStatus.textContent = ranked.length === 1 ? "1 résultat." : `${ranked.length} résultats.`;
+  };
+
+  searchInput.addEventListener("input", () => {
+    renderSearchResults(searchInput.value);
+  });
+
+  searchInput.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      searchInput.value = "";
+      renderSearchResults("");
+      searchInput.focus();
+      return;
+    }
+
+    if (event.key === "ArrowDown" && !searchResults.hidden) {
+      const firstResult = searchResults.querySelector("a");
+      if (firstResult) {
+        event.preventDefault();
+        firstResult.focus();
+      }
+    }
+  });
+
+  searchResults.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      searchInput.focus();
+      closeSearchResults();
+    }
+  });
+
+  searchClear.addEventListener("click", () => {
+    searchInput.value = "";
+    renderSearchResults("");
+    searchInput.focus();
+  });
 
   const addPartnerCard = () => {
     mount.appendChild(createCard("sidebar-partner", `
@@ -94,12 +266,18 @@
       const articles = Array.isArray(data.articles) ? data.articles.slice() : [];
       articles.sort((a, b) => mostRecentDate(b) - mostRecentDate(a));
 
+      searchArticles = articles;
+      searchInput.disabled = false;
+      searchStatus.textContent = "Titre, sujet ou technologie.";
+
       const latest = articles.find(article => article.url !== currentFile) || articles[0] || null;
       addLatestCard(latest);
       addPartnerCard();
       addSocialCard();
     })
     .catch(() => {
+      searchInput.disabled = true;
+      searchStatus.textContent = "Recherche momentanément indisponible.";
       addPartnerCard();
       addSocialCard();
     });
