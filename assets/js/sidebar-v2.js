@@ -100,6 +100,7 @@
     const keywords = normalize(Array.isArray(article.keywords) ? article.keywords.join(" ") : article.keywords);
 
     let score = 0;
+    let matchedTokens = 0;
 
     if (title === normalizedQuery) score += 40;
     else if (title.includes(normalizedQuery)) score += 20;
@@ -126,9 +127,15 @@
         score += 2;
         matched = true;
       }
-      if (!matched) score -= 3;
+      if (matched) matchedTokens += 1;
+      else score -= 3;
     }
 
+    const minimumMatchedTokens = tokens.length > 1
+      ? Math.ceil(tokens.length * 0.6)
+      : 1;
+
+    if (matchedTokens < minimumMatchedTokens) return 0;
     return Math.max(score, 0);
   };
 
