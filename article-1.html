@@ -31,6 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+<script src="assets/js/site-preferences.js"></script>
 <link rel="stylesheet" href="assets/css/theme.css">
 
 <style>
@@ -50,7 +51,7 @@ nav ul{display:flex;list-style:none;gap:1.55rem;align-items:center}
 nav a{color:var(--color-text-strong);font-weight:650;font-size:.92rem}
 nav a:hover,nav a.active{color:var(--brand-primary)}
 
-.article-hero{background:linear-gradient(132deg,var(--color-text-strong) 0%,#1f3434 48%,var(--brand-primary) 120%);color:var(--color-text-inverse);padding:4.6rem 1.5rem 3.6rem;position:relative;overflow:hidden}
+.article-hero{background:linear-gradient(132deg,var(--color-hero-start) 0%,var(--color-hero-mid) 48%,var(--color-hero-end) 120%);color:var(--color-text-inverse);padding:4.6rem 1.5rem 3.6rem;position:relative;overflow:hidden}
 .article-hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1px solid rgba(201,170,114,.28);right:-160px;top:-210px}
 .article-hero-inner{max-width:920px;margin:0 auto;position:relative;z-index:1}
 .breadcrumb{font-size:.86rem;color:#c6d2d1;margin-bottom:1.1rem}
@@ -80,7 +81,7 @@ h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;
 
 .field-note{background:#fbfcfc;border:1px dashed var(--color-border-strong);border-radius:12px;padding:1.05rem 1.15rem;margin:1.5rem 0}
 .field-note strong{color:var(--brand-primary)}
-.question-box{background:var(--color-text-strong);color:#edf3f2;border-radius:14px;padding:1.35rem;margin:1.7rem 0}
+.question-box{background:var(--color-surface-inverse);color:#edf3f2;border-radius:14px;padding:1.35rem;margin:1.7rem 0}
 .question-box strong{color:#efd59f}
 .question-box p:last-child{margin-bottom:0}
 
@@ -100,8 +101,8 @@ h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:.78rem 1rem;border-radius:10px;font-size:.91rem;font-weight:750}
 .btn-primary{background:var(--brand-primary);color:var(--color-text-inverse)}
 .btn-primary:hover{background:var(--brand-primary-hover);color:var(--color-text-inverse)}
-.btn-affiliate{background:var(--brand-accent);color:var(--color-text-strong)}
-.btn-affiliate:hover{background:#b9975c;color:var(--color-text-strong)}
+.btn-affiliate{background:var(--brand-accent);color:var(--color-on-accent)}
+.btn-affiliate:hover{background:#b9975c;color:var(--color-on-accent)}
 
 .next-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.3rem}
 .next-card{background:var(--color-surface);border:1px solid var(--color-border);border-radius:14px;padding:1.1rem;box-shadow:var(--shadow-card)}
@@ -116,7 +117,7 @@ h1{font-size:clamp(2.05rem,5vw,3.45rem);line-height:1.08;letter-spacing:-.035em;
 .side-card a{font-size:.88rem;line-height:1.35}
 .side-card p{font-size:.88rem;color:var(--color-text-muted)}
 
-footer{background:var(--color-text-strong);color:var(--color-text-inverse-muted);padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--brand-accent)}
+footer{background:var(--color-footer-bg);color:var(--color-text-inverse-muted);padding:2.4rem 1.5rem;text-align:center;font-size:.875rem;border-top:4px solid var(--brand-accent)}
 footer a{color:#e2ebe9}
 .footer-tagline{color:#dfc596;font-weight:650;margin-top:.65rem}
 
