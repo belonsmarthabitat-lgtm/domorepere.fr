@@ -227,11 +227,11 @@ html[data-theme] body {
   color: var(--color-text);
 }
 
-html[data-theme="dark"] a {
+html[data-theme="dark"] main a:not(.btn):not(.article-card):not(.universe-card):not(.latest-article-card):not(.next-card) {
   color: var(--color-link);
 }
 
-html[data-theme="dark"] a:hover {
+html[data-theme="dark"] main a:not(.btn):not(.article-card):not(.universe-card):not(.latest-article-card):not(.next-card):hover {
   color: var(--color-link-hover);
 }
 
