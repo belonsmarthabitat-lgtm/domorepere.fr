@@ -6,6 +6,32 @@
   const mobile = window.matchMedia('(max-width: 900px)');
   const header = document.querySelector('.site-header');
 
+  function updateReadingTime() {
+    if (!article) return;
+
+    const meta = document.querySelector('.meta');
+    if (!meta) return;
+
+    const readingTime = Array.from(meta.querySelectorAll('span')).find(function (span) {
+      return /⏱|min\b/i.test(span.textContent || '');
+    });
+
+    if (!readingTime) return;
+
+    const text = (article.textContent || '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const words = text ? text.split(' ').filter(Boolean).length : 0;
+    const minutes = Math.max(1, Math.ceil(words / 220));
+
+    readingTime.textContent = '⏱️ ' + minutes + ' min de lecture';
+    readingTime.setAttribute(
+      'title',
+      words.toLocaleString('fr-FR') + ' mots — estimation à 220 mots par minute'
+    );
+  }
+
   function setTocForViewport() {
     if (!toc || !toggle) return;
     const expanded = !mobile.matches;
@@ -84,6 +110,7 @@
     window.requestAnimationFrame(updateReadingState);
   }
 
+  updateReadingTime();
   setTocForViewport();
   updateReadingState();
   window.addEventListener('scroll', requestReadingUpdate, { passive: true });
