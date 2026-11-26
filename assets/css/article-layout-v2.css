@@ -524,3 +524,140 @@ h1 {
     transition-duration: .01ms !important;
   }
 }
+
+/* Continuer sur ce sujet */
+.related-guides {
+  margin-top: 2rem;
+}
+
+.related-guides-heading {
+  margin-bottom: .9rem;
+}
+
+.related-guides-heading h2 {
+  margin: .1rem 0 0;
+  color: var(--color-text-strong);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  line-height: 1.25;
+}
+
+.related-guides .next-links {
+  margin-top: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.related-guides .next-card {
+  height: 100%;
+}
+
+/* Lightbox des illustrations d'article */
+.lightbox-trigger { cursor: zoom-in; }
+
+.lightbox-trigger:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+body.lightbox-open { overflow: hidden; }
+
+.image-lightbox[hidden] { display: none; }
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  padding: clamp(.75rem, 3vw, 2rem);
+  background: rgba(8, 15, 16, .88);
+  backdrop-filter: blur(8px);
+}
+
+.image-lightbox-inner {
+  position: relative;
+  display: grid;
+  width: min(1180px, 100%);
+  max-height: 94vh;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .65rem;
+}
+
+.image-lightbox figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.image-lightbox-image {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 82vh;
+  margin: 0 auto;
+  border-radius: 14px;
+  box-shadow: 0 24px 70px rgba(0,0,0,.38);
+}
+
+.image-lightbox-caption {
+  max-width: 900px;
+  margin: .75rem auto 0;
+  color: #edf3f2;
+  font-size: .84rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.image-lightbox-close,
+.image-lightbox-nav {
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(15, 25, 26, .82);
+  color: #fff;
+  cursor: pointer;
+}
+
+.image-lightbox-close {
+  position: absolute;
+  top: -.4rem;
+  right: -.4rem;
+  z-index: 2;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.image-lightbox-nav {
+  width: 44px;
+  height: 64px;
+  border-radius: 12px;
+  font-size: 2rem;
+}
+
+.image-lightbox-close:focus-visible,
+.image-lightbox-nav:focus-visible {
+  outline: 3px solid var(--brand-accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .related-guides .next-links { grid-template-columns: 1fr; }
+  .image-lightbox { padding: .65rem; }
+  .image-lightbox-inner { grid-template-columns: 1fr; }
+
+  .image-lightbox-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 42px;
+    height: 54px;
+    transform: translateY(-50%);
+  }
+
+  .image-lightbox-prev { left: .25rem; }
+  .image-lightbox-next { right: .25rem; }
+  .image-lightbox-image { max-height: 78vh; }
+}
+
