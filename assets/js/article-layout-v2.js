@@ -209,6 +209,8 @@
     );
   }
 
+  initRelatedGuides();
+  initImageLightbox();
   updateReadingTime();
   setTocForViewport();
   updateReadingState();
@@ -247,4 +249,140 @@
       }
     );
   }
+
+  function initRelatedGuides() {
+    const nextLinks = document.querySelector('.next-links');
+    if (!nextLinks) return;
+
+    const currentFile = window.location.pathname.split('/').filter(Boolean).pop() || 'index.html';
+    const section = document.createElement('section');
+    section.className = 'related-guides';
+    section.setAttribute('aria-labelledby', 'related-guides-title');
+
+    const heading = document.createElement('div');
+    heading.className = 'related-guides-heading';
+    heading.innerHTML = '<span class="side-kicker">À lire ensuite</span><h2 id="related-guides-title">Continuer sur ce sujet</h2>';
+
+    nextLinks.parentNode.insertBefore(section, nextLinks);
+    section.appendChild(heading);
+    section.appendChild(nextLinks);
+
+    fetch('assets/data/articles.json', { cache: 'no-cache' })
+      .then(function (response) {
+        if (!response.ok) throw new Error('articles.json unavailable');
+        return response.json();
+      })
+      .then(function (data) {
+        const articles = Array.isArray(data.articles) ? data.articles : [];
+        const current = articles.find(function (item) { return item.url === currentFile; });
+        if (!current || !Array.isArray(current.related)) return;
+
+        const related = current.related
+          .map(function (url) {
+            return articles.find(function (item) { return item.url === url; });
+          })
+          .filter(Boolean)
+          .slice(0, 3);
+
+        if (!related.length) return;
+
+        nextLinks.innerHTML = related.map(function (item) {
+          return '<a class="next-card" href="' + item.url + '">' +
+            '<span>' + item.category + '</span>' +
+            '<strong>' + item.title + ' →</strong>' +
+          '</a>';
+        }).join('');
+      })
+      .catch(function () {
+        // Les liens statiques présents dans le HTML restent disponibles.
+      });
+  }
+
+  function initImageLightbox() {
+    const images = Array.from(document.querySelectorAll('.article-figure img'));
+    if (!images.length) return;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'image-lightbox';
+    overlay.hidden = true;
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-label', 'Image agrandie');
+    overlay.innerHTML =
+      '<div class="image-lightbox-inner">' +
+        '<button class="image-lightbox-close" type="button" aria-label="Fermer l’image agrandie">×</button>' +
+        '<button class="image-lightbox-nav image-lightbox-prev" type="button" aria-label="Image précédente">‹</button>' +
+        '<figure><img class="image-lightbox-image" alt=""><figcaption class="image-lightbox-caption"></figcaption></figure>' +
+        '<button class="image-lightbox-nav image-lightbox-next" type="button" aria-label="Image suivante">›</button>' +
+      '</div>';
+
+    document.body.appendChild(overlay);
+
+    const lightboxImage = overlay.querySelector('.image-lightbox-image');
+    const caption = overlay.querySelector('.image-lightbox-caption');
+    const closeButton = overlay.querySelector('.image-lightbox-close');
+    const prevButton = overlay.querySelector('.image-lightbox-prev');
+    const nextButton = overlay.querySelector('.image-lightbox-next');
+    let currentIndex = 0;
+    let lastTrigger = null;
+
+    function show(index) {
+      currentIndex = (index + images.length) % images.length;
+      const image = images[currentIndex];
+      const figure = image.closest('.article-figure');
+      const figcaption = figure ? figure.querySelector('figcaption') : null;
+
+      lightboxImage.src = image.currentSrc || image.src;
+      lightboxImage.alt = image.alt || '';
+      caption.textContent = figcaption ? figcaption.textContent.trim() : image.alt || '';
+      caption.hidden = !caption.textContent;
+      prevButton.hidden = images.length < 2;
+      nextButton.hidden = images.length < 2;
+    }
+
+    function open(index, trigger) {
+      lastTrigger = trigger;
+      show(index);
+      overlay.hidden = false;
+      document.body.classList.add('lightbox-open');
+      closeButton.focus();
+    }
+
+    function close() {
+      overlay.hidden = true;
+      document.body.classList.remove('lightbox-open');
+      lightboxImage.removeAttribute('src');
+      if (lastTrigger) lastTrigger.focus();
+    }
+
+    images.forEach(function (image, index) {
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      image.classList.add('lightbox-trigger');
+      image.setAttribute('tabindex', '0');
+      image.setAttribute('role', 'button');
+      image.setAttribute('aria-label', 'Agrandir l’image : ' + (image.alt || 'illustration'));
+      image.addEventListener('click', function () { open(index, image); });
+      image.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          open(index, image);
+        }
+      });
+    });
+
+    closeButton.addEventListener('click', close);
+    prevButton.addEventListener('click', function () { show(currentIndex - 1); });
+    nextButton.addEventListener('click', function () { show(currentIndex + 1); });
+    overlay.addEventListener('click', function (event) {
+      if (event.target === overlay) close();
+    });
+    document.addEventListener('keydown', function (event) {
+      if (overlay.hidden) return;
+      if (event.key === 'Escape') close();
+      else if (event.key === 'ArrowLeft' && images.length > 1) show(currentIndex - 1);
+      else if (event.key === 'ArrowRight' && images.length > 1) show(currentIndex + 1);
+    });
+  }
+
 })();

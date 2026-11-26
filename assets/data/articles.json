@@ -17,6 +17,11 @@
         "NodOn",
         "Versatile Thermostat",
         "Home Assistant"
+      ],
+      "related": [
+        "box-domotique.html",
+        "protocole-zigbee.html",
+        "securite-electrique.html"
       ]
     },
     {
@@ -36,6 +41,11 @@
         "local",
         "intégrations",
         "box domotique"
+      ],
+      "related": [
+        "box-domotique.html",
+        "protocole-zigbee.html",
+        "article-2.html"
       ]
     },
     {
@@ -55,6 +65,11 @@
         "cloud",
         "local",
         "architecture"
+      ],
+      "related": [
+        "home-assistant-vs-jeedom.html",
+        "article-2.html",
+        "article-1.html"
       ]
     },
     {
@@ -74,6 +89,11 @@
         "maillage",
         "portée",
         "compatibilité"
+      ],
+      "related": [
+        "protocole-zigbee.html",
+        "z-wave-domotique.html",
+        "box-domotique.html"
       ]
     },
     {
@@ -92,6 +112,11 @@
         "compatibilité",
         "écosystème",
         "automatisation"
+      ],
+      "related": [
+        "box-domotique.html",
+        "article-2.html",
+        "securite-electrique.html"
       ]
     },
     {
@@ -112,6 +137,11 @@
         "ZHA",
         "Zigbee2MQTT",
         "Home Assistant"
+      ],
+      "related": [
+        "article-2.html",
+        "box-domotique.html",
+        "home-assistant-vs-jeedom.html"
       ]
     },
     {
@@ -131,6 +161,11 @@
         "protocole domotique",
         "maillage",
         "compatibilité"
+      ],
+      "related": [
+        "article-2.html",
+        "box-domotique.html",
+        "home-assistant-vs-jeedom.html"
       ]
     },
     {
@@ -150,6 +185,11 @@
         "relais",
         "câblage",
         "domotique"
+      ],
+      "related": [
+        "article-3.html",
+        "fil-pilote-domotique.html",
+        "article-1.html"
       ]
     },
     {
@@ -169,6 +209,11 @@
         "domotique",
         "module volet",
         "commande murale"
+      ],
+      "related": [
+        "securite-electrique.html",
+        "article-2.html",
+        "box-domotique.html"
       ]
     }
   ]
