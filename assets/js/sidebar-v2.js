@@ -80,35 +80,6 @@
   `);
   mount.prepend(searchCard);
 
-  // Sur mobile, le sommaire reste avant l'article sans utiliser display: contents,
-  // plus fragile sur Safari. La sidebar garde ainsi de vraies cartes visibles.
-  const articleGrid = document.querySelector(".page-article .content-grid");
-  const articleShell = articleGrid ? articleGrid.querySelector(".article-shell") : null;
-  const articleTocCard = mount.querySelector(".toc-card");
-  const articleMobile = window.matchMedia("(max-width: 900px)");
-
-  const syncArticleSidebarLayout = () => {
-    if (!articleGrid || !articleShell || !articleTocCard) return;
-
-    if (articleMobile.matches) {
-      if (articleTocCard.parentElement !== articleGrid) {
-        articleGrid.insertBefore(articleTocCard, articleShell);
-      }
-      return;
-    }
-
-    if (articleTocCard.parentElement !== mount) {
-      const takeaway = mount.querySelector(".takeaway-card");
-      if (takeaway) mount.insertBefore(articleTocCard, takeaway);
-      else mount.appendChild(articleTocCard);
-    }
-  };
-
-  syncArticleSidebarLayout();
-  if (articleMobile.addEventListener) {
-    articleMobile.addEventListener("change", syncArticleSidebarLayout);
-  }
-
   const searchInput = searchCard.querySelector(".sidebar-search-input");
   const searchClear = searchCard.querySelector(".sidebar-search-clear");
   const searchStatus = searchCard.querySelector(".sidebar-search-status");
