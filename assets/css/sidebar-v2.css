@@ -157,7 +157,13 @@ html[data-theme="dark"] .sidebar-partner {
   }
 
   .page-article .sidebar {
-    display: contents;
+    position: static;
+    order: 1;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
   }
 
   .page-article .toc-card {
@@ -167,8 +173,7 @@ html[data-theme="dark"] .sidebar-partner {
 
   .page-article .takeaway-card,
   .page-article .sidebar-global-card {
-    order: 1;
-    margin-top: 1rem;
+    margin-top: 0;
   }
 
   .guides-layout {
